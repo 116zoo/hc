@@ -338,6 +338,27 @@ impl UserInputManager {
         }
     }
 
+    pub fn cancel_for_session(
+        &self,
+        session_id: &str,
+        tool_id: &str,
+    ) -> Result<(), UserInputSendError> {
+        let mut state = lock_user_input_state(&self.state);
+        if !state.pending.get(tool_id).is_some_and(|pending| {
+            pending
+                .question
+                .as_ref()
+                .is_some_and(|question| question.session_id == session_id)
+        }) {
+            return Err(UserInputSendError::MissingChannel {
+                tool_id: tool_id.to_string(),
+            });
+        }
+        state.pending.remove(tool_id);
+        state.revision = state.revision.saturating_add(1);
+        Ok(())
+    }
+
     pub fn cancel(&self, tool_id: &str) -> bool {
         let removed = {
             let mut state = lock_user_input_state(&self.state);
@@ -772,6 +793,26 @@ mod tests {
         assert!(matches!(outcome, super::UserQuestionWaitOutcome::TimedOut));
         assert!(!manager.has_pending("tool"));
         assert!(manager.start_interaction("session", "tool").is_err());
+    }
+
+    #[tokio::test]
+    async fn scoped_cancellation_rejects_other_sessions_and_settles_after_interaction() {
+        let manager = UserInputManager::new();
+        let (registration, receiver) = unattended_question(&manager);
+        manager.start_interaction("session", "tool").unwrap();
+        assert!(manager.cancel_for_session("other", "tool").is_err());
+        assert!(manager.has_pending("tool"));
+        manager.cancel_for_session("session", "tool").unwrap();
+        assert!(matches!(
+            super::wait_for_user_question_response(
+                &registration,
+                receiver,
+                std::time::Duration::from_secs(30)
+            )
+            .await,
+            super::UserQuestionWaitOutcome::Cancelled
+        ));
+        assert!(!manager.has_pending("tool"));
     }
 
     #[tokio::test]

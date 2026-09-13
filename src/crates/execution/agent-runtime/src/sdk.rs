@@ -769,6 +769,14 @@ impl AgentRuntime {
         self.inner.submit_user_answers(request).await
     }
 
+    pub fn cancel_user_question(
+        &self,
+        session_id: &str,
+        tool_id: &str,
+    ) -> Result<(), crate::user_questions::UserInputSendError> {
+        self.inner.cancel_user_question(session_id, tool_id)
+    }
+
     pub fn start_user_question_interaction(
         &self,
         session_id: &str,

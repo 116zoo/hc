@@ -99,6 +99,16 @@ impl ChatMode {
 
         // ── Question prompt intercepts all keys when active ──
         if let Some(ref mut prompt) = chat_state.question_prompt {
+            if !prompt.interaction_acknowledged && key.code != KeyCode::Esc {
+                match tokio::task::block_in_place(|| {
+                    rt_handle.block_on(self.agent.start_question_interaction(&prompt.tool_id))
+                }) {
+                    Ok(()) => prompt.interaction_acknowledged = true,
+                    Err(error) => chat_view.set_status(Some(format!(
+                        "Question timeout could not be stopped: {error}"
+                    ))),
+                }
+            }
             let action = prompt.handle_key_event(key);
             match action {
                 QuestionAction::Submit(answers) => {
@@ -120,6 +130,12 @@ impl ChatMode {
                 }
                 QuestionAction::Reject => {
                     let tool_id = prompt.tool_id.clone();
+                    if let Err(error) = tokio::task::block_in_place(|| {
+                        rt_handle.block_on(self.agent.cancel_user_question(&tool_id))
+                    }) {
+                        chat_view.set_status(Some(format!("Question dismissal failed: {error}")));
+                        return Ok(None);
+                    }
                     chat_state.question_prompt = None;
                     tracing::info!("User dismissed question prompt: {}", tool_id);
                     chat_view.set_status(Some("Question dismissed".to_string()));
