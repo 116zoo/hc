@@ -26,7 +26,7 @@ import { globalEventBus } from '@/infrastructure/event-bus';
 import { shouldIgnoreCardToggleClick } from '@/shared/utils/textSelection';
 import { observeElementResize } from '@/shared/utils/sharedResizeObserver';
 import { formatContextForPrompt } from '@/shared/utils/contextPrompt';
-import { Tooltip, Icon } from '@openbitfun/ui';
+import { Tooltip, Icon, IconButton } from '@openbitfun/ui';
 import { confirmDanger } from '@/infrastructure/confirm-dialog';
 import { ToolProcessingDots } from '@openbitfun/ui/flow-chat';
 import { UserMessageEditComposer } from './UserMessageEditComposer';
@@ -670,51 +670,48 @@ export const UserMessageItem = React.memo<UserMessageItemProps>(
           {!isEditing && (
             <div className="user-message-item__actions" data-openbitfun-component="user-message-item" data-openbitfun-part="actions">
               <Tooltip content={copied ? t('message.copied') : t('message.copy')}>
-                <button
+                <IconButton
                   type="button"
                   className={`user-message-item__copy-btn ${copied ? 'copied' : ''}`}
                   onClick={handleCopy}
                   aria-label={copied ? t('message.copied') : t('message.copy')}
-                >
-                  {copied ? <Icon name="check-line" size="sm" /> : <Icon name="duplicate" size="sm" />}
-                </button>
+                  icon={copied ? <Icon name="check-line" size="sm" /> : <Icon name="duplicate" size="sm" />}
+                />
               </Tooltip>
               {canShowEditAction && (
                 <Tooltip content={canEdit ? t('message.edit') : editDisabledReason}>
-                  <button
+                  <IconButton
                     type="button"
                     className="user-message-item__edit-btn"
                     onClick={handleBeginEdit}
                     disabled={!canEdit}
                     aria-label={canEdit ? t('message.edit') : editDisabledReason}
-                  >
-                    <Icon name="edit" size="sm" />
-                  </button>
+                    icon={<Icon name="edit" size="sm" />}
+                  />
                 </Tooltip>
               )}
               {isFailed ? (
                 <Tooltip content={t('message.fillToInput')}>
-                  <button
+                  <IconButton
                     className="user-message-item__copy-btn"
                     onClick={handleFillToInput}
-                  >
-                    <Icon name="arrow-down" size="sm" />
-                  </button>
+                    aria-label={t('message.fillToInput')}
+                    icon={<Icon name="arrow-down" size="sm" />}
+                  />
                 </Tooltip>
               ) : canShowRollbackAction && !steeringStatus ? (
                 <Tooltip content={rollbackTooltip}>
-                  <button
+                  <IconButton
                     className="user-message-item__rollback-btn"
                     onClick={handleRollback}
                     disabled={!canRollback}
                     aria-label={rollbackTooltip}
-                  >
-                    {sessionMutation?.kind === 'rollback' && sessionMutation.targetTurnId === turnId ? (
+                    icon={sessionMutation?.kind === 'rollback' && sessionMutation.targetTurnId === turnId ? (
                       <Loader2 size={14} className="user-message-item__rollback-spinner" />
                     ) : (
                       <RotateCcw size={14} />
                     )}
-                  </button>
+                  />
                 </Tooltip>
               ) : null}
             </div>

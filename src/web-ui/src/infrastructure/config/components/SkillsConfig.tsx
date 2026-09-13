@@ -335,14 +335,14 @@ const SkillsConfig: React.FC = () => {
       </>
     );
     const control = canDeleteSkill(skill) ? (
-        <button
+        <IconButton
           type="button"
           className="openbitfun-collection-btn openbitfun-collection-btn--danger"
           onClick={() => setDeleteConfirm({ show: true, skill })}
           title={t('list.item.deleteTooltip')}
-        >
-          <Icon name="delete" size="sm" />
-        </button>
+          aria-label={t('list.item.deleteTooltip')}
+          icon={<Icon name="delete" size="sm" />}
+        />
     ) : null;
     const details = (
       <div data-openbitfun-component="skills-config" data-openbitfun-part="details">
