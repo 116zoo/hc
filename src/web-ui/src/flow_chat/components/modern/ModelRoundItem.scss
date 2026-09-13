@@ -144,6 +144,8 @@
 
 .model-round-item__attempt-diagnostic-toggle,
 .model-round-item__attempt-diagnostic-copy {
+  flex-shrink: 1;
+  transition: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -155,6 +157,18 @@
   background: transparent;
   color: var(--openbitfun-color-content-muted);
   cursor: pointer;
+
+  &::before { content: none; }
+
+  > [data-openbitfun-part='icon'] {
+    --openbitfun-opacity-icon-artwork: inherit;
+    display: contents;
+  }
+
+  > :where([data-openbitfun-part='icon']) > :where(svg, [data-openbitfun-component='icon']) {
+    inline-size: 13px;
+    block-size: 13px;
+  }
 
   &:hover {
     background: color-mix(in srgb, var(--openbitfun-color-content-on-dark) 8%, transparent);
@@ -287,10 +301,12 @@
   z-index: var(--openbitfun-layer-popover);
 }
 
-.model-round-item__fork-btn {
+.model-round-item__fork-btn,
+.model-round-item__copy-btn,
+.model-round-item__export-btn {
   flex-shrink: 1;
 
-  // Do not change sibling actions or replace this action's original spinner.
+  // Preserve footer action geometry, feedback, and the existing pending icons.
   &::before { content: none; }
 
   > [data-openbitfun-part='icon'] {
@@ -302,7 +318,9 @@
     inline-size: var(--openbitfun-control-icon-size-sm);
     block-size: var(--openbitfun-control-icon-size-sm);
   }
+}
 
+.model-round-item__fork-btn {
   .spinning {
     animation: model-round-item-spin 1s linear infinite;
   }

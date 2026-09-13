@@ -1019,8 +1019,8 @@ describe('AppearanceCompiler', () => {
     expect(snapshot.cssText).toContain('[data-openbitfun-component="scheduled-jobs-view"][data-openbitfun-part="job"][data-openbitfun-state~="expanded"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="deep-review-action-bar"][data-openbitfun-part="root"][data-openbitfun-phase="review_completed"][data-openbitfun-variant="success"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="rich-text-input"][data-openbitfun-part="contextTag"][data-openbitfun-context-type="widget-reference"]');
-    expect(snapshot.cssText).toContain('[data-openbitfun-component="model-round-item"][data-openbitfun-part="root"][data-openbitfun-status="streaming"]');
-    expect(snapshot.cssText).toContain('[data-openbitfun-component="model-round-item"][data-openbitfun-part="action"][data-openbitfun-state~="copied"]');
+    expect(snapshot.cssText).toContain('[data-openbitfun-product-component="model-round-item"][data-openbitfun-product-part="root"][data-openbitfun-status="streaming"]');
+    expect(snapshot.cssText).toContain('[data-openbitfun-product-component="model-round-item"][data-openbitfun-product-part="action"][data-openbitfun-state~="copied"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="flexible-panel"][data-openbitfun-part="code"][data-openbitfun-state~="needsFix"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="btw-session-panel"][data-openbitfun-part="root"][data-openbitfun-view="session"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="model-selector"][data-openbitfun-part="trigger"][data-openbitfun-state~="open"]');
@@ -1046,7 +1046,7 @@ describe('AppearanceCompiler', () => {
     expect(snapshot.cssText).toContain('[data-openbitfun-component="agent-companion-desktop-pet"][data-openbitfun-part="hitbox"][data-openbitfun-state~="attention"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-product-component="tool-group-picker"][data-openbitfun-product-part="token"][data-openbitfun-state~="selected"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="inline-diff-preview"][data-openbitfun-part="root"][data-openbitfun-state~="empty"]');
-    expect(snapshot.cssText).toContain('[data-openbitfun-component="export-image"][data-openbitfun-part="trigger"][data-openbitfun-state~="exporting"]');
+    expect(snapshot.cssText).toContain('[data-openbitfun-product-component="export-image"][data-openbitfun-product-part="trigger"][data-openbitfun-state~="exporting"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="user-message-item"][data-openbitfun-part="root"][data-openbitfun-state~="failed"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="session-usage-report-card"][data-openbitfun-part="loading"][data-openbitfun-state~="loading"]');
     expect(snapshot.cssText).toContain('[data-openbitfun-component="create-plan-display"][data-openbitfun-part="todos"][data-openbitfun-state~="expanded"]');

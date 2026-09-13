@@ -292,6 +292,12 @@ states: [
   [data-openbitfun-component="button"][data-openbitfun-part="root"][data-openbitfun-variant="primary"]:hover:not(:disabled) { ... }
 ```
 
+产品控件复用组件库时，可在 descriptor 中声明
+`componentAttribute: 'data-openbitfun-product-component'`，由编译器匹配
+`data-openbitfun-product-component` / `data-openbitfun-product-part`，避免覆盖库组件自己的标识。
+模型轮次和图片导出使用这一映射；外观包仍使用 `model-round-item`、`export-image` 及原有
+part/state 名称，无需修改已保存的包。迁移须验证旧包编译后的规则能命中实际产品节点。
+
 part 规则分四层，后者覆盖前者：
 
 1. `materials`，按数组顺序合并；
