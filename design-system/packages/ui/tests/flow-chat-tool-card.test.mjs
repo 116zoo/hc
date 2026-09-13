@@ -211,6 +211,17 @@ test("cancelled and rejected tool cards rely on status copy instead of a duplica
   assert.doesNotMatch(ambientMarkup, /data-openbitfun-part="statusLayer"|lucide-x/);
 });
 
+test("default tool cards do not render a text icon", () => {
+  const markup = renderToStaticMarkup(createElement(DefaultToolCard, {
+    displayName: "Custom tool",
+    toolName: "custom_tool",
+    icon: "TOOL",
+    status: "cancelled",
+    summary: "Cancelled",
+  }));
+  assert.doesNotMatch(markup, /TOOL|data-openbitfun-part="toolIconLayer"/);
+});
+
 test("file-operation failures stay collapsed and use the warning emphasis status icon", async () => {
   const createFailedCard = (isExpanded) => renderToStaticMarkup(
     createElement(FileOperationToolCard, {
