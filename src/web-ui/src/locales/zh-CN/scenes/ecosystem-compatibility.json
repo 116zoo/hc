@@ -88,26 +88,36 @@
       "readyRename": "可导入 · 自动改名",
       "checking": "正在检查",
       "imported": "已导入",
-      "reusable": "可直接使用",
-      "adapted": "支持发现",
       "notDetected": "未发现",
-      "notAdapted": "未适配",
       "unsupportedContext": "当前环境不可导入",
       "unavailable": "暂不可导入",
       "discoveryDisabled": "发现已关闭",
-      "discoveryUnavailable": "发现不可用"
+      "discoveryUnavailable": "发现不可用",
+      "discoverySupported": "支持发现",
+      "discoveryUnsupported": "此页尚未接入发现",
+      "discovered": "已发现",
+      "importUnsupported": "当前主机不支持此类导入",
+      "available": "可通过兼容功能使用",
+      "approvalRequired": "待授权",
+      "disabled": "未启用",
+      "conflict": "待选择同名来源",
+      "blocked": "使用受限",
+      "runtimeUnavailable": "当前环境不可使用",
+      "runtimeFailed": "加载失败",
+      "configurationChanged": "配置已变化",
+      "unknown": "使用状态未确认"
     },
     "importAction": "导入",
     "importingAction": "导入中",
     "undetectedItem": "未发现{{type}}",
     "undetectedDescription": "当前没有发现可用内容",
-    "notAdaptedDescription": "OpenBitFun 暂不支持使用 {{name}} 的{{type}}",
     "ownerAdaptedDescription": "进入管理页发现、审阅和配置{{type}}。",
     "notifications": {
       "success": "{{name}} 已导入 OpenBitFun",
       "stale": "来源内容已更新，请确认最新状态后重试",
       "failed": "导入 {{name}} 失败"
-    }
+    },
+    "discoveryUnsupportedDescription": "此页尚未接入 {{name}} 的{{type}}发现；其他入口的支持范围请查看对应功能说明。"
   },
   "run": {
     "title": "在 OpenBitFun 中使用",
@@ -177,10 +187,10 @@
     "batchPending": "等待处理",
     "batchResultSummary": "成功 {{imported}} 项 · 待确认 {{unresolved}} 项 · 跳过 {{skipped}} 项",
     "title": "{{name}} 的外部内容",
-    "description": "按类型展开查看该 Agent 的内容，确认导入后才会创建 OpenBitFun 副本。",
+    "description": "按类型查看发现结果、导入条件与使用状态。“已导入”只表示已保存副本，使用状态由对应功能确认。",
     "search": "搜索该 Agent 的内容",
     "all": "全部内容 · 已发现 {{count}} 项",
-    "importStatus": "导入状态",
+    "importStatus": "当前状态",
     "view": "查看",
     "prepareImport": "导入",
     "reviewRequired": "待审阅",
@@ -233,7 +243,7 @@
     "refreshAfterImportFailed": "导入操作已结束，但刷新失败。请刷新以核实结果，避免重复操作。",
     "close": "关闭",
     "targetRepair": "目标已有同名 Skill。仅当内容完全相同时补齐来源信息；不同内容不会覆盖。",
-    "mcpImportedDescription": "已保存为原生 MCP 配置。请在 MCP 页面启用并连接，连接成功后才可调用工具。",
+    "mcpImportedDescription": "已保存为原生 MCP 配置；此页尚未确认副本的连接状态。请前往 MCP 管理页检查、启用并连接。",
     "hookImportedDescription": "已保存为原生 Hook。请在 Hook 页面检查并启用；执行仍受全局 Hook 开关控制。",
     "batchState": {
       "imported": "已导入",
@@ -267,7 +277,20 @@
     "batchImporting": "正在导入",
     "batchUndoing": "正在撤销",
     "batchProcessing": "处理中…",
-    "batchRefreshing": "正在更新列表…"
+    "batchRefreshing": "正在更新列表…",
+    "directUse": {
+      "available": "可通过现有兼容功能使用；此页暂不支持副本导入。",
+      "approvalRequired": "使用前需要在对应功能中授权；此页暂不支持副本导入。",
+      "disabled": "兼容使用尚未启用或授权已被拒绝；此页暂不支持副本导入。",
+      "conflict": "请在对应功能中选择同名来源后使用；此页暂不支持副本导入。",
+      "blocked": "当前声明或策略限制了兼容使用，请查看对应功能的诊断；此页暂不支持副本导入。",
+      "runtimeUnavailable": "当前主机无法使用此内容，请检查对应功能的环境与诊断；来源仍可查看，此页暂不支持副本导入。",
+      "runtimeFailed": "对应功能报告加载失败，请检查诊断后重试；此页暂不支持副本导入。",
+      "configurationChanged": "配置已变化，请在对应功能中重新确认；此页暂不支持副本导入。",
+      "unknown": "已发现来源，但主机未确认使用状态；此页暂不支持副本导入。"
+    },
+    "hookDiscoveryOnly": "仅静态查看 Hook 来源和声明；此页不支持导入，也不会据此执行。",
+    "skillImportUnsupported": "当前主机未提供此格式的导入能力。请升级处理该来源的主机后重试。"
   },
   "sourceSettings": {
     "health": {

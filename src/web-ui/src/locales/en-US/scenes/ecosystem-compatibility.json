@@ -88,26 +88,36 @@
       "readyRename": "Ready · auto-rename",
       "checking": "Checking",
       "imported": "Imported",
-      "reusable": "Ready to use",
-      "adapted": "Discovery supported",
       "notDetected": "Not found",
-      "notAdapted": "Not adapted",
       "unsupportedContext": "Cannot import in this environment",
       "unavailable": "Currently unavailable",
       "discoveryDisabled": "Discovery off",
-      "discoveryUnavailable": "Discovery unavailable"
+      "discoveryUnavailable": "Discovery unavailable",
+      "discoverySupported": "Discovery supported",
+      "discoveryUnsupported": "Discovery not integrated here",
+      "discovered": "Discovered",
+      "importUnsupported": "Import format unsupported by this host",
+      "available": "Available through compatibility",
+      "approvalRequired": "Approval required",
+      "disabled": "Not enabled",
+      "conflict": "Source selection required",
+      "blocked": "Use restricted",
+      "runtimeUnavailable": "Unavailable in this environment",
+      "runtimeFailed": "Failed to load",
+      "configurationChanged": "Configuration changed",
+      "unknown": "Usage not confirmed"
     },
     "importAction": "Import",
     "importingAction": "Importing",
     "undetectedItem": "No {{type}} found",
     "undetectedDescription": "No available content was found",
-    "notAdaptedDescription": "OpenBitFun does not support {{name}} {{type}} yet",
     "ownerAdaptedDescription": "Open the management page to discover, review and configure {{type}}.",
     "notifications": {
       "success": "Imported {{name}} into OpenBitFun",
       "stale": "The source changed. Review the latest state and try again.",
       "failed": "Failed to import {{name}}"
-    }
+    },
+    "discoveryUnsupportedDescription": "This page does not yet discover {{type}} from {{name}}. See the relevant feature documentation for support in other entry points."
   },
   "run": {
     "title": "Use in OpenBitFun",
@@ -177,10 +187,10 @@
     "batchPending": "Pending",
     "batchResultSummary": "Imported {{imported}} · Needs review {{unresolved}} · Skipped {{skipped}}",
     "title": "{{name}} content",
-    "description": "Expand a category to review this agent’s content. OpenBitFun copies are created only after you confirm an import.",
+    "description": "View discovery results, import requirements and usage status by type. Imported means a copy was saved; the relevant feature confirms whether it can be used.",
     "search": "Search this agent’s content",
     "all": "All content · {{count}} found",
-    "importStatus": "Import status",
+    "importStatus": "Current status",
     "view": "View",
     "prepareImport": "Import",
     "reviewRequired": "Review required",
@@ -233,7 +243,7 @@
     "refreshAfterImportFailed": "Import operations finished, but refresh failed. Refresh to verify the results before repeating an operation.",
     "close": "Close",
     "targetRepair": "A Skill with this folder name exists. Identical legacy copies can acquire source information; different content will not be overwritten.",
-    "mcpImportedDescription": "Saved as native MCP configuration. Enable and connect it on the MCP page before using its tools.",
+    "mcpImportedDescription": "Saved as native MCP configuration. This page has not confirmed the copy’s connection status. Check, enable and connect it in MCP settings.",
     "hookImportedDescription": "Saved as a native Hook. Review and enable it on the Hooks page; execution also requires the global Hooks switch.",
     "batchState": {
       "imported": "Imported",
@@ -267,7 +277,20 @@
     "batchImporting": "Importing",
     "batchUndoing": "Undoing imports",
     "batchProcessing": "Processing…",
-    "batchRefreshing": "Updating the list…"
+    "batchRefreshing": "Updating the list…",
+    "directUse": {
+      "available": "Available through the existing compatibility feature. Copy import is not supported on this page.",
+      "approvalRequired": "Approve use in the relevant feature first. Copy import is not supported on this page.",
+      "disabled": "Compatibility use is disabled or approval was declined. Copy import is not supported on this page.",
+      "conflict": "Choose the matching source in the relevant feature before use. Copy import is not supported on this page.",
+      "blocked": "The declaration or policy restricts use; check the relevant feature diagnostics. Copy import is not supported on this page.",
+      "runtimeUnavailable": "This host cannot use the content; check the relevant feature environment and diagnostics. The source remains viewable. Copy import is not supported on this page.",
+      "runtimeFailed": "The relevant feature reported a load failure; check diagnostics and retry. Copy import is not supported on this page.",
+      "configurationChanged": "Review the changed configuration in the relevant feature. Copy import is not supported on this page.",
+      "unknown": "The source was discovered, but this host has not confirmed usage status. Copy import is not supported on this page."
+    },
+    "hookDiscoveryOnly": "Static source and declaration preview only. This page cannot import or execute these hooks.",
+    "skillImportUnsupported": "This host does not advertise import support for this format. Upgrade the host handling this source and retry."
   },
   "sourceSettings": {
     "health": {

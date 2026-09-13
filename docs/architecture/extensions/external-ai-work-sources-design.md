@@ -22,15 +22,53 @@ Prompt Command；静态文件和经审阅的本地 shell 输出由共享归属�
 工作区隔离和失败反馈；现有 Skill 加载模块另行展示来源、用户/项目范围和固定优先级产生的覆盖结果，不并入上述
 可执行来源选择规则。第五条端到端能力在不增加新的 Rust Runtime 进程的前提下接入 Claude Code 的 legacy Command、Subagent、
 MCP 安全子集，以及 Codex Subagent、MCP 安全子集；三种生态使用同一个来源管理模块，并共享审批、冲突、刷新和故障隔离规则，
-但各自在 sibling adapter 内保留原生来源与覆盖语义。完整 TypeScript/Bun、包依赖、package plugin 执行、
-Codex/Claude Code 运行时适配和外部 Subagent 续接仍属于后续阶段；Claude Code Agent 定义可按同一静态安全子集进入主选择器，
+但各自在 sibling adapter 内保留原生来源与覆盖语义。standalone Tool 的 TypeScript/模块依赖仍未覆盖；显式配置的
+OpenCode package plugin 已有共享 Bun Host 执行切片，当前接口与限制见
+[Plugin Host 当前实现](plugin-runtime-design.md#7-当前实现)，不能与单文件 Tool 或只读目录合并计算支持范围。
+完整 Codex/Claude Code 运行时适配和外部 Subagent 续接仍属于后续阶段；Claude Code Agent 定义可按同一静态安全子集进入主选择器，
 Codex role 仍仅作为 Subagent，不能因来源被识别就宣称宿主运行时兼容。OpenCode、Claude Code 与 Codex 的本地 Hook 脱敏目录
 已作为独立只读切片接入；在此之上，Claude Code 与 Codex 的同步 command 子集可经精确命令审阅复制为 OpenBitFun 管理的
-原生 Hook 层，仍由唯一 `AgentHookEngine` 执行。OpenCode handler、非 command/异步 handler 和未审阅声明仍不可执行。
+原生 Hook 层，仍由唯一 `AgentHookEngine` 执行。此只读目录中的 OpenCode handler、非 command/异步 handler 和未审阅声明
+不进入执行注册表；显式配置的 package plugin Hook 使用独立的 Plugin Host 执行契约。
 独立的 MCP C0a 快照导入复用上述来源与现有 MCP 配置 owner：Desktop 和根 CLI 可预览 OpenCode、Claude Code、
 Codex 与 DeepSeek Harness 中受支持的安全声明，并在用户显式确认后原子写入 disabled 原生条目。静态 env/header
 值随私有投影复制，来源信息保存在原生配置中；GUI 可批量导入并撤销本机副本。动态凭据引用解析和 Peer/Remote
 写入仍不支持；这不改变外部 MCP 持续兼容来源的运行路径。
+
+## 当前支持声明与状态口径（2026-09-13）
+
+本文维护跨生态的当前产品范围；各生态设计维护具体格式、字段子集与固定版本基线；用户功能说明由
+`src/shared/interactive-capabilities/catalog.json` 生成。实施计划只记录当时阶段，不作为实时支持表。
+“已实现”必须限定生态、内容形态、版本与环境，并同时具备生产入口、实际消费方、失败处理与验证证据。
+仅有解析器、类型或演示分别记为“支持静态发现”“接口已定义”“样例验证”。不得由本地用例推断远程可用。
+
+| 内容与生态 | 此页发现范围 | 原生副本导入 | 使用与限制 |
+|---|---|---|---|
+| Skill：Claude Code、Codex、OpenCode、Pi、DSH | 已接入各自受支持目录/文件子集；不代表完整包或动态配置解析 | 本地 Desktop 可复制受支持格式；按主机导入版本保留旧格式路径 | 未导入外部 Skill 不进入原生运行目录；导入后由 Skill owner 选择 |
+| MCP：Claude Code、Codex、OpenCode、DSH | 已接入安全声明子集；Pi 没有 provider | 本地 Desktop、根 CLI 可规划并复制；副本默认禁用 | 原生连接状态由 MCP owner 确认；前三类另有持续兼容路径，DSH 发现不意味着 DSH 持续运行兼容 |
+| Hook：五种生态 | 静态来源和事件声明 | 仅 Claude Code/Codex 的受支持同步 command，经审阅导入 | 目录本身不执行；原生 Hook 仍受开关控制；Pi/DSH/OpenCode 目录只读 |
+| Command：Claude Code、OpenCode | 受支持声明 | 此页暂无副本导入 | 既有命令兼容功能负责展开、权限与冲突 |
+| Tool：OpenCode | standalone 工具声明 | 此页暂无副本导入 | 受支持单文件 JS 由现有 Tool owner 启用、审批与执行；不代表 TS/依赖型工具全部可用 |
+| Agent/Subagent：Claude Code、Codex、OpenCode | 安全声明子集 | 此页暂无副本导入 | 既有 Agent owner 管理启用、冲突与模型绑定；Codex role 不等于完整外部运行时 |
+| 账户、完整设置、记忆、插件、宠物 | 此页尚未接入对应类别的内容发现 | 此页暂无副本导入 | 不能据此推断其他入口完全不支持；例如 instructions 加载、账户登录与显式 package plugin 已有独立实现 |
+
+四类事实独立保存于现有 owner，页面只做展示投影，不引入另一套运行状态机：
+
+| 维度 | 事实来源 | 页面规则 |
+|---|---|---|
+| 发现覆盖 | 页面显式的生态/类别清单 | 类别显示“支持发现”或“此页尚未接入发现”；不推断导入与执行能力，不再显示笼统“已适配/未适配” |
+| 当前发现 | 来源策略、pending、诊断及各 owner 扫描结果 | 区分检查中、关闭、失败、未发现；缓存条目不掩盖本次失败；有成功记录的 Skill 不因其他文件诊断丧失导入资格 |
+| 副本导入 | MCP plan、Skill 协议版本和来源记录、Hook plan/import snapshot | 显示可导入、待审阅、已导入或具体限制；“已导入”只证明副本已保存，已知副本在发现失败时仍可显示 |
+| 兼容使用 | 命令 availability/冲突、Tool/Agent activation、主机能力及策略 | 显示可通过兼容功能使用、待授权、未启用、冲突、受限或失败；旧主机缺少或返回未知事实时显示未确认，发现不推断可用 |
+
+条目使用一个主状态、一句原因和已有操作。Command/Tool/Subagent 的使用状态与“不支持副本导入”同时说明；
+MCP 副本的连接状态不借用外部来源 activation，页面明确“尚未确认”，由原生 MCP 管理页提供实际连接事实。
+本地 Desktop 导入能力不外推至 Server/Web、Peer、远程工作区；不支持写入时显示当前环境限制，仍可查看宿主返回的目录。
+远程控制与 Detached Dispatch 不因共享此展示代码而获得导入能力；任何新目标写入能力仍需独立协商和验证。
+
+状态投影与交互回归见 Web UI 的 `ecosystemContentPresentation.test.ts`、`ExternalAgentContent.test.tsx`。
+其中远程工作区和 Peer 为前端能力门禁模拟，不是 SSH、IM、Peer 或 Detached Dispatch 端到端证据；手工步骤见
+[Web UI 使用说明](../../../src/web-ui/README.zh-CN.md#生态兼容状态检查)。
 
 ## 0. 当前 MCP 快照导入契约（C0a）
 

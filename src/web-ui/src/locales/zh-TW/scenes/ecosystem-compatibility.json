@@ -88,26 +88,36 @@
       "readyRename": "可匯入 · 自動改名",
       "checking": "正在檢查",
       "imported": "已匯入",
-      "reusable": "可直接使用",
-      "adapted": "支援探索",
       "notDetected": "未發現",
-      "notAdapted": "未適配",
       "unsupportedContext": "目前環境無法匯入",
       "unavailable": "暫時無法匯入",
       "discoveryDisabled": "探索已關閉",
-      "discoveryUnavailable": "探索無法使用"
+      "discoveryUnavailable": "探索無法使用",
+      "discoverySupported": "支援探索",
+      "discoveryUnsupported": "此頁尚未接入探索",
+      "discovered": "已發現",
+      "importUnsupported": "目前主機不支援此類匯入",
+      "available": "可透過相容功能使用",
+      "approvalRequired": "待授權",
+      "disabled": "未啟用",
+      "conflict": "待選擇同名來源",
+      "blocked": "使用受限",
+      "runtimeUnavailable": "目前環境無法使用",
+      "runtimeFailed": "載入失敗",
+      "configurationChanged": "設定已變更",
+      "unknown": "使用狀態未確認"
     },
     "importAction": "匯入",
     "importingAction": "匯入中",
     "undetectedItem": "未發現{{type}}",
     "undetectedDescription": "目前沒有發現可用內容",
-    "notAdaptedDescription": "OpenBitFun 暫不支援使用 {{name}} 的{{type}}",
     "ownerAdaptedDescription": "進入管理頁探索、審閱和設定{{type}}。",
     "notifications": {
       "success": "{{name}} 已匯入 OpenBitFun",
       "stale": "來源內容已更新，請確認最新狀態後重試",
       "failed": "匯入 {{name}} 失敗"
-    }
+    },
+    "discoveryUnsupportedDescription": "此頁尚未接入 {{name}} 的{{type}}探索；其他入口的支援範圍請查看對應功能說明。"
   },
   "run": {
     "title": "在 OpenBitFun 中使用",
@@ -177,10 +187,10 @@
     "batchPending": "等待處理",
     "batchResultSummary": "成功 {{imported}} 項 · 待確認 {{unresolved}} 項 · 跳過 {{skipped}} 項",
     "title": "{{name}} 的外部內容",
-    "description": "按類型展開查看該 Agent 的內容，確認匯入後才會建立 OpenBitFun 副本。",
+    "description": "按類型查看探索結果、匯入條件與使用狀態。「已匯入」僅表示已儲存副本，使用狀態由對應功能確認。",
     "search": "搜尋該 Agent 的內容",
     "all": "全部內容 · 已找到 {{count}} 項",
-    "importStatus": "匯入狀態",
+    "importStatus": "目前狀態",
     "view": "查看",
     "prepareImport": "匯入",
     "reviewRequired": "待審閱",
@@ -233,7 +243,7 @@
     "refreshAfterImportFailed": "匯入操作已結束，但重新整理失敗。請重新整理以核實結果，避免重複操作。",
     "close": "關閉",
     "targetRepair": "目標已有同名 Skill。僅在內容完全相同時補齊來源資訊；不會覆寫不同內容。",
-    "mcpImportedDescription": "已儲存為原生 MCP 設定。請在 MCP 頁面啟用並連線，連線成功後才可呼叫工具。",
+    "mcpImportedDescription": "已儲存為原生 MCP 設定；此頁尚未確認副本的連線狀態。請前往 MCP 管理頁檢查、啟用並連線。",
     "hookImportedDescription": "已儲存為原生 Hook。請在 Hook 頁面檢查並啟用；執行仍受全域 Hook 開關控制。",
     "batchState": {
       "imported": "已匯入",
@@ -267,7 +277,20 @@
     "batchImporting": "正在匯入",
     "batchUndoing": "正在復原",
     "batchProcessing": "處理中…",
-    "batchRefreshing": "正在更新清單…"
+    "batchRefreshing": "正在更新清單…",
+    "directUse": {
+      "available": "可透過既有相容功能使用；此頁暫不支援副本匯入。",
+      "approvalRequired": "使用前需要在對應功能中授權；此頁暫不支援副本匯入。",
+      "disabled": "相容使用尚未啟用或授權已被拒絕；此頁暫不支援副本匯入。",
+      "conflict": "請在對應功能中選擇同名來源後使用；此頁暫不支援副本匯入。",
+      "blocked": "目前宣告或原則限制了相容使用，請查看對應功能的診斷；此頁暫不支援副本匯入。",
+      "runtimeUnavailable": "目前主機無法使用此內容，請檢查對應功能的環境與診斷；來源仍可查看，此頁暫不支援副本匯入。",
+      "runtimeFailed": "對應功能回報載入失敗，請檢查診斷後重試；此頁暫不支援副本匯入。",
+      "configurationChanged": "設定已變更，請在對應功能中重新確認；此頁暫不支援副本匯入。",
+      "unknown": "已發現來源，但主機未確認使用狀態；此頁暫不支援副本匯入。"
+    },
+    "hookDiscoveryOnly": "僅靜態查看 Hook 來源與宣告；此頁不支援匯入，也不會據此執行。",
+    "skillImportUnsupported": "目前主機未提供此格式的匯入能力。請升級處理該來源的主機後重試。"
   },
   "sourceSettings": {
     "health": {
