@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "digest": "fnv1a64:148ebc837d5832ed",
+  "digest": "fnv1a64:b67c8f8401d35185",
   "retiredCommandPrefixes": [
     {
       "prefix": "lsp_",
@@ -7235,6 +7235,17 @@
       }
     },
     {
+      "id": "start_user_question_interaction",
+      "surface": "tauri_command",
+      "remoteWorkspace": "WorkspaceAgnostic",
+      "peer": {
+        "kind": "proxied"
+      },
+      "cliPeer": {
+        "kind": "handled"
+      }
+    },
+    {
       "id": "startup_window_control",
       "surface": "tauri_command",
       "remoteWorkspace": "LocalOnly",
@@ -7320,17 +7331,6 @@
     },
     {
       "id": "submit_user_answers",
-      "surface": "tauri_command",
-      "remoteWorkspace": "WorkspaceAgnostic",
-      "peer": {
-        "kind": "proxied"
-      },
-      "cliPeer": {
-        "kind": "handled"
-      }
-    },
-    {
-      "id": "start_user_question_interaction",
       "surface": "tauri_command",
       "remoteWorkspace": "WorkspaceAgnostic",
       "peer": {
