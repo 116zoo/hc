@@ -27,6 +27,10 @@
     min-inline-size: max-content;
     /* Keep ascent/descent inside the clipping box, including in tight controls. */
     line-height: var(--openbitfun-type-modifier-leading-intrinsic-line-height);
+    /* Font ink and fractional scaling can extend beyond the natural line box.
+       Include block-axis breathing room in the grid's intrinsic height so the
+       horizontal clipping viewport does not shave off accents or descenders. */
+    padding-block: calc(var(--openbitfun-space-1) / 2);
   }
 
   .root[data-overflow-lines] {
