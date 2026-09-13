@@ -1882,6 +1882,7 @@
       "interruptedByRetry": "This attempt was superseded by a newer retry in the same response"
     },
     "askUser": {
+      "interactionFailed": "Could not stop the question timeout on the execution device. Submit promptly or update that device.",
       "completed": "Completed",
       "submittedWaiting": "Submitted, waiting for processing",
       "submitting": "Submitting...",
@@ -1893,7 +1894,7 @@
       "submit": "Submit",
       "questionsAnswered": "{{count}} questions answered",
       "notAnswered": "Not answered",
-      "timeout": "Timeout (10 minutes)",
+      "timeout": "No response; question skipped",
       "parseError": "Unable to parse question data",
       "loadingQuestions": "Receiving questions…",
       "other": "Other",

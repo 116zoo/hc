@@ -371,6 +371,24 @@ pub async fn execute_tool(request: ToolExecutionRequest) -> Result<ToolExecution
     Err(format!("Tool '{}' not found", request.tool_name))
 }
 
+#[derive(serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct StartUserQuestionInteractionRequest {
+    pub session_id: String,
+    pub tool_id: String,
+}
+
+#[tauri::command]
+pub async fn start_user_question_interaction(
+    runtime: State<'_, DesktopRuntimeContext>,
+    request: StartUserQuestionInteractionRequest,
+) -> Result<(), String> {
+    runtime
+        .agent_runtime()
+        .start_user_question_interaction(&request.session_id, &request.tool_id)
+        .map_err(|error| error.to_string())
+}
+
 #[tauri::command]
 pub async fn submit_user_answers(
     runtime: State<'_, DesktopRuntimeContext>,

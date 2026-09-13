@@ -2,10 +2,10 @@
   "schemaVersion": 2,
   "generatedFrom": "src/shared/interactive-capabilities/catalog.json",
   "catalogDigest": "124222af073f8c5164b15b625723c0e3b81f0b200e41855cd343ef1f07d5f39b",
-  "commandCount": 646,
+  "commandCount": 647,
   "coverage": {
-    "commandCount": 646,
-    "documentedCommandCount": 609,
+    "commandCount": 647,
+    "documentedCommandCount": 610,
     "implementationCommandCount": 37,
     "implementationDigest": "3c5e64b6ff16d55d95c2a6b4f77046be009a554b395b4a52bf8ed7c162ab1093"
   },
@@ -9431,6 +9431,22 @@
       "sourceFile": "src/apps/desktop/src/api/commands.rs",
       "signature": "fn start_subscription_login( state: State<'_, AppState>, request: SubscriptionLoginRequest, ) -> Result<openbitfun_core::infrastructure::subscription_auth::LoginStartResult, String>",
       "remoteWorkspacePolicy": "LocalOnly"
+    },
+    {
+      "id": "start_user_question_interaction",
+      "moduleId": "tool",
+      "capabilityId": "feature.ai-assistant",
+      "capabilityIds": [
+        "feature.ai-assistant"
+      ],
+      "documentedItemIds": [
+        "feature.ai-assistant:permission-mailbox"
+      ],
+      "visibility": "documented",
+      "rustPath": "start_user_question_interaction",
+      "sourceFile": "src/apps/desktop/src/api/tool_api.rs",
+      "signature": "fn start_user_question_interaction( runtime: State<'_, DesktopRuntimeContext>, request: StartUserQuestionInteractionRequest, ) -> Result<(), String>",
+      "remoteWorkspacePolicy": "WorkspaceAgnostic"
     },
     {
       "id": "startup_window_control",

@@ -93,7 +93,8 @@
         "command:respond_permission",
         "command:respond_permission_batch",
         "command:subscribe_permission_requests",
-        "command:submit_user_answers"
+        "command:submit_user_answers",
+        "command:start_user_question_interaction"
       ]
     },
     {

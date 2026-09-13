@@ -130,6 +130,7 @@ pub(crate) async fn dispatch(
         // Dialog / tools
         "start_dialog_turn" => dialog::start_dialog_turn(state, args).await,
         "cancel_dialog_turn" => dialog::cancel_dialog_turn(state, args).await,
+        "start_user_question_interaction" => dialog::start_user_question_interaction(state, args).await,
         "submit_user_answers" => dialog::submit_user_answers(state, args).await,
         // Per-tool interrupt. The controller renders Terminal cards for Turns
         // this host owns, so it must be able to stop a running tool here —
@@ -273,6 +274,7 @@ pub(crate) const HANDLED_COMMANDS: &[&str] = &[
     "set_external_tool_targets_enabled_command",
     "start_dialog_turn",
     "submit_user_answers",
+    "start_user_question_interaction",
     "subscribe_permission_requests",
     "touch_session_activity",
     "update_external_integration_policy_command",

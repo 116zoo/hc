@@ -1882,6 +1882,7 @@
       "interruptedByRetry": "這次嘗試已被同一輪回應中的更新重試接替"
     },
     "askUser": {
+      "interactionFailed": "無法停止執行裝置上的提問計時，請儘快提交或更新該裝置。",
       "completed": "已完成",
       "submittedWaiting": "已提交，等待處理",
       "submitting": "提交中...",
@@ -1893,7 +1894,7 @@
       "submit": "提交",
       "questionsAnswered": "{{count}} 個問題已回答",
       "notAnswered": "未回答",
-      "timeout": "等待超時（10分鐘）",
+      "timeout": "使用者未回應，已略過提問",
       "parseError": "無法解析問題資料",
       "loadingQuestions": "正在接收問題…",
       "other": "其他",
