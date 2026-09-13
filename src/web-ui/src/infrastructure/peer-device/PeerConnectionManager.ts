@@ -82,6 +82,7 @@ export interface PeerHostCapabilities {
    * command; older CLI hosts did not.
    */
   readonly userQuestionResponse: boolean | null;
+  readonly userQuestionInteraction?: boolean;
   /**
    * Which kind of host answered `peer_mode_ping` (`"desktop"` | `"cli"`).
    * `null` = the host did not advertise `host_type` (even older host, or the
@@ -503,6 +504,7 @@ export class PeerConnectionManager {
       toolCatalog,
       chatMcpCatalogV1: caps?.chat_mcp_catalog_v1 === true,
       userQuestionResponse,
+      userQuestionInteraction: caps?.user_question_interaction_v1 === true,
       hostKind,
     };
   }
@@ -730,6 +732,7 @@ function capabilitiesEqual(
     a.toolCatalog === b.toolCatalog &&
     a.chatMcpCatalogV1 === b.chatMcpCatalogV1 &&
     a.userQuestionResponse === b.userQuestionResponse &&
+    a.userQuestionInteraction === b.userQuestionInteraction &&
     a.hostKind === b.hostKind;
 }
 

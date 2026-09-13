@@ -256,7 +256,14 @@ Still to migrate, in order: the interaction mailbox, then history positions.
     hosts already support the command, while legacy CLI hosts must show an
     explicit unsupported/upgrade state. Current controllers include the owning
     Session id with the mutation and hosts reject stale cross-Session answers;
-    newer hosts still accept the legacy Tool-id-only form. Any new
+    newer hosts still accept the legacy Tool-id-only form. A
+    question interaction may disable its unattended deadline through the
+    session-scoped `start_user_question_interaction` command, gated by
+    `user_question_interaction_v1`. It is idempotent and does not answer the
+    question. Older peers keep their answer path and display an explicit warning
+    if interaction cannot stop the deadline. The Runtime snapshot's additive
+    `interactionStarted` flag survives controller reattachment; changing devices
+    does not restart a timer. Any new
     interaction that can suspend execution is incomplete until its owner
     exposes equivalent replayable attach state and a negotiated response path.
 

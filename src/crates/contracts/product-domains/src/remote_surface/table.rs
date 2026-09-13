@@ -699,6 +699,7 @@ pub(super) const OPERATIONS: &[OperationDefinition] = &[
     op("submit_acp_permission_response",                             Unaudited,   Proxied,          CLI_NOT_IMPLEMENTED),
     op("submit_mcp_interaction_response",                            Unaudited,   Proxied,          CLI_NOT_IMPLEMENTED),
     op("submit_user_answers",                                        Agnostic,    Proxied,          HANDLED),
+    op("start_user_question_interaction",                           Agnostic,    Proxied,          HANDLED),
     op("subscribe_permission_requests",                              Agnostic,    Proxied,          HANDLED),
     op("terminal_ack",                                               Routed,      Proxied,          CLI_NO_DESKTOP_IDE_SURFACE),
     op("terminal_close",                                             Routed,      Proxied,          CLI_NO_DESKTOP_IDE_SURFACE),

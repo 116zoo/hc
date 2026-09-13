@@ -34,6 +34,7 @@ describe('PeerConnectionManager attach', () => {
         productControlNativeV1: false,
         productControlPresentationV1: false,
         userQuestionResponse: true,
+        userQuestionInteraction: true,
       },
     });
     expect(manager.get('peer-1')).toBe(connection);
@@ -87,6 +88,7 @@ describe('PeerConnectionManager attach', () => {
             tool_catalog: true,
             chat_mcp_catalog_v1: true,
             user_question_response: true,
+            user_question_interaction_v1: true,
             miniapp_agent_context_files_v1: true,
             wsl_workspaces_v1: true,
           },
@@ -614,6 +616,7 @@ function createRpc(options: { failCommands?: Set<string> } = {}) {
             cancel_tool: true,
             tool_catalog: true,
             user_question_response: true,
+            user_question_interaction_v1: true,
           },
         },
       });

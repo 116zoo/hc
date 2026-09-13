@@ -1354,6 +1354,7 @@ pub async fn run() {
             validate_tool_input,
             execute_tool,
             submit_user_answers,
+            start_user_question_interaction,
             initialize_workspace_startup_state,
             get_available_tools,
             report_ide_control_result,

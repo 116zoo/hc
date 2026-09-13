@@ -49,6 +49,8 @@ pub enum PeerHostCapability {
     ChatMcpCatalogV1,
     /// `submit_user_answers` is implemented for Runtime-owned questions.
     UserQuestionResponse,
+    /// First human interaction disables the unattended question timeout.
+    UserQuestionInteractionV1,
 }
 
 impl PeerHostCapability {
@@ -67,6 +69,7 @@ impl PeerHostCapability {
         Self::ToolCatalog,
         Self::ChatMcpCatalogV1,
         Self::UserQuestionResponse,
+        Self::UserQuestionInteractionV1,
     ];
 
     /// The key used in the `peer_mode_ping` `capabilities` object.
@@ -85,6 +88,7 @@ impl PeerHostCapability {
             Self::ToolCatalog => "tool_catalog",
             Self::ChatMcpCatalogV1 => "chat_mcp_catalog_v1",
             Self::UserQuestionResponse => "user_question_response",
+            Self::UserQuestionInteractionV1 => "user_question_interaction_v1",
         }
     }
 
@@ -108,6 +112,7 @@ const CLI_CAPABILITIES: &[PeerHostCapability] = &[
     PeerHostCapability::ToolCatalog,
     PeerHostCapability::ChatMcpCatalogV1,
     PeerHostCapability::UserQuestionResponse,
+    PeerHostCapability::UserQuestionInteractionV1,
 ];
 
 /// The capabilities a peer host of the given kind publishes.

@@ -769,6 +769,15 @@ impl AgentRuntime {
         self.inner.submit_user_answers(request).await
     }
 
+    pub fn start_user_question_interaction(
+        &self,
+        session_id: &str,
+        tool_id: &str,
+    ) -> Result<(), crate::user_questions::UserInputSendError> {
+        self.inner
+            .start_user_question_interaction(session_id, tool_id)
+    }
+
     pub fn session_interaction_snapshot(&self, session_id: &str) -> SessionInteractionSnapshot {
         self.inner.session_interaction_snapshot(session_id)
     }

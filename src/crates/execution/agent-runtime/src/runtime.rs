@@ -860,6 +860,15 @@ impl AgentRuntime {
             .ok_or(RuntimeError::MissingPermissionRequestManager)
     }
 
+    /// Stop the unattended deadline in the same owner mailbox used for reattachment.
+    pub fn start_user_question_interaction(
+        &self,
+        session_id: &str,
+        tool_id: &str,
+    ) -> Result<(), crate::user_questions::UserInputSendError> {
+        get_user_input_manager().start_interaction(session_id, tool_id)
+    }
+
     /// Capture every blocking interaction needed to resume rendering one
     /// Session. Push events remain the low-latency path; this snapshot is the
     /// gap-recovery contract for reconnecting or device-switching surfaces.
