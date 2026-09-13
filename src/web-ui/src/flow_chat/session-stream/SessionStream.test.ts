@@ -161,3 +161,37 @@ describe('SessionStream', () => {
     expect(sessionStream('device-b', 'session')).toBe(peer);
   });
 });
+
+
+describe('delivery continuity regressions', () => {
+  it('keeps missing content stale through later consecutive events', () => {
+    const stream = sessionStream('peer-linux', 'session');
+    stream.offer(STARTED, textAt('turn'), at(1), () => {});
+    stream.offer(TEXT, textAt('turn'), at(3), () => {});
+    stream.offer(TEXT, textAt('turn'), at(4), () => {});
+    expect(stream.hasGap()).toBe(true);
+    stream.beginRead().settle(at(4));
+    expect(stream.hasGap()).toBe(false);
+    stream.markProjectionBehind();
+    stream.offer(TEXT, textAt('turn'), at(5), () => {});
+    expect(stream.hasGap()).toBe(true);
+  });
+
+  it('detects gaps and observes Turn ownership when releasing a read fence', () => {
+    const stream = sessionStream('peer-linux', 'session');
+    const read = stream.beginRead();
+    const released: string[] = [];
+    stream.offer(STARTED, textAt('turn'), at(2), () => released.push('start'));
+    stream.offer(TEXT, textAt('turn'), at(4), () => released.push('text'));
+    read.settle(at(1));
+    expect(released).toEqual(['start', 'text']);
+    expect(stream.hasGap()).toBe(true);
+    expect(stream.persistedMayWrite('turn')).toBe(false);
+    const next = stream.beginRead();
+    stream.offer(COMPLETED, textAt('turn'), at(5), () => released.push('done'));
+    stream.offer(TEXT, textAt('turn'), at(6), () => released.push('late'));
+    next.settle(at(4));
+    expect(released).toEqual(['start', 'text', 'done']);
+    expect(stream.persistedMayWrite('turn')).toBe(true);
+  });
+});

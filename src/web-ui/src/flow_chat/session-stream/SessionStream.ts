@@ -34,6 +34,8 @@ export type StreamAdmission =
   | 'drop';
 
 interface HeldWrite {
+  eventName: string;
+  payload: unknown;
   sequence: number;
   position: RuntimePosition | null;
   release: () => void;
@@ -92,7 +94,7 @@ export class SessionStream {
     release: () => void,
   ): StreamAdmission {
     if (this.held) {
-      this.held.push({ sequence: ++nextSequence, position, release });
+      this.held.push({ eventName, payload, sequence: ++nextSequence, position, release });
       return 'hold';
     }
     return this.admit(eventName, payload, position);
@@ -132,9 +134,9 @@ export class SessionStream {
       // A real discontinuity, independent of whether this particular event is
       // admitted below.
       this.gapAt = position;
-    } else {
-      this.gapAt = null;
     }
+    // Consecutive later deliveries do not supply an earlier missing event or
+    // repair a painter refusal. Only a successfully applied read closes the gap.
 
     if (settledHere()) {
       // The Turn settled in this same stream. A straggler for it would repaint
@@ -194,15 +196,11 @@ export class SessionStream {
   private releaseHeld(held: HeldWrite[]): void {
     held.sort((left, right) => left.sequence - right.sequence);
     for (const write of held) {
-      if (!write.position) {
+      // Held delivery obeys exactly the same ordering and ownership rules as
+      // live delivery, including gaps and Runtime restarts.
+      if (this.admit(write.eventName, write.payload, write.position) === 'apply') {
         write.release();
-        continue;
       }
-      if (comparePositions(this.applied, write.position) === 'not-ahead') {
-        continue;
-      }
-      this.applied = advancePosition(this.applied, write.position);
-      write.release();
     }
   }
 

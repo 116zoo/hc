@@ -492,10 +492,12 @@ export function installPeerSessionRefresh(context: FlowChatContext): () => void 
     // (regression: send-to-first-token latency, and the fence churn that left
     // an interactive card unanswerable after a device switch).
     //
+    // A gap/refused event precedes the delivered cursor. A suffix starting
+    // after that cursor cannot repair it; rebuild from the journal prefix.
     // `forceRuntimeReplay` is deliberately excluded: an idle or errored
     // machine has no live projection to continue, and wants the snapshot.
     const canRepairIncrementally =
-      !forceRuntimeReplay && (projectionStale || streamIsStale);
+      !forceRuntimeReplay && !projectionStale && streamIsStale;
     if (canRepairIncrementally) {
       inFlight = true;
       try {
