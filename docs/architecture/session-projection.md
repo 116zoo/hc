@@ -8,6 +8,23 @@ Read [`peer-device-mode.md`](peer-device-mode.md) for how a controller reaches
 another device. This document is about what happens to the data once it
 arrives, and applies identically on the local surface.
 
+## Interaction and attempt ownership
+
+The current mailbox reconciler updates both representations of a model round:
+`attempts[].items` owns attempt-aware rendering and subsequent streaming writes;
+`items` is its flattened projection used by attention indicators and consumers
+without attempt support. Recovered questions, including child-agent questions
+projected into the controlling parent Session, must enter the current
+non-diagnostic attempt. Diagnostic attempts remain history. Legacy rounds without
+attempts keep their flat representation.
+
+Reconciliation applies replacements and removals to both representations before
+publishing the Session. An authoritative empty mailbox removes pending synthetic
+cards but preserves completed tool results. Replaying the same revision must not
+remount the card or erase drafts. A mailbox-only update must survive the next
+ordinary stream update; merely asserting that the flat list contains a question
+does not prove that FlowChat can display it.
+
 ## The problem this replaces
 
 Seven independent writers currently produce a Session's on-screen state:
