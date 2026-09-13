@@ -115,11 +115,33 @@ pub enum UserInputSendError {
     ChannelClosed { tool_id: String },
 }
 
+pub const USER_INPUT_PARENT_CONTEXT_KEY: &str = "user_input_parent_controller";
+
+/// Trusted execution lineage, not model-supplied question parameters.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct UserQuestionController {
+    pub session_id: String,
+    pub dialog_turn_id: Option<String>,
+}
+
 struct PendingUserInput {
     sender: oneshot::Sender<UserInputResponse>,
     question: Option<PendingUserQuestion>,
+    controllers: Vec<UserQuestionController>,
     registration_sequence: u64,
     interaction_started: watch::Sender<bool>,
+}
+
+impl PendingUserInput {
+    fn controlled_by(&self, session_id: &str) -> bool {
+        self.question
+            .as_ref()
+            .is_some_and(|question| question.session_id == session_id)
+            || self
+                .controllers
+                .iter()
+                .any(|controller| controller.session_id == session_id)
+    }
 }
 
 #[derive(Default)]
@@ -231,7 +253,7 @@ impl UserInputManager {
 
     pub fn register_channel(&self, tool_id: String, sender: oneshot::Sender<UserInputResponse>) {
         debug!("Registered waiting channel: tool_id={}", tool_id);
-        self.insert_pending(tool_id, sender, None);
+        self.insert_pending(tool_id, sender, None, Vec::new());
     }
 
     /// Register a replayable user question and return the lifetime guard for
@@ -241,13 +263,22 @@ impl UserInputManager {
         question: PendingUserQuestion,
         sender: oneshot::Sender<UserInputResponse>,
     ) -> UserInputRegistration {
+        self.register_question_with_controllers(question, sender, Vec::new())
+    }
+
+    pub fn register_question_with_controllers(
+        &self,
+        question: PendingUserQuestion,
+        sender: oneshot::Sender<UserInputResponse>,
+        controllers: Vec<UserQuestionController>,
+    ) -> UserInputRegistration {
         let tool_id = question.tool_id.clone();
         debug!(
             "Registered pending user question: tool_id={}, session_id={}",
             tool_id, question.session_id
         );
         let (registration_sequence, interaction_started) =
-            self.insert_pending(tool_id.clone(), sender, Some(question));
+            self.insert_pending(tool_id.clone(), sender, Some(question), controllers);
         UserInputRegistration {
             state: Arc::downgrade(&self.state),
             tool_id,
@@ -261,6 +292,7 @@ impl UserInputManager {
         tool_id: String,
         sender: oneshot::Sender<UserInputResponse>,
         question: Option<PendingUserQuestion>,
+        controllers: Vec<UserQuestionController>,
     ) -> (u64, watch::Receiver<bool>) {
         let (interaction_started, activity) = watch::channel(false);
         let mut state = lock_user_input_state(&self.state);
@@ -271,6 +303,7 @@ impl UserInputManager {
             PendingUserInput {
                 sender,
                 question,
+                controllers,
                 registration_sequence,
                 interaction_started,
             },
@@ -289,12 +322,7 @@ impl UserInputManager {
         let pending = state
             .pending
             .get_mut(tool_id)
-            .filter(|pending| {
-                pending
-                    .question
-                    .as_ref()
-                    .is_some_and(|q| q.session_id == session_id)
-            })
+            .filter(|pending| pending.controlled_by(session_id))
             .ok_or_else(|| UserInputSendError::MissingChannel {
                 tool_id: tool_id.to_string(),
             })?;
@@ -344,12 +372,11 @@ impl UserInputManager {
         tool_id: &str,
     ) -> Result<(), UserInputSendError> {
         let mut state = lock_user_input_state(&self.state);
-        if !state.pending.get(tool_id).is_some_and(|pending| {
-            pending
-                .question
-                .as_ref()
-                .is_some_and(|question| question.session_id == session_id)
-        }) {
+        if !state
+            .pending
+            .get(tool_id)
+            .is_some_and(|pending| pending.controlled_by(session_id))
+        {
             return Err(UserInputSendError::MissingChannel {
                 tool_id: tool_id.to_string(),
             });
@@ -399,7 +426,16 @@ impl UserInputManager {
         let mut counts = HashMap::new();
         for pending in state.pending.values() {
             if let Some(question) = &pending.question {
-                *counts.entry(question.session_id.clone()).or_default() += 1;
+                let mut sessions = std::collections::HashSet::from([question.session_id.clone()]);
+                sessions.extend(
+                    pending
+                        .controllers
+                        .iter()
+                        .map(|controller| controller.session_id.clone()),
+                );
+                for session_id in sessions {
+                    *counts.entry(session_id).or_default() += 1;
+                }
             }
         }
         counts
@@ -411,12 +447,23 @@ impl UserInputManager {
             .pending
             .values()
             .filter_map(|pending| {
-                pending
-                    .question
-                    .as_ref()
-                    .filter(|question| question.session_id == session_id)
-                    .cloned()
-                    .map(|question| (pending.registration_sequence, question))
+                if !pending.controlled_by(session_id) {
+                    return None;
+                }
+                pending.question.clone().map(|mut question| {
+                    if question.session_id != session_id {
+                        if let Some(controller) = pending
+                            .controllers
+                            .iter()
+                            .find(|controller| controller.session_id == session_id)
+                        {
+                            question.session_id = controller.session_id.clone();
+                            question.dialog_turn_id = controller.dialog_turn_id.clone();
+                            question.model_round_id = None;
+                        }
+                    }
+                    (pending.registration_sequence, question)
+                })
             })
             .collect::<Vec<_>>();
         questions.sort_by_key(|(sequence, _)| *sequence);
@@ -753,11 +800,11 @@ mod tests {
         );
         tokio::pin!(wait);
         // Poll the wait before activity, so both the timer and activity receiver are live.
-        assert!(
-            tokio::time::timeout(std::time::Duration::from_millis(1), &mut wait)
-                .await
-                .is_err()
-        );
+        std::future::poll_fn(|cx| {
+            assert!(std::future::Future::poll(wait.as_mut(), cx).is_pending());
+            std::task::Poll::Ready(())
+        })
+        .await;
         manager.start_interaction("session", "tool").unwrap();
         let active = manager.pending_question_snapshot("session");
         assert!(active.questions[0].interaction_started);
@@ -793,6 +840,68 @@ mod tests {
         assert!(matches!(outcome, super::UserQuestionWaitOutcome::TimedOut));
         assert!(!manager.has_pending("tool"));
         assert!(manager.start_interaction("session", "tool").is_err());
+    }
+
+    #[tokio::test]
+    async fn delegated_question_controllers_share_activity_and_project_replay_to_their_turn() {
+        let manager = UserInputManager::new();
+        let (sender, receiver) = tokio::sync::oneshot::channel();
+        let registration = manager.register_question_with_controllers(
+            PendingUserQuestion::new(
+                "delegated-tool",
+                "child",
+                Some("child-turn".into()),
+                Some("child-round".into()),
+                json!({}),
+            ),
+            sender,
+            vec![super::UserQuestionController {
+                session_id: "root".into(),
+                dialog_turn_id: Some("root-turn".into()),
+            }],
+        );
+        assert!(manager
+            .start_interaction("unrelated", "delegated-tool")
+            .is_err());
+        manager.start_interaction("root", "delegated-tool").unwrap();
+        let root = manager.pending_question_snapshot("root");
+        assert_eq!(root.questions[0].session_id, "root");
+        assert_eq!(
+            root.questions[0].dialog_turn_id.as_deref(),
+            Some("root-turn")
+        );
+        assert!(root.questions[0].model_round_id.is_none());
+        assert!(root.questions[0].interaction_started);
+        let child = manager.pending_question_snapshot("child");
+        assert_eq!(
+            child.questions[0].model_round_id.as_deref(),
+            Some("child-round")
+        );
+        assert!(child.questions[0].interaction_started);
+        assert!(manager
+            .pending_question_snapshot("unrelated")
+            .questions
+            .is_empty());
+        assert_eq!(manager.pending_question_counts().get("root"), Some(&1));
+        assert!(manager
+            .cancel_for_session("unrelated", "delegated-tool")
+            .is_err());
+        manager
+            .cancel_for_session("root", "delegated-tool")
+            .unwrap();
+        assert!(matches!(
+            super::wait_for_user_question_response(
+                &registration,
+                receiver,
+                std::time::Duration::from_secs(30)
+            )
+            .await,
+            super::UserQuestionWaitOutcome::Cancelled
+        ));
+        assert!(manager
+            .pending_question_snapshot("child")
+            .questions
+            .is_empty());
     }
 
     #[tokio::test]

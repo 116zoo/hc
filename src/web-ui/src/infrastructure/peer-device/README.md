@@ -263,7 +263,12 @@ Still to migrate, in order: the interaction mailbox, then history positions.
     question. Older peers keep their answer path and display an explicit warning
     if interaction cannot stop the deadline. The Runtime snapshot's additive
     `interactionStarted` flag survives controller reattachment; changing devices
-    does not restart a timer. Any new
+    does not restart a timer. Activity and answer commands use the reserved
+    high-priority control slot so ordinary HostInvoke work cannot queue them
+    past the deadline. Trusted execution lineage registers parent Session
+    controllers for child questions; reattachment projects the same pending
+    question into the parent's turn without granting unrelated Sessions access.
+    Any new
     interaction that can suspend execution is incomplete until its owner
     exposes equivalent replayable attach state and a negotiated response path.
 

@@ -8,8 +8,9 @@ use openbitfun_agent_runtime::user_questions::{
     ask_user_question_available_in_context, build_answered_user_question_result,
     build_cancelled_user_question_result, build_timed_out_user_question_result,
     validate_ask_user_question_input, wait_for_user_question_response, AskUserQuestionInput,
-    PendingUserQuestion, UserQuestionWaitOutcome, DEFAULT_USER_QUESTION_TIMEOUT_SECONDS,
-    USER_INPUT_AVAILABLE_CONTEXT_KEY, USER_INPUT_MODEL_ROUND_CONTEXT_KEY,
+    PendingUserQuestion, UserQuestionController, UserQuestionWaitOutcome,
+    DEFAULT_USER_QUESTION_TIMEOUT_SECONDS, USER_INPUT_AVAILABLE_CONTEXT_KEY,
+    USER_INPUT_MODEL_ROUND_CONTEXT_KEY, USER_INPUT_PARENT_CONTEXT_KEY,
 };
 use serde_json::{json, Value};
 use uuid::Uuid;
@@ -29,6 +30,63 @@ impl Default for AskUserQuestionTool {
 }
 
 impl AskUserQuestionTool {
+    async fn question_controllers(context: &ToolUseContext) -> Vec<UserQuestionController> {
+        let Some(parent) = context
+            .custom_data
+            .get(USER_INPUT_PARENT_CONTEXT_KEY)
+            .and_then(|value| serde_json::from_value::<UserQuestionController>(value.clone()).ok())
+        else {
+            return Vec::new();
+        };
+        let mut controllers = vec![parent];
+        let Some(coordinator) = crate::agentic::coordination::get_global_coordinator() else {
+            return controllers;
+        };
+        let manager = coordinator.get_session_manager();
+        let mut visited = std::collections::HashSet::new();
+        if let Some(session_id) = context.session_id.as_ref() {
+            visited.insert(session_id.clone());
+        }
+        while let Some(current) = controllers.last() {
+            let session_id = current.session_id.clone();
+            if !visited.insert(session_id.clone()) {
+                controllers.pop();
+                break;
+            }
+            let Some(storage) = manager.effective_session_storage_path(&session_id).await else {
+                break;
+            };
+            let metadata = match manager.load_session_metadata(&storage, &session_id).await {
+                Ok(Some(metadata)) => metadata,
+                Ok(None) => break,
+                Err(error) => {
+                    warn!(
+                        "Failed to resolve question controller lineage: session_id={}, error={}",
+                        session_id, error
+                    );
+                    break;
+                }
+            };
+            let Some(relationship) =
+                openbitfun_services_core::session::normalized_session_relationship(&metadata)
+            else {
+                break;
+            };
+            if relationship.kind != Some(crate::service::session::SessionRelationshipKind::Subagent)
+            {
+                break;
+            }
+            let Some(parent_session_id) = relationship.parent_session_id else {
+                break;
+            };
+            controllers.push(UserQuestionController {
+                session_id: parent_session_id,
+                dialog_turn_id: relationship.parent_dialog_turn_id,
+            });
+        }
+        controllers
+    }
+
     pub fn new() -> Self {
         Self
     }
@@ -238,7 +296,7 @@ Usage notes:
         // emitting. The guard removes it if cancellation drops this Tool
         // future, so later Surface snapshots cannot revive stale questions.
         let manager = get_user_input_manager();
-        let registration = manager.register_question(
+        let registration = manager.register_question_with_controllers(
             PendingUserQuestion::new(
                 tool_id.clone(),
                 session_id.clone(),
@@ -247,6 +305,7 @@ Usage notes:
                 questions.clone(),
             ),
             tx,
+            Self::question_controllers(context).await,
         );
 
         // 6. Send backend event to notify frontend to display question card
@@ -487,6 +546,54 @@ mod tests {
             .questions
             .is_empty());
     }
+    #[tokio::test]
+    async fn parent_controller_can_stop_and_cancel_child_question() {
+        let unique = uuid::Uuid::new_v4().to_string();
+        let child = format!("child-{unique}");
+        let parent = format!("parent-{unique}");
+        let mut context = context_with_custom_data(HashMap::from([(
+            openbitfun_agent_runtime::user_questions::USER_INPUT_PARENT_CONTEXT_KEY.to_string(),
+            serde_json::json!({ "session_id": parent, "dialog_turn_id": "parent-turn" }),
+        )]));
+        context.session_id = Some(child.clone());
+        context.tool_call_id = Some(unique.clone());
+        let input = serde_json::json!({"timeout_seconds": 1, "questions": [{
+            "question": "Continue?", "header": "Continue", "options": [
+                {"label": "Yes", "description": "Continue"}, {"label": "No", "description": "Stop"}
+            ]
+        }]});
+        let task =
+            tokio::spawn(async move { AskUserQuestionTool::new().call(&input, &context).await });
+        let manager = get_user_input_manager();
+        tokio::time::timeout(std::time::Duration::from_secs(2), async {
+            while !manager.has_pending(&unique) {
+                tokio::task::yield_now().await;
+            }
+        })
+        .await
+        .unwrap();
+        manager.start_interaction(&parent, &unique).unwrap();
+        assert_eq!(
+            manager.pending_question_snapshot(&parent).questions[0]
+                .dialog_turn_id
+                .as_deref(),
+            Some("parent-turn")
+        );
+        assert!(manager.start_interaction("unrelated", &unique).is_err());
+        manager.cancel_for_session(&parent, &unique).unwrap();
+        let result = task.await.unwrap().unwrap();
+        match &result[0] {
+            crate::agentic::tools::framework::ToolResult::Result { data, .. } => {
+                assert_eq!(data["status"], "cancelled")
+            }
+            _ => panic!("expected cancellation result"),
+        }
+        assert!(manager
+            .pending_question_snapshot(&child)
+            .questions
+            .is_empty());
+    }
+
     #[test]
     fn timeout_schema_is_optional_and_owned_by_the_tool() {
         let tool = AskUserQuestionTool::new();

@@ -119,7 +119,7 @@ impl ChatMode {
                         rt_handle.block_on(agent.submit_user_answers(&tool_id, answers))
                     }) {
                         Ok(()) => {
-                            chat_state.question_prompt = None;
+                            chat_state.resolve_question_prompt(&tool_id);
                             chat_view.set_status(Some("Answers submitted".to_string()));
                         }
                         Err(error) => {
@@ -136,7 +136,7 @@ impl ChatMode {
                         chat_view.set_status(Some(format!("Question dismissal failed: {error}")));
                         return Ok(None);
                     }
-                    chat_state.question_prompt = None;
+                    chat_state.resolve_question_prompt(&tool_id);
                     tracing::info!("User dismissed question prompt: {}", tool_id);
                     chat_view.set_status(Some("Question dismissed".to_string()));
                 }

@@ -4398,6 +4398,12 @@ mod handle_chat_tests {
 
     #[tokio::test]
     async fn remote_turn_reconnects_delivers_interactions_and_reads_original_device_bytes() {
+        for supports_interaction in [true, false] {
+            assert_remote_question_round_trip(supports_interaction).await;
+        }
+    }
+
+    async fn assert_remote_question_round_trip(supports_interaction: bool) {
         use openbitfun_services_integrations::remote_connect::{
             account::AccountSession, device_crypto, encryption,
         };
@@ -4480,6 +4486,15 @@ mod handle_chat_tests {
                                     "active_turn":{"turn_id":"next-turn","status":"active","text":"do not send this"},
                                     "new_messages":[{"id":"accepted-turn_assistant","role":"assistant","status":"done","content":"![image](result.png)"}]})
                             }
+                        }
+                        "get_workspace_info" => serde_json::json!({"resp":"workspace_info", "capabilities":
+                            if supports_interaction { vec!["user_question_interaction_v1"] } else { vec![] }
+                        }),
+                        "start_question_interaction" => {
+                            assert!(supports_interaction);
+                            assert_eq!(command["session_id"], "session-a");
+                            assert_eq!(command["tool_id"], "question-a");
+                            serde_json::json!({"resp":"interaction_accepted", "action":"start_question_interaction", "target_id":"question-a"})
                         }
                         "answer_question" => {
                             assert_eq!(command["tool_id"],"question-a");
@@ -4603,6 +4618,18 @@ mod handle_chat_tests {
                 .count(),
             1
         );
+        let observed = calls.lock().unwrap();
+        let activity = observed
+            .iter()
+            .position(|call| call["cmd"] == "start_question_interaction");
+        let answer = observed
+            .iter()
+            .position(|call| call["cmd"] == "answer_question")
+            .unwrap();
+        assert_eq!(activity.is_some(), supports_interaction);
+        if let Some(activity) = activity {
+            assert!(activity < answer);
+        }
         server.abort();
     }
 
