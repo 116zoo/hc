@@ -15,7 +15,11 @@
   .content {
     display: inline-block;
     min-inline-size: max-content;
-    vertical-align: top;
+    /* Include the font's ascent/descent inside the clipping box, even when a
+       compact control inherits leading of 1. Baseline alignment preserves any
+       larger leading supplied by the owner without cutting off glyph ink. */
+    line-height: var(--openbitfun-type-modifier-leading-intrinsic-line-height);
+    vertical-align: baseline;
   }
 
   .root[data-overflow-lines] {
