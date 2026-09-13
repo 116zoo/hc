@@ -30,6 +30,8 @@ vi.mock('../AgenticEventListener', () => ({
   agenticEventListener: agenticListenerMock,
 }));
 
+import { agentAPI } from '@/infrastructure/api/service-api/AgentAPI';
+import { sessionStream } from '../../session-stream/SessionStream';
 import { FlowChatStore } from '../../store/FlowChatStore';
 import {
   installPeerSessionRefresh,
@@ -238,6 +240,27 @@ describe('PeerSessionRefreshModule re-attach after a surface switch', () => {
     expect(refresh).toHaveBeenCalledTimes(1);
     expect(stateMachineMock.reset).not.toHaveBeenCalled();
     cleanup();
+  });
+
+  it('repairs a missing ToolEnd from the prefix instead of an empty suffix after the delivered cursor', async () => {
+    stateMachineMock.get.mockReturnValue({
+      getCurrentState: () => 'processing',
+      getContext: () => ({ lastUpdateTime: Date.now(), version: 0 }),
+    });
+    const stream = sessionStream('local', 'session-1');
+    const position = (cursor: number) => ({ streamId: 'runtime-linux', cursor });
+    stream.offer('agentic://dialog-turn-started', { turnId: 'turn-live' }, position(1), () => {});
+    stream.offer('agentic://text-chunk', { turnId: 'turn-live' }, position(3), () => {});
+    const delta = vi.spyOn(agentAPI, 'loadSessionEventBackfill').mockResolvedValue({
+      kind: 'delta', sessionId: 'session-1', streamId: 'runtime-linux', cursor: 3, events: [],
+    } as any);
+    const refresh = vi.fn(async () => ({ applied: false }));
+    const cleanup = installPeerSessionRefresh(contextWithSnapshot(refresh));
+    await vi.advanceTimersByTimeAsync(1);
+    expect(delta).not.toHaveBeenCalled();
+    expect(refresh).toHaveBeenCalledOnce();
+    cleanup();
+    delta.mockRestore();
   });
 
   it('still attaches a fresh streaming turn when the projection is stale', async () => {

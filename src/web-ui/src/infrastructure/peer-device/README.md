@@ -173,7 +173,12 @@ Still to migrate, in order: the interaction mailbox, then history positions.
     `runtimeSessionEventGate` queues live events by
     `(DeviceSurfaceId, SessionId)`; replay starts from an empty active-Turn base,
     then the gate drops cursor-covered events and releases newer events in
-    order. Never compare cursors across different `streamId` values. This is
+    order. Held events pass through the same ordering and ownership checks as
+    live events. A detected gap or rejected projection remains stale through
+    subsequent deliveries until a successful read repairs it. Since delivery
+    may already have advanced beyond the missing event, gap repair uses the
+    journal prefix; a suffix after that cursor cannot fill the hole.
+    Never compare cursors across different `streamId` values. This is
     gated on
     `isSurfaceReconcileEnabled()`, **not** on Peer Mode: once a window has
     switched surface, a turn left running on the local device also needs the
