@@ -50,7 +50,7 @@ function fixture() {
   }));
   const snapshot = { generation: 1, discoveryPending: false, sources, commands: [],
     hostCapabilities: { canMutatePolicy: true, canManageSources: true, canApproveRuntime: true },
-    integrationPolicy: { status: 'compatible', effective: { enabled: true, ecosystems: {} }, registeredEcosystems: [] },
+    integrationPolicy: { status: 'compatible', effective: { enabled: true, ecosystems: Object.fromEntries(['codex', 'claude-code'].map(id => [id, { capabilities: { mcp: 'discover_only', subagent: 'auto', command: 'auto' } }])) }, registeredEcosystems: [] },
     mcpServers: sources.map((source) => ({ candidateId: source.stableKey, definition: {
       id: { source: source.record.key, localId: 'docs' }, name: `${source.stableKey}-MCP`, transport: 'local_stdio',
       staticStatus: { state: 'ready' }, environmentKeys: [], headerNames: [], commandPreview: 'docs-server',
@@ -172,7 +172,7 @@ describe('external agent content and explicit import boundary', () => {
     expect(overview.querySelectorAll('[role="columnheader"]')).toHaveLength(3);
     expect(overview.textContent).toContain('import.columns.state');
     expect(overview.querySelector('[data-content-group="skill"] [data-icon]')).not.toBeNull();
-    expect(overview.querySelector('[data-content-group="skill"]')?.textContent).toContain('import.states.adapted');
+    expect(overview.querySelector('[data-content-group="skill"]')?.textContent).toContain('import.states.discoverySupported');
     expect(overview.querySelector('[data-content-group="account"] button')).toBeNull();
     await expand('skill');
     expect(container.textContent).toContain('codex-Skill');
@@ -301,6 +301,83 @@ describe('external agent content and explicit import boundary', () => {
     expect(container.querySelector('[role="dialog"]')).toBeNull();
     expect(container.textContent).toContain('content.previewFailed');
     expect(mocks.applyHook).not.toHaveBeenCalled();
+  });
+
+  it.each(['pi', 'dsh'] as const)('keeps %s hook declarations visible without copy actions', async (product) => {
+    const ecosystemId = product === 'dsh' ? 'deepseek-harness' : 'pi';
+    data.hooks.catalog.sources[0].ecosystemId = ecosystemId;
+    await render(product); await expand('hook');
+    const row = container.querySelector('[data-import-kind="hook"]')!;
+    expect(row.getAttribute('data-import-state')).toBe('discovered');
+    expect(row.textContent).toContain('content.hookDiscoveryOnly');
+    expect(row.textContent).not.toContain('content.prepareImport');
+    expect(container.querySelector('[data-content-group="hook"]')?.textContent).not.toContain('content.importCategory');
+    expect(mocks.planHook).not.toHaveBeenCalled();
+  });
+
+  it('retains discovery but gates flat-file skill import on legacy hosts', async () => {
+    Object.assign(data.skills[0], { entryFile: 'demo.md' });
+    await render(); await expand('skill');
+    const row = container.querySelector('[data-import-kind="skill"]')!;
+    expect(row.getAttribute('data-import-state')).toBe('importUnsupported');
+    expect(row.textContent).toContain('content.skillImportUnsupported');
+    expect(row.textContent).not.toContain('content.prepareImport');
+  });
+
+  it('distinguishes a disabled scan from a legacy snapshot without policy facts', async () => {
+    data.snapshot.integrationPolicy.effective.enabled = false;
+    await render(); await expand('mcp');
+    expect(container.querySelector('[data-import-kind="mcp"]')?.getAttribute('data-import-state')).toBe('discoveryDisabled');
+    Object.assign(data.snapshot.integrationPolicy, { effective: undefined });
+    await render();
+    expect(container.querySelector('[data-import-kind="mcp"]')?.getAttribute('data-import-state')).toBe('discoveryUnavailable');
+  });
+
+  it('shows direct command availability independently of copy import and same-name selection', async () => {
+    data.snapshot.hostCapabilities.canExecuteExternalAssets = true;
+    data.snapshot.commands = [{ candidateId: 'command-1', definition: {
+      id: { source: data.snapshot.sources[1].record.key, localId: 'review' }, name: 'review',
+      description: 'Review changes', contentVersion: 'v1', availability: { state: 'available' },
+    } }];
+    await render('claude-code'); await expand('command');
+    const row = () => container.querySelector('[data-import-kind="command"]')!;
+    expect(row().getAttribute('data-import-state')).toBe('available');
+    expect(row().textContent).toContain('content.directUse.available');
+    expect(row().textContent).not.toContain('content.prepareImport');
+    data.snapshot.commandConflicts = [{ conflictKey: 'review', commandName: 'review', candidates: [] }];
+    await render('claude-code');
+    expect(row().getAttribute('data-import-state')).toBe('conflict');
+    data.snapshot.commandConflicts[0].selectedCandidateId = 'command-1';
+    await render('claude-code');
+    expect(row().getAttribute('data-import-state')).toBe('available');
+    data.snapshot.integrationPolicy.effective.ecosystems['claude-code'].capabilities.command = 'discover_only';
+    await render('claude-code');
+    expect(row().getAttribute('data-import-state')).toBe('disabled');
+  });
+
+  it('shows unknown usage for a legacy host without execution capability facts', async () => {
+    data.snapshot.commands = [{ definition: {
+      id: { source: data.snapshot.sources[1].record.key, localId: 'review' }, name: 'review',
+      description: '', contentVersion: 'v1', availability: { state: 'available' },
+    } }];
+    await render('claude-code'); await expand('command');
+    expect(container.querySelector('[data-import-kind="command"]')?.getAttribute('data-import-state')).toBe('discovered');
+    expect(container.textContent).toContain('content.directUse.unknown');
+  });
+
+  it('reports failed discovery instead of missing content even with a cached candidate', async () => {
+    await render('codex', true); await expand('mcp');
+    expect(container.querySelector('[data-import-kind="mcp"]')?.getAttribute('data-import-state')).toBe('discoveryUnavailable');
+    expect(container.querySelector('[data-import-kind="mcp"]')?.textContent).not.toContain('content.prepareImport');
+  });
+
+  it('does not label an imported MCP copy as connected or usable', async () => {
+    data.plan.items[0].disposition = 'already_imported';
+    await render(); await expand('mcp');
+    const row = container.querySelector('[data-import-kind="mcp"]')!;
+    expect(row.getAttribute('data-import-state')).toBe('imported');
+    expect(row.textContent).toContain('content.mcpImportedDescription');
+    expect(row.textContent).not.toContain('import.states.available');
   });
 
   it.each(['remote', 'peer'] as const)('keeps %s source previews but gates unsupported imports without a local fallback', async (surface) => {

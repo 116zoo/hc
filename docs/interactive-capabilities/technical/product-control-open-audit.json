@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generatedFrom": "src/shared/interactive-capabilities/catalog.json",
-  "catalogDigest": "1230aa44c72c2cfb44fd28cb3da60fe04548cefd323b610b28e44bf48d574773",
+  "catalogDigest": "124222af073f8c5164b15b625723c0e3b81f0b200e41855cd343ef1f07d5f39b",
   "count": 211,
   "reasonCounts": {
     "externalAuth": 4,
@@ -1627,11 +1627,11 @@
     {
       "capabilityId": "feature.ecosystem-compatibility",
       "itemId": "subagents",
-      "titleZh": "导入或启用外部 Agent，处理同名冲突并绑定模型",
-      "titleEn": "Import or enable external agents, resolve naming conflicts, and bind models",
+      "titleZh": "启用外部 Agent，处理同名冲突并绑定模型",
+      "titleEn": "Enable external agents, resolve naming conflicts, and bind models",
       "reasonCode": "unstructuredInteraction",
-      "reasonZh": "“导入或启用外部 Agent，处理同名冲突并绑定模型”由多个实时状态相关步骤组成，目前没有一个能确定完成整个流程的单一结构化 Command；Agent 会打开精确入口，并把后续交互保留在用户可见界面。",
-      "reasonEn": "“Import or enable external agents, resolve naming conflicts, and bind models” spans multiple live-state-dependent steps and currently has no single structured Command that can deterministically complete the whole workflow; the Agent opens the exact entry and keeps the remaining interaction visible to the user.",
+      "reasonZh": "“启用外部 Agent，处理同名冲突并绑定模型”由多个实时状态相关步骤组成，目前没有一个能确定完成整个流程的单一结构化 Command；Agent 会打开精确入口，并把后续交互保留在用户可见界面。",
+      "reasonEn": "“Enable external agents, resolve naming conflicts, and bind models” spans multiple live-state-dependent steps and currently has no single structured Command that can deterministically complete the whole workflow; the Agent opens the exact entry and keeps the remaining interaction visible to the user.",
       "presentationTarget": {
         "kind": "action",
         "actionId": "surface.ecosystemCompatibility.open"

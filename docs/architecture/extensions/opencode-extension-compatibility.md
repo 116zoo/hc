@@ -3,8 +3,11 @@
 本文是 OpenBitFun 适配 OpenCode 扩展生态的总入口。它只回答三件事：OpenBitFun 与每类 OpenCode 能力差在哪里、能否适配、需要补什么。实现细节分别放在配置、服务插件、终端插件和插件运行时/Plugin Host 设计中。
 
 本文描述目标设计与当前差距，不代表矩阵中的目标能力已经实现。只有通过固定版本样例和端到端验证的能力才能标记为已实现。
-矩阵是兼容审计库存，不是默认开发路线图；`OC-R*` 只表示该能力依赖的成熟度分区，近期执行顺序以
-[`OC-E0` 至 `OC-E3`](../../plans/opencode-extension-compatibility-plan.md) 为准。
+矩阵是兼容审计库存，不是默认开发路线图；`OC-R*` 只表示该能力依赖的成熟度分区。
+[`OC-E0` 至 `OC-E3`](../../plans/opencode-extension-compatibility-plan.md) 是历史实施阶段，当前跨生态发现、导入和使用范围以
+[当前支持声明与状态口径](external-ai-work-sources-design.md#当前支持声明与状态口径2026-09-13) 为准，
+package plugin 执行子集以 [Plugin Host 当前实现](plugin-runtime-design.md#7-当前实现) 为准。
+生态页“此页尚未接入发现”只描述该类别的目录入口；不表示独立 Plugin Host 未实现，也不由“支持发现”推断可执行。
 
 | 主题 | 详细设计 |
 |---|---|

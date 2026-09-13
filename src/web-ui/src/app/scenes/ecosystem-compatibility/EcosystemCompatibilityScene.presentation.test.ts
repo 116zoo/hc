@@ -163,24 +163,22 @@ describe('ecosystem compatibility scene presentation contract', () => {
     expect(items.map((item) => item.kind)).toEqual(
       ECOSYSTEM_IMPORT_ITEM_KINDS.filter((kind) => kind !== 'pet'),
     );
-    expect(items.find((item) => item.kind === 'mcp')?.nativeImportSupported).toBe(true);
+    expect(items.find((item) => item.kind === 'mcp')?.discoverySupport).toBe('supported');
     expect(items.find((item) => item.kind === 'skill')).toEqual(expect.objectContaining({
       discovered: false,
-      support: 'adapted',
+      discoverySupport: 'supported',
       detection: 'owner',
     }));
-    expect(items.find((item) => item.kind === 'memory')?.support).toBe('notAdapted');
+    expect(items.find((item) => item.kind === 'memory')?.discoverySupport).toBe('unsupported');
     expect(items.find((item) => item.kind === 'pet')).toBeUndefined();
-    expect(items.find((item) => item.kind === 'account')?.support).toBe('notAdapted');
-    expect(items.find((item) => item.kind === 'plugin')?.support).toBe('notAdapted');
-    expect(items.filter((item) => item.kind !== 'mcp').every(
-      (item) => item.nativeImportSupported === false,
-    )).toBe(true);
+    expect(items.find((item) => item.kind === 'account')?.discoverySupport).toBe('unsupported');
+    expect(items.find((item) => item.kind === 'plugin')?.discoverySupport).toBe('unsupported');
+    expect(items.find((item) => item.kind === 'skill')?.usageState).toBeUndefined();
 
     const scene = source('./EcosystemCompatibilityScene.tsx');
     const content = source('./ExternalAgentContent.tsx');
     expect(content).toContain('disabled={confirmDisabled}');
-    expect(content).toContain('data-import-support={item.support}');
+    expect(content).toContain('data-discovery-support={item.discoverySupport}');
     expect(content).toContain('data-import-discovered={item.discovered');
     expect(scene).not.toContain("'notApplicable'");
     expect(scene).not.toContain('getWorkspaceReferences');
@@ -204,15 +202,15 @@ describe('ecosystem compatibility scene presentation contract', () => {
     expect(items.find((item) => item.kind === 'command')).toBeUndefined();
     expect(items.find((item) => item.kind === 'tool')).toBeUndefined();
     expect(items.find((item) => item.kind === 'subagent')).toEqual(expect.objectContaining({
-      support: 'adapted',
+      discoverySupport: 'supported',
       detection: 'catalog',
     }));
     expect(items.find((item) => item.kind === 'skill')).toEqual(expect.objectContaining({
-      support: 'adapted',
+      discoverySupport: 'supported',
       detection: 'owner',
     }));
-    expect(items.find((item) => item.kind === 'memory')?.support).toBe('notAdapted');
-    expect(items.find((item) => item.kind === 'pet')?.support).toBe('notAdapted');
+    expect(items.find((item) => item.kind === 'memory')?.discoverySupport).toBe('unsupported');
+    expect(items.find((item) => item.kind === 'pet')?.discoverySupport).toBe('unsupported');
   });
 
   it('uses product-specific compatibility instead of one shared capability set', () => {
@@ -221,45 +219,45 @@ describe('ecosystem compatibility scene presentation contract', () => {
       Object.fromEntries(buildEcosystemImportItems(
         null,
         runtimes.find((runtime) => runtime.spec.id === productId)!,
-      ).map((item) => [item.kind, item.support]))
+      ).map((item) => [item.kind, item.discoverySupport]))
     );
 
     const openCodeSupport = support('opencode');
     expect(openCodeSupport).toMatchObject({
-      command: 'adapted',
-      tool: 'adapted',
-      subagent: 'adapted',
-      skill: 'adapted',
-      mcp: 'adapted',
-      hook: 'adapted',
-      memory: 'notAdapted',
+      command: 'supported',
+      tool: 'supported',
+      subagent: 'supported',
+      skill: 'supported',
+      mcp: 'supported',
+      hook: 'supported',
+      memory: 'unsupported',
     });
     expect(openCodeSupport).not.toHaveProperty('pet');
 
     const claudeSupport = support('claude-code');
     expect(claudeSupport).toMatchObject({
-      command: 'adapted',
-      memory: 'notAdapted',
+      command: 'supported',
+      memory: 'unsupported',
     });
     expect(claudeSupport).not.toHaveProperty('tool');
     expect(claudeSupport).not.toHaveProperty('pet');
 
     const codexSupport = support('codex');
     expect(codexSupport).toMatchObject({
-      memory: 'notAdapted',
-      pet: 'notAdapted',
+      memory: 'unsupported',
+      pet: 'unsupported',
     });
     expect(codexSupport).not.toHaveProperty('command');
     expect(codexSupport).not.toHaveProperty('tool');
 
     const piSupport = support('pi');
     expect(piSupport).toMatchObject({
-      memory: 'notAdapted',
-      skill: 'adapted',
-      hook: 'adapted',
+      memory: 'unsupported',
+      skill: 'supported',
+      hook: 'supported',
     });
     expect(piSupport).not.toHaveProperty('pet');
-    expect(support('dsh')).toMatchObject({ skill: 'adapted', hook: 'adapted', mcp: 'adapted' });
+    expect(support('dsh')).toMatchObject({ skill: 'supported', hook: 'supported', mcp: 'supported' });
   });
 
   it('keeps use and import in one page with a compact header check summary', () => {
