@@ -12,14 +12,21 @@
     white-space: nowrap;
   }
 
+  .root:has(> .content) {
+    /* Center the natural text box without an anonymous inline baseline strut.
+       Keep the owner's leading as a minimum, and let taller fonts expand it.
+       The zero-minimum track still allows long labels to overflow horizontally. */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    min-block-size: 1lh;
+  }
+
   .content {
-    display: inline-block;
+    display: block;
     min-inline-size: max-content;
-    /* Include the font's ascent/descent inside the clipping box, even when a
-       compact control inherits leading of 1. Baseline alignment preserves any
-       larger leading supplied by the owner without cutting off glyph ink. */
+    /* Keep ascent/descent inside the clipping box, including in tight controls. */
     line-height: var(--openbitfun-type-modifier-leading-intrinsic-line-height);
-    vertical-align: baseline;
   }
 
   .root[data-overflow-lines] {
