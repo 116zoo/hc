@@ -348,11 +348,13 @@ function geminiBaseUrl(url: string): string {
 
 /**
  * Build a human-readable preview URL for display in the UI.
- * For gemini: always shows {base}/v1beta/models/...
+ * For Gemini, show the full streaming endpoint with a model placeholder when needed.
  */
-function previewRequestUrl(baseUrl: string, provider: string): string {
-  if (provider === 'gemini') {
-    return `${geminiBaseUrl(baseUrl.trim().replace(/\/+$/, ''))}/v1beta/models/...`;
+function previewRequestUrl(baseUrl: string, provider: string, modelName?: string): string {
+  const trimmed = baseUrl.trim().replace(/\/+$/, '');
+  if (provider === 'gemini' && !trimmed.endsWith('#')) {
+    const model = modelName?.trim();
+    return `${geminiBaseUrl(trimmed)}/v1beta/models/${model ? encodeURIComponent(model) : '{model}'}:streamGenerateContent?alt=sse`;
   }
   return resolveRequestUrl(baseUrl, provider);
 }
@@ -2869,7 +2871,9 @@ const ModelSettingsPage: React.FC = () => {
                         {editingConfig.base_url && !automaticOpenCodeRouting && (
                           <div className="openbitfun-model-settings__resolved-url">
                             <span className="openbitfun-model-settings__resolved-url-label">{t('form.resolvedUrlLabel')}</span>
-                              <span className="openbitfun-model-settings__resolved-url-value">{previewRequestUrl(editingConfig.base_url, editingConfig.provider || 'openai')}</span>
+                            <span className="openbitfun-model-settings__resolved-url-value">
+                              {previewRequestUrl(editingConfig.base_url, editingConfig.provider || 'openai', selectedModelDrafts.length === 1 ? selectedModelDrafts[0].modelName : undefined)}
+                            </span>
                           </div>
                         )}
                       </div>
@@ -2994,7 +2998,9 @@ const ModelSettingsPage: React.FC = () => {
                             {editingConfig.base_url && !automaticOpenCodeRouting && (
                               <div className="openbitfun-model-settings__resolved-url">
                                 <span className="openbitfun-model-settings__resolved-url-label">{t('form.resolvedUrlLabel')}</span>
-                              <span className="openbitfun-model-settings__resolved-url-value">{previewRequestUrl(editingConfig.base_url, editingConfig.provider || 'openai')}</span>
+                                <span className="openbitfun-model-settings__resolved-url-value">
+                                  {previewRequestUrl(editingConfig.base_url, editingConfig.provider || 'openai', selectedModelDrafts.length === 1 ? selectedModelDrafts[0].modelName : undefined)}
+                                </span>
                               </div>
                             )}
                           </div>

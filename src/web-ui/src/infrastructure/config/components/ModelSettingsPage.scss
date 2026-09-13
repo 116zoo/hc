@@ -1422,8 +1422,19 @@
 
   &__resolved-url {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: baseline;
+    gap: var(--openbitfun-space-1);
+    box-sizing: border-box;
+    padding-inline: calc(var(--openbitfun-space-2) + var(--openbitfun-border-width-default));
+
+    .openbitfun-model-settings__resolved-url-label {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .openbitfun-model-settings__resolved-url-value {
+      min-width: 0;
+    }
 
     .resolved-url__hint {
       font-size: var(--openbitfun-type-meta-font-size);
