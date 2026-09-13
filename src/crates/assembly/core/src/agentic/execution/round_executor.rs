@@ -2133,6 +2133,8 @@ mod tests {
         use openbitfun_runtime_ports::PermissionMode;
 
         let mut global = GlobalConfig::default();
+        global.tool_permissions.policy.preset =
+            openbitfun_runtime_ports::PermissionPolicyPreset::Ask;
         global.tool_permissions.interaction.auto_approve_ask = true;
         let mut context_vars = std::collections::HashMap::new();
 
