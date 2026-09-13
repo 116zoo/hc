@@ -86,10 +86,9 @@ export const OverflowText = forwardRef<HTMLElement, OverflowTextProps>(
       if (!element || !content) return;
 
       const distance = Math.max(0, content.scrollWidth - element.clientWidth);
-      // A compact single-line label can have glyph ink extend slightly beyond
-      // its line box without any text being clipped. Only multiline clamps use
-      // vertical overflow as a truncation signal; single-line slots are clipped
-      // exclusively on the inline axis.
+      // Single-line text has a font-metric-sized content box; only multiline
+      // clamps use vertical overflow as a truncation signal. Horizontal
+      // measurement still uses the full content width for fade and marquee.
       const hasVerticalClampOverflow = lines !== undefined
         && element.clientHeight > 0
         && element.scrollHeight > element.clientHeight;
@@ -193,7 +192,7 @@ export const OverflowText = forwardRef<HTMLElement, OverflowTextProps>(
         style={resolvedStyle}
         title={hasOverflowTooltip ? undefined : title}
       >
-        {behavior === "marquee" ? (
+        {behavior === "marquee" || (textOnly && lines === undefined) ? (
           <span className={styles.content} data-openbitfun-part="content" data-overflow-content="" ref={contentRef}>
             {children}
           </span>

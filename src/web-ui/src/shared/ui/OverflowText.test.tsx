@@ -57,10 +57,10 @@ describe('overflow text full-content access', () => {
     vi.useRealTimers();
   });
 
-  it('shows the complete label from the entire owning control and keeps its click behavior', () => {
+  it.each(['marquee', 'fade'] as const)('shows the complete %s label from the owning control and keeps its click behavior', (behavior) => {
     const onClick = vi.fn();
     render(<button data-overflow-trigger aria-describedby="help" onClick={onClick}>
-      <OverflowText>{longLabel}</OverflowText>
+      <OverflowText behavior={behavior}>{longLabel}</OverflowText>
     </button>);
     const button = host.querySelector('button')!;
     hover(button);

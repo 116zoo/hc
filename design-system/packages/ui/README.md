@@ -113,6 +113,11 @@ Use `OverflowText` for single-line, non-editable labels instead of local
 defaults to **fade-out truncation with an interaction marquee**: a background-independent
 gradient mask at the inline end, followed by scrolling on hover or keyboard focus.
 Both effects apply only when the text actually overflows. Short labels remain untouched.
+Single-line text uses a baseline-aligned inner box with the font's natural leading
+so tight control line heights do not clip descenders. This applies to plain-text
+fade and marquee labels; multiline clamps and rich composition retain their layout.
+Let text slots size naturally in the block direction instead of forcing a text-height
+box or adding outer pixel padding to compensate for clipped glyphs.
 Overflowing labels also open a wrapping, selectable tooltip on hover or keyboard
 focus, including when motion is reduced. The tooltip uses the owning
 `data-overflow-trigger` control and groups its clipped text slots into one popup.
