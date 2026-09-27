@@ -34,6 +34,10 @@
       "mono": {
         "$type": "fontFamily",
         "$value": "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Cascadia Mono', 'Cascadia Code', Consolas, 'Liberation Mono', 'Courier New', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', monospace"
+      },
+      "aiResponse": {
+        "$type": "fontFamily",
+        "$value": "'OpenBitFun Source Serif 4', 'OpenBitFun Source Serif 4 VF', {font.family.sans}"
       }
     },
     "size": {
@@ -358,6 +362,13 @@
     "flow": {
       "body": {
         "fontFamily": { "$value": "{font.family.sans}" },
+        "fontSize": { "$value": "{font.size.base}" },
+        "fontWeight": { "$value": "{font.weight.regular}" },
+        "lineHeight": { "$value": "{lineHeight.reading}" },
+        "letterSpacing": { "$value": "{letterSpacing.normal}" }
+      },
+      "aiResponse": {
+        "fontFamily": { "$value": "{font.family.aiResponse}" },
         "fontSize": { "$value": "{font.size.base}" },
         "fontWeight": { "$value": "{font.weight.regular}" },
         "lineHeight": { "$value": "{lineHeight.reading}" },

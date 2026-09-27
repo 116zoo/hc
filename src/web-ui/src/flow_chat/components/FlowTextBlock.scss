@@ -11,8 +11,11 @@
 
   width: 100%;
   margin: 0;
-  font-size: var(--openbitfun-type-flow-body-font-size);
-  line-height: var(--openbitfun-type-flow-body-line-height);
+  font-family: var(--openbitfun-type-flow-ai-response-font-family);
+  font-size: var(--openbitfun-type-flow-ai-response-font-size);
+  line-height: var(--openbitfun-type-flow-ai-response-line-height);
+  font-weight: var(--openbitfun-type-flow-ai-response-font-weight);
+  letter-spacing: var(--openbitfun-type-flow-ai-response-letter-spacing);
   border: 0;
   box-sizing: border-box;
 
@@ -20,11 +23,11 @@
     --markdown-font-size: var(--openbitfun-type-flow-control-font-size);
     --markdown-font-size-sm: var(--openbitfun-type-flow-control-font-size);
     --markdown-code-font-size: var(--openbitfun-type-flow-code-font-size);
-    --markdown-line-height: var(--openbitfun-type-flow-body-line-height);
+    --markdown-line-height: var(--openbitfun-type-flow-ai-response-line-height);
     --markdown-block-gap: #{markdown.$block-gap};
     --markdown-paragraph-gap: #{markdown.$paragraph-gap};
 
-    line-height: var(--openbitfun-type-flow-body-line-height);
+    line-height: var(--openbitfun-type-flow-ai-response-line-height);
   }
 
   /* Flow Chat's readable answer copy is slightly stronger than the shared
@@ -136,7 +139,7 @@
 
   .text-content {
     color: var(--openbitfun-color-content-primary);
-    line-height: var(--openbitfun-type-flow-body-line-height);
+    line-height: var(--openbitfun-type-flow-ai-response-line-height);
     white-space: pre-wrap;
     word-wrap: break-word;
   }
@@ -153,7 +156,8 @@
     gap: var(--openbitfun-control-flow-chat-control-gap);
     min-height: 1.5rem;
     color: var(--openbitfun-color-content-muted);
-    font-size: var(--openbitfun-type-flow-body-font-size);
+    font-family: var(--openbitfun-type-flow-ai-response-font-family);
+    font-size: var(--openbitfun-type-flow-ai-response-font-size);
     line-height: var(--openbitfun-type-flow-support-line-height);
     opacity: 0.86;
   }

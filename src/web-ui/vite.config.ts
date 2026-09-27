@@ -34,7 +34,7 @@ export function createWebFontProfilePlugin(
   const stylesheetPath = `/src/font-profiles/${profile}.css`;
 
   if (command === 'build' && profile === HARMONY_BUNDLED_FONT_PROFILE) {
-    verifyHarmonyFontSources(path.join(fontAssetDirectory, 'harmonyos-sans'));
+    verifyHarmonyFontSources(fontAssetDirectory);
   }
 
   return {
@@ -71,6 +71,10 @@ export function createWebFontProfilePlugin(
         [
           'third-party/fonts/fira-code/LICENSE.txt',
           path.join(fontAssetDirectory, 'fira-code/LICENSE.txt'),
+        ],
+        [
+          'third-party/fonts/source-serif-4/LICENSE.txt',
+          path.join(fontAssetDirectory, 'source-serif-4/LICENSE.txt'),
         ],
       ]) {
         this.emitFile({ type: 'asset', fileName, source: readFileSync(sourcePath) });
