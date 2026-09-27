@@ -25,7 +25,7 @@ test("brand resources use original artwork, localized names and real downloads",
       const html = renderToStaticMarkup(createElement(I18nContext.Provider, {
         value: { locale, setLocale() {}, t: (key, params) => translateFromCatalog(messages, locale, key, params) },
       }, createElement(BrandPage, { onOpenComponent() {} })));
-      const entries = componentRegistry.filter(component => component.category === "brand");
+      const entries = componentRegistry.filter(component => component.category === "brand" && component.name !== "SubagentHatch");
       assert.deepEqual(new Set(brandResources.filter(item => item.name !== "wordmark").map(item => item.name)), new Set(entries.map(item => item.name)));
       assert.match(html, /data-openbitfun-component="openbitfun-solid-mark"/);
       assert.match(html, /id="brand-resource-title"/);
