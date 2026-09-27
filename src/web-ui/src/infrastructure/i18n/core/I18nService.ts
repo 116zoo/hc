@@ -31,6 +31,7 @@ import { useI18nStore } from '../store/i18nStore';
 import { i18nAPI } from '@/infrastructure/api/service-api/I18nAPI';
 
 import { createLogger } from '@/shared/utils/logger';
+import { createModuleLoader } from '@/shared/utils/moduleLoader';
 import { logDuration, measureSync, nowMs, elapsedMs } from '@/shared/utils/timing';
 
 const log = createLogger('I18nService');
@@ -38,6 +39,10 @@ const log = createLogger('I18nService');
 const lazyLocaleModules = import.meta.glob('../../../locales/**/*.json', {
   import: 'default',
 }) as Record<string, () => Promise<Record<string, unknown>>>;
+
+const localeNamespaceLoaders = Object.fromEntries(
+  Object.entries(lazyLocaleModules).map(([path, load]) => [path, createModuleLoader(load)]),
+);
 
 // Keep the bootstrap set explicit because these namespaces are used by
 // synchronous i18nService.t(...) call sites during module initialization.
@@ -96,7 +101,7 @@ async function loadLocaleNamespace(locale: string, namespace: string): Promise<R
     return SHARED_TERMS_BY_LOCALE[locale as LocaleId] ?? {};
   }
 
-  const resourceModule = lazyLocaleModules[`../../../locales/${locale}/${namespace}.json`];
+  const resourceModule = localeNamespaceLoaders[`../../../locales/${locale}/${namespace}.json`];
   if (!resourceModule) {
     return {};
   }

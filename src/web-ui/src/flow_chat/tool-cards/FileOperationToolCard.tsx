@@ -10,6 +10,7 @@
 import React, { useEffect, useCallback, useMemo, useState, useRef, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import path from 'path-browserify';
+import { getToolCardStatus } from './toolCardStatus';
 import type { ToolCardProps } from '../types/flow-chat';
 import {
   FileOperationToolCard as FileOperationCardView,
@@ -134,14 +135,14 @@ const GenericFileOperationToolCard: React.FC<FileOperationToolCardProps> = ({
   const {
     toolCall,
     toolResult,
-    status,
     isParamsStreaming,
     partialParams,
     requiresConfirmation,
     userConfirmed,
   } = toolItem;
   const toolId = toolItem.id ?? toolCall?.id;
-  const isFailed = status === 'error' || (toolResult && 'success' in toolResult && !toolResult.success);
+  const status = getToolCardStatus(toolItem);
+  const isFailed = status === 'error';
   
   const [isContentExpanded, setIsContentExpanded] = useState(status !== 'completed' && !isFailed);
   const [isFailureExpanded, setIsFailureExpanded] = useState(false);
@@ -698,10 +699,13 @@ const GenericFileOperationToolCard: React.FC<FileOperationToolCardProps> = ({
         return (
           <div data-testid="chat-file-change-preview">
             <CodePreview
+              inset
+              edgeFade="none"
+              scrollbarVisibility="hover"
               content={editDisplayContent}
               filePath={currentFilePath}
               isStreaming={editVisuallyStreaming}
-              showLineNumbers={isContentExpanded}
+              showLineNumbers={false}
               maxHeight={previewMaxHeight}
               autoScrollToBottom={false}
               onLineClick={handleCodeLineClick}
@@ -714,12 +718,13 @@ const GenericFileOperationToolCard: React.FC<FileOperationToolCardProps> = ({
         return (
           <div data-testid="chat-file-change-preview">
             <InlineDiffPreview
+              edgeFade="none"
+              scrollbarVisibility="hover"
               originalContent={oldStringContent}
               modifiedContent={newStringContent}
               filePath={currentFilePath}
               maxHeight={previewMaxHeight}
-              showLineNumbers={isContentExpanded}
-              lineNumberMode="dual"
+              showLineNumbers={false}
               showPrefix={false}
               contextLines={-1}
             />
@@ -733,10 +738,13 @@ const GenericFileOperationToolCard: React.FC<FileOperationToolCardProps> = ({
         return (
           <div data-testid="chat-file-change-preview">
             <CodePreview
+              inset
+              edgeFade="none"
+              scrollbarVisibility="hover"
               content={writeDisplayContent}
               filePath={currentFilePath}
               isStreaming={writeVisuallyStreaming}
-              showLineNumbers={isContentExpanded}
+              showLineNumbers={false}
               maxHeight={previewMaxHeight}
               autoScrollToBottom={false}
               onLineClick={handleCodeLineClick}
@@ -749,13 +757,14 @@ const GenericFileOperationToolCard: React.FC<FileOperationToolCardProps> = ({
         return (
           <div data-testid="chat-file-change-preview">
             <InlineDiffPreview
+              edgeFade="none"
+              scrollbarVisibility="hover"
               originalContent=""
               modifiedContent={contentPreview}
               filePath={currentFilePath}
               maxHeight={previewMaxHeight}
-              showLineNumbers={isContentExpanded}
-              lineNumberMode="single"
-              showPrefix={true}
+              showLineNumbers={false}
+              showPrefix={false}
               contextLines={-1}
             />
           </div>
@@ -778,12 +787,10 @@ const GenericFileOperationToolCard: React.FC<FileOperationToolCardProps> = ({
 
   const expandedContent = renderExpandedContent();
   const hasExpandableContent =
-    !isDeleteTool &&
-    (isFailed || Boolean(expandedContent));
+    isFailed || (!isDeleteTool && Boolean(expandedContent));
 
   const isCardContentExpanded =
-    !isDeleteTool &&
-    (isFailed ? isFailureExpanded : isContentExpanded);
+    isFailed ? isFailureExpanded : !isDeleteTool && isContentExpanded;
 
   const operation = isDeleteTool
     ? 'delete'
@@ -792,7 +799,9 @@ const GenericFileOperationToolCard: React.FC<FileOperationToolCardProps> = ({
       : 'write';
   const hasDiffStats =
     currentFileDiffStats.additions > 0 || currentFileDiffStats.deletions > 0;
-  const headerStatusText = status === 'completed'
+  const headerStatusText = status === 'cancelled' ? t('toolCards.default.cancelled')
+    : status === 'rejected' ? t('toolCards.default.rejected')
+      : status === 'completed'
     ? undefined
     : writeContentStatusText ?? (
       isParamsStreaming && (status === 'preparing' || status === 'streaming')
@@ -833,7 +842,7 @@ const GenericFileOperationToolCard: React.FC<FileOperationToolCardProps> = ({
             deletions: formattedDeletions,
           }),
         } : undefined}
-        error={isFailed && !isDeleteTool ? {
+        error={isFailed ? {
           guidance: isFileGuidanceBlocked,
           message: getDisplayMessage(),
           title: isFileGuidanceBlocked

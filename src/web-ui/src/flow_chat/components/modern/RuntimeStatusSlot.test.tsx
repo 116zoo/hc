@@ -8,11 +8,6 @@ import { useRuntimeStatusStore } from '../../store/runtimeStatusStore';
 import { activateSurface, getActiveSurfaceScope, LOCAL_SURFACE_ID } from '@/infrastructure/peer-device/deviceSurface';
 import { registerSubmittedMessage } from '../../services/submittedMessagePresentation';
 
-vi.mock('@openbitfun/ui', () => ({
-  Spinner: () => <span data-testid="dot-matrix" />,
-  OverflowText: ({ children, behavior: _behavior, marqueeActive: _marqueeActive, ...props }: any) => <span {...props}>{children}</span>,
-}));
-
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: () => ['Working on it'],
@@ -67,7 +62,7 @@ describe('RuntimeStatusSlot', () => {
     });
     const slot = container.querySelector<HTMLElement>('.runtime-status-slot');
     const iconSlot = container.querySelector('[data-openbitfun-part="leadingIcon"]');
-    expect(iconSlot?.querySelector('[data-testid="dot-matrix"]')).not.toBeNull();
+    expect(iconSlot?.querySelector('[data-openbitfun-component="spinner"]')).not.toBeNull();
     expect(slot).not.toBeNull();
     expect(slot?.dataset.runtimeStatusVisible).toBe('false');
 
