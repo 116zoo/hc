@@ -1,0 +1,149 @@
+{
+  "title": "Agents ACP",
+  "subtitle": "Gérer les agents externes connectés via ACP.",
+  "views": {
+    "local": "Local",
+    "ssh": "SSH",
+    "json": "JSON Avancé"
+  },
+  "actions": {
+    "add": "Ajouter",
+    "addConfig": "Ajouter la config",
+    "download": "Télécharger",
+    "installCli": "Installer CLI",
+    "configureAcp": "Configurer ACP",
+    "viewError": "Voir l'erreur",
+    "viewInstructions": "Voir les instructions",
+    "save": "Sauvegarder",
+    "refresh": "Revérifier",
+    "learnMore": "Doc ACP",
+    "saveJson": "Sauvegarder JSON",
+    "revert": "Restaurer",
+    "install": "Installer",
+    "restorePreset": "Restaurer le préréglage",
+    "predownloadAcp": "Prétélécharger ACP",
+    "retry": "Recharger"
+  },
+  "json": {
+    "title": "Configuration JSON avancée",
+    "description": "Éditer acpClients sur l'hôte d'exécution actuel directement. Utilisez ceci seulement pour les paramètres que la liste ne peut pas exprimer.",
+    "discardTitle": "Ignorer les modifications JSON non sauvegardées ?",
+    "discardMessage": "Ces modifications non sauvegardées seront perdues quand vous quitterez JSON Avancé.",
+    "discardConfirm": "Ignorer les modifications"
+  },
+  "security": {
+    "secretWarning": "Le JSON ACP et les variables d'environnement peuvent contenir des clés API ou des tokens d'accès. Hacienda Work les sauvegarde dans la configuration sur l'hôte d'exécution actuel. Ne les collez pas dans des validateurs JSON en ligne, chats, ou tickets de support."
+  },
+  "installConfirm": {
+    "title": "Installer {{name}} CLI ?",
+    "message": "Hôte cible : {{host}}. Hacienda Work exécutera « {{command }} » pour installer le package npm globalement sur cet hôte. Cela modifie l'environnement de commandes global de l'hôte et peut nécessiter un accès réseau et en écriture.",
+    "localHost": "Hôte d'exécution actuel",
+    "packageUnknown": "Hacienda Work n'a pas pu vérifier le package d'installation pour cet Agent, donc l'installation a été annulée",
+    "confirm": "Installer sur l'hôte cible"
+  },
+  "presets": {
+    "opencode": { "description": "Support ACP natif." },
+    "dsh": { "description": "Utilise le pont ACP intégré de Hacienda Work et les paramètres de modèle de dsh." },
+    "omp": { "description": "Support ACP natif." },
+    "claudeCode": { "description": "Se connecte via l'adaptateur ACP officiel." },
+    "codex": { "description": "Se connecte via l'adaptateur ACP officiel." }
+  },
+  "registry": {
+    "title": "Agents",
+    "searchPlaceholder": "Rechercher des agents...",
+    "filterLabel": "Filtre agent ACP",
+    "filters": {
+      "all": "Tous",
+      "enabled": "Activés",
+      "installed": "Installés",
+      "notInstalled": "Non Installés",
+      "configInvalid": "Config invalide"
+    },
+    "enabled": "Activé",
+    "ready": "Disponible",
+    "partial": "Partiellement disponible",
+    "installed": "Installé",
+    "notInstalled": "Non Installé",
+    "configInvalid": "Config invalide",
+    "checking": "Vérification",
+    "cliMissing": "CLI manquant",
+    "acpMissing": "ACP manquant",
+    "pathInvalid": "Chemin invalide",
+    "versionMismatch": "Version incompatible",
+    "connectionFailed": "Connexion échouée",
+    "permissionDenied": "Permission refusée",
+    "partialDetail": "Le CLI est prêt, mais l'adaptateur ACP n'est pas configuré.",
+    "cliMissingDetail": "Aucune commande CLI n'a été trouvée sur PATH.",
+    "selfManagedCliMissingDetail": "{{name}} est configuré séparément de Hacienda Work. Installez le CLI {{command}} et assurez-vous qu'il est sur PATH, puis actualisez la détection.",
+    "acpMissingDetail": "L'adaptateur ACP n'est pas encore disponible.",
+    "pathInvalidDetail": "Le chemin de la commande n'a pas pu être résolu.",
+    "versionMismatchDetail": "La version détectée ne correspond pas au runtime attendu.",
+    "connectionFailedDetail": "L'hôte distant n'a pas pu être atteint.",
+    "permissionDeniedDetail": "La commande n'a pas pu s'exécuter à cause d'un problème de permission.",
+    "configInvalidDetail": "La configuration ACP actuelle ne peut pas être utilisée telle quelle.",
+    "toolPath": "Chemin",
+    "toolVersion": "Version",
+    "empty": "Aucun agent ACP correspondant."
+  },
+  "clients": {
+    "loading": "Chargement des agents ACP…"
+  },
+  "remote": {
+    "title": "Serveurs SSH",
+    "description": "Vérifier les agents ACP sur les serveurs SSH sauvegardés.",
+    "empty": "Aucun serveur SSH sauvegardé.",
+    "emptyVisible": "Aucun serveur SSH visible.",
+    "noAgents": "Ajoutez un agent ACP avant de vérifier les serveurs distants.",
+    "refreshDetection": "Actualiser la détection",
+    "hideConnection": "Masquer {{name}} des Agents ACP",
+    "restoreConnection": "Afficher {{name}} dans les Agents ACP",
+    "showHiddenConnections": "Serveurs cachés ({{count}})",
+    "hideHiddenConnections": "Masquer les serveurs cachés",
+    "summary": "{{available}} / {{total}} disponibles",
+    "issueSummary": "{{count}} problème(s)"
+  },
+  "fields": {
+    "name": "Nom",
+    "command": "Commande",
+    "args": "Arguments, un par ligne",
+    "env": "Environnement, KEY=VALUE par ligne",
+    "permissionMode": "Confirmation d'outil"
+  },
+  "permissionMode": {
+    "ask": "Demander",
+    "allowOnce": "Approuver auto",
+    "legacyRejectWarning": "Certains agents ont encore Rejet Auto sauvegardé. L'éditeur le remplace par Demander. Sauvegardez et appliquez vos choix actuels pour qu'ils prennent effet ; jusque-là, ces agents continueront de rejeter les requêtes automatiquement.",
+    "saveAndApply": "Sauvegarder et appliquer"
+  },
+  "requirements": {
+    "tool": "CLI",
+    "adapter": "ACP",
+    "installed": "Installé",
+    "missing": "Manquant",
+    "checking": "Vérification",
+    "ready": "Prérequis prêts",
+    "notReady": "Prérequis manquants"
+  },
+  "notifications": {
+    "loadFailed": "Échec du chargement de la config ACP",
+    "loadFailedLocked": "La configuration ACP n'a pas pu être lue. Cette page est verrouillée pour éviter de remplacer la configuration d'Agent existante par une vide.",
+    "saveSuccess": "Config ACP sauvegardée",
+    "configAdded": "Config d'agent ACP ajoutée",
+    "configAddedManualCliRequired": "{{name}} config ajoutée. Installez le CLI {{command }} manuellement, puis actualisez la détection.",
+    "saveFailed": "Échec de la sauvegarde de la config ACP",
+    "probeFailed": "Échec de la vérification des prérequis ACP",
+    "openLinkFailed": "Échec de l'ouverture du lien",
+    "invalidJson": "JSON ACP invalide",
+    "invalidEnv": "Valeur d'environnement invalide",
+    "installSuccess": "CLI ACP installé",
+    "installFailed": "Échec de l'installation du CLI ACP",
+    "configureSuccess": "Adaptateur ACP préparé",
+    "configureFailed": "Échec de la préparation de l'adaptateur ACP",
+    "downloadSuccess": "CLI d'agent ACP téléchargé",
+    "downloadFailed": "Échec du téléchargement du CLI d'agent ACP",
+    "predownloadSuccess": "Adaptateur ACP téléchargé",
+    "predownloadFailed": "Échec du téléchargement de l'adaptateur ACP",
+    "connectionHidden": "{{name}} est masqué des Agents ACP",
+    "connectionRestored": "{{name}} est affiché dans les Agents ACP"
+  }
+}

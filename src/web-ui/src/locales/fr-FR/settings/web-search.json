@@ -1,0 +1,117 @@
+{
+  "title": "Recherche Web",
+  "subtitle": "Choisir le service que votre Agent utilise pour trouver des informations sur le web.",
+  "providers": {
+    "exaMcpFree": "Exa MCP (gratuit)",
+    "exaSearchApi": "Exa Search API",
+    "tavily": "Tavily Search API",
+    "openbitfunSearchHttp": "Service HTTP personnalisé"
+  },
+  "providerDescriptions": {
+    "exaMcpFree": "Utiliser le service de recherche gratuit d'Exa sans clé API ni configuration supplémentaire.",
+    "exaSearchApi": "Utiliser votre clé API Exa pour accéder au service de recherche. Entrez et sauvegardez vos identifiants ci-dessous.",
+    "tavily": "Utiliser votre clé API Tavily pour accéder au service de recherche. Entrez et sauvegardez vos identifiants ci-dessous.",
+    "openbitfunSearchHttp": "Connecter un service auto-hébergé ou d'entreprise qui implémente le protocole de recherche Hacienda Work. Entrez son adresse ci-dessous et configurez l'authentification si nécessaire."
+  },
+  "auth": {
+    "none": "Aucune authentification",
+    "bearer": "Identifiant Bearer",
+    "header": "Identifiant d'en-tête restreint"
+  },
+  "sections": {
+    "provider": {
+      "title": "Fournisseur de recherche"
+    },
+    "http": {
+      "title": "Protocole HTTP de Recherche Hacienda Work v1",
+      "description": "Connecter un endpoint auto-hébergé ou d'entreprise qui implémente le protocole Hacienda Work fixe."
+    },
+    "protocol": {
+      "title": "Spécification du protocole",
+      "description": "Le format de requête et de réponse requis pour un endpoint de recherche personnalisé."
+    },
+    "credential": {
+      "title": "Identifiant de l'appareil",
+      "description": "Le secret est chiffré localement sur l'hôte qui exécute WebSearch et n'est pas synchronisé."
+    }
+  },
+  "fields": {
+    "provider": {
+      "label": "Fournisseur",
+      "description": "Sauvegardez la configuration pour appliquer un changement de fournisseur.",
+      "placeholder": "Choisir un service de recherche"
+    },
+    "providerHelp": {
+      "label": "Exigences de configuration",
+      "description": "Choisissez un service de recherche pour voir ses exigences de configuration."
+    },
+    "endpoint": {
+      "label": "Endpoint",
+      "description": "HTTPS est requis. HTTP simple est accepté seulement pour localhost ou une IP de loopback.",
+      "placeholder": "https://search.example.com/search"
+    },
+    "authMode": {
+      "label": "Authentification",
+      "description": "Choisir sans auth, un identifiant Bearer, ou un en-tête personnalisé restreint."
+    },
+    "headerName": {
+      "label": "Nom de l'en-tête",
+      "description": "Utiliser un en-tête d'identifiant personnalisé comme X-API-Key. Pour l'authentification Bearer, sélectionnez identifiant Bearer.",
+      "placeholder": "X-Search-Key"
+    },
+    "credentialStatus": {
+      "label": "Statut",
+      "description": "Statut de l'identifiant sur l'hôte d'exécution actuel"
+    },
+    "credential": {
+      "label": "Clé API ou secret",
+      "description": "Sauvegarder une nouvelle valeur remplace le secret local actuel de l'appareil.",
+      "placeholder": "Entrer l'identifiant",
+      "replacePlaceholder": "Entrer un nouvel identifiant pour remplacer la valeur sauvegardée"
+    }
+  },
+  "status": {
+    "configured": "Configuré sur cet appareil",
+    "missing": "Manquant sur cet appareil"
+  },
+  "protocol": {
+    "request": {
+      "title": "Requête",
+      "description": "L'endpoint doit accepter cette requête POST. query doit être une chaîne non vide, et maxResults doit être un entier de 1 à 20."
+    },
+    "success": {
+      "title": "Réponse de succès",
+      "description": "Une réponse 2xx doit utiliser application/json ou le type de média v1. title et url sont requis ; publishedAt et author peuvent être omis ou null."
+    },
+    "error": {
+      "title": "Réponse d'erreur",
+      "description": "Une réponse non-2xx peut utiliser cette forme. Hacienda Work mappe aussi les erreurs communes depuis le statut HTTP quand l'enveloppe est absente.",
+      "codes": "Codes supportés :"
+    },
+    "notes": {
+      "resultHandling": "Le service peut retourner moins de résultats que maxResults. Hacienda Work valide, déduplique, et tronque les résultats, et ignore les champs racine de réponse inconnus.",
+      "transportLimits": "Hacienda Work ne suit pas les redirections. Les requêtes expirent après 60 secondes, et les corps de réponse sont limités à 1 Mio."
+    }
+  },
+  "actions": {
+    "retry": "Recharger la Configuration",
+    "saveConfiguration": "Sauvegarder la configuration",
+    "saveCredential": "Sauvegarder",
+    "clearCredential": "Effacer",
+    "copyProtocol": "Copier le protocole"
+  },
+  "messages": {
+    "loading": "Chargement des paramètres de Recherche Web…",
+    "loadFailed": "Échec du chargement des paramètres de Recherche Web.",
+    "saved": "Configuration de Recherche Web sauvegardée.",
+    "saveFailed": "Échec de la sauvegarde de la configuration de Recherche Web.",
+    "credentialRequired": "Entrer un identifiant avant de sauvegarder.",
+    "credentialSaved": "Identifiant sauvegardé sur cet appareil.",
+    "credentialSaveFailed": "Échec de la sauvegarde de l'identifiant de l'appareil.",
+    "credentialSaveFailedAfterConfigSaved": "La configuration de Recherche Web a été sauvegardée, mais l'identifiant de l'appareil ne l'a pas été. Entrez-le à nouveau et réessayez.",
+    "credentialCleared": "Identifiant effacé de cet appareil.",
+    "credentialClearFailed": "Échec de l'effacement de l'identifiant de l'appareil.",
+    "protocolCopied": "Protocole copié.",
+    "protocolCopyFailed": "Échec de la copie du protocole."
+  }
+}

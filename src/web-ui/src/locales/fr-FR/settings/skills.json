@@ -1,0 +1,128 @@
+{
+  "title": "Gestion des Compétences",
+  "subtitle": "Gérer les Compétences niveau utilisateur et niveau projet",
+  "toolbar": {
+    "searchPlaceholder": "Rechercher des Compétences...",
+    "refreshTooltip": "Actualiser",
+    "addTooltip": "Ajouter une Compétence"
+  },
+  "filters": {
+    "all": "Tout",
+    "user": "Utilisateur",
+    "project": "Projet"
+  },
+  "market": {
+    "title": "Marketplace de Compétences",
+    "subtitle": "Rechercher et télécharger des Compétences réutilisables (périmètre par défaut : projet actuel)",
+    "searchPlaceholder": "Rechercher des compétences du marketplace...",
+    "refreshTooltip": "Actualiser les résultats du marketplace",
+    "loading": "Chargement des compétences du marketplace...",
+    "errorPrefix": "Échec du chargement du marketplace : ",
+    "empty": {
+      "noMatch": "Aucune Compétence marketplace correspondante trouvée",
+      "noSkills": "Aucune Compétence marketplace disponible"
+    },
+    "item": {
+      "sourceLabel": "Source : ",
+      "installs": "Installations : {{count}}",
+      "noDescription": "Aucune description disponible",
+      "downloadProject": "Télécharger dans le Projet",
+      "installed": "Installée",
+      "installedTooltip": "Cette Compétence est déjà installée",
+      "downloading": "Téléchargement...",
+      "downloadUser": "Télécharger pour l'Utilisateur"
+    },
+    "settings": {
+      "provider": "Format API",
+      "url": "URL du Marketplace",
+      "urlHint": "Entrez la racine du marketplace, incluant tout sous-chemin. SKILLS_API_URL ne remplace que la source officielle par défaut tant que son URL reste https://skills.sh. Une URL personnalisée modifiée utilise l'adresse saisie.",
+      "token": "Token API (optionnel)",
+      "tokenHint": "Envoyé comme token Bearer quand fourni. Sauvegardé dans la configuration de l'application de cet hôte.",
+      "save": "Sauvegarder les sources",
+      "saving": "Sauvegarde...",
+      "invalidUrl": "Entrez des URLs marketplace HTTP(S) valides sans identifiants, paramètres de requête ou fragments.",
+      "unsupported": "Cet hôte ne supporte pas plusieurs sources de marketplace. Mettez à jour l'hôte pour configurer les sources.",
+      "title": "Sources de marketplace",
+      "name": "Nom de la source",
+      "enabled": "Activée",
+      "remove": "Supprimer la source",
+      "add": "Ajouter une source",
+      "newSource": "Nouvelle source de marketplace",
+      "empty": "Aucune source configurée. Sauvegardez pour désactiver la recherche marketplace."
+    }
+  },
+  "form": {
+    "title": "Ajouter une Compétence",
+    "closeTooltip": "Fermer",
+    "level": {
+      "label": "Niveau",
+      "user": "Niveau Utilisateur (Global)",
+      "project": "Niveau Projet (Espace de travail actuel)",
+      "projectDisabled": " - Il faut d'abord ouvrir un espace de travail",
+      "currentWorkspace": "Espace de travail actuel : {{path}}"
+    },
+    "path": {
+      "label": "Chemin du dossier de Compétence",
+      "placeholder": "Sélectionnez ou entrez le chemin du dossier de compétence",
+      "browseTooltip": "Parcourir",
+      "hint": "Le dossier doit contenir un fichier SKILL.md valide"
+    },
+    "validating": "Validation...",
+    "actions": {
+      "cancel": "Annuler",
+      "add": "Ajouter",
+      "adding": "Ajout en cours..."
+    }
+  },
+  "list": {
+    "loading": "Chargement...",
+    "errorPrefix": "Échec du chargement : ",
+    "empty": {
+      "noMatch": "Aucune Compétence correspondante trouvée",
+      "noSkills": "Aucune Compétence configurée pour l'instant"
+    },
+    "item": {
+      "user": "Utilisateur",
+      "project": "Projet",
+      "localUser": "Cet appareil · Utilisateur",
+      "remoteProject": "Espace de travail distant · Projet",
+      "deleteTooltip": "Supprimer",
+      "pathLabel": "Chemin :",
+      "sourceLabel": "Source :",
+      "shadowed": "Couverte",
+      "shadowedTooltip": "La compétence du même nom depuis {{source}} a normalement une priorité plus élevée.",
+      "shadowedLabel": "Source de priorité supérieure :",
+      "shadowedDetail": "La compétence du même nom depuis {{source}}",
+      "unknownSource": "une autre source"
+    }
+  },
+  "deleteModal": {
+    "title": "Confirmer la suppression",
+    "message": "Êtes-vous sûr de vouloir supprimer la Compétence « {{name }} » ?",
+    "warning": "Cela supprimera le dossier de Compétence et ne peut pas être annulé.",
+    "cancel": "Annuler",
+    "delete": "Supprimer"
+  },
+  "messages": {
+    "invalidPath": "Veuillez sélectionner un dossier de Compétence valide",
+    "noWorkspace": "Veuillez d'abord ouvrir un espace de travail pour ajouter une Compétence niveau projet",
+    "addSuccess": "Compétence « {{name }} » ajoutée avec succès",
+    "addFailed": "Échec de l'ajout : {{error}}",
+    "deleteSuccess": "Compétence « {{name }} » supprimée",
+    "deleteFailed": "Échec de la suppression : {{error}}",
+    "toggleSuccess": "Compétence « {{name }} » {{status}}",
+    "toggleFailed": "Échec du basculement : {{error}}",
+    "marketDownloadSuccess": "Compétence « {{name }} » téléchargée avec succès",
+    "marketDownloadFailed": "Échec du téléchargement : {{error}}",
+    "enabled": "activée",
+    "disabled": "désactivée"
+  },
+  "section": {
+    "user": {
+      "description": "Compétences installées pour l'utilisateur actuel."
+    },
+    "project": {
+      "description": "Compétences niveau projet dans l'espace de travail actuel."
+    }
+  }
+}

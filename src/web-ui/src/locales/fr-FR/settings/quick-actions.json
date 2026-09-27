@@ -1,0 +1,61 @@
+{
+  "page": {
+    "title": "Actions rapides",
+    "subtitle": "Exécuter rapidement des prompts IA courants depuis le chat."
+  },
+  "loading": "Chargement...",
+  "quickActions": {
+    "defaults": {
+      "commit": {
+        "label": "Commit",
+        "prompt": "Commit tous les changements de code actuels"
+      },
+      "createPr": {
+        "label": "Créer PR",
+        "prompt": "Créer une Pull Request pour la branche actuelle"
+      }
+    }
+  },
+  "sections": {
+    "builtin": {
+      "title": "Actions intégrées"
+    },
+    "custom": {
+      "title": "Actions personnalisées",
+      "empty": "Aucune action personnalisée pour l'instant."
+    }
+  },
+  "edit": {
+    "button": "Éditer"
+  },
+  "delete": {
+    "button": "Supprimer",
+    "confirmTitle": "Supprimer l'action personnalisée ?",
+    "confirmMessage": "Ceci supprime « {{name }} » et son prompt. Cela ne peut pas être restauré.",
+    "confirmAction": "Supprimer l'action"
+  },
+  "add": {
+    "button": "Ajouter une action"
+  },
+  "modal": {
+    "addTitle": "Nouvelle action rapide",
+    "editTitle": "Éditer l'action rapide",
+    "labelField": "Nom de l'action",
+    "labelPlaceholder": "ex. Générer des tests unitaires",
+    "promptField": "Prompt",
+    "promptPlaceholder": "ex. Générer des tests unitaires pour les changements de code actuels",
+    "promptHint": "Ce prompt est envoyé à l'IA quand vous exécutez l'action.",
+    "cancel": "Annuler",
+    "saveEdit": "Sauvegarder",
+    "confirmAdd": "Ajouter",
+    "discardTitle": "Ignorer les modifications non sauvegardées ?",
+    "discardMessage": "Fermer maintenant ignorera le nom et le prompt de l'action que vous avez édités.",
+    "discardConfirm": "Ignorer les modifications"
+  },
+  "messages": {
+    "saved": "Sauvegardé",
+    "saveFailed": "Échec de la sauvegarde. Vos modifications sont toujours ouvertes pour que vous puissiez réessayer.",
+    "loadFailedLocked": "Les actions rapides n'ont pas pu être lues. Cette page est verrouillée pour éviter de remplacer la configuration existante par une liste vide.",
+    "retry": "Recharger"
+  }
+}

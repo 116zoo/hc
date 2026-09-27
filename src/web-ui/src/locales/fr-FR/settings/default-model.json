@@ -1,0 +1,65 @@
+{
+  "title": "Configuration du Modèle par Défaut",
+  "subtitle": "Configurer les modèles IA pour différents scénarios",
+  "loading": "Chargement...",
+  "sections": {
+    "defaults": "Modèles par Défaut",
+    "providers": "Services de Modèles",
+    "proxy": "Proxy Réseau"
+  },
+  "core": {
+    "title": "Configuration Principale",
+    "required": "Requis",
+    "optional": "Optionnel",
+    "primary": {
+      "label": "Modèle Principal",
+      "description": "Pour le raisonnement complexe, la génération de code, les tâches multi-étapes",
+      "placeholder": "Sélectionner le modèle principal"
+    },
+    "fast": {
+      "label": "Modèle Rapide",
+      "description": "Pour les Q&R simples, réponses rapides, scénarios d'économie de coûts",
+      "hint": "Quand non configuré, toutes les tâches utilisent le modèle principal",
+      "placeholder": "Sélectionner le modèle rapide",
+      "notSet": "Non défini (utiliser le modèle principal)"
+    }
+  },
+  "optional": {
+    "title": "Configuration du Modèle Multimodal",
+    "capabilities": {
+      "image_understanding": {
+        "label": "Compréhension d'Image",
+        "description": "Analyser les images et captures d'écran, supporter les conversations mixtes image-texte"
+      },
+      "image_generation": {
+        "label": "Génération d'Image",
+        "description": "Générer des images à partir de descriptions textuelles"
+      },
+      "speech_recognition": {
+        "label": "Reconnaissance Vocale",
+        "description": "Convertir la parole en texte, supporter la saisie vocale"
+      }
+    },
+    "notConfigured": "Non configuré",
+    "notSet": "Non défini",
+    "selectModel": "Sélectionner le modèle"
+  },
+  "selection": {
+    "primary": "Principal",
+    "fast": "Rapide",
+    "custom": "Personnalisé",
+    "selectModel": "Sélectionner le modèle",
+    "notConfigured": "Non configuré, utilisera le modèle principal"
+  },
+  "empty": {
+    "noModels": "Aucun modèle disponible. Veuillez d'abord ajouter des modèles dans l'onglet \"Liste des Modèles\"."
+  },
+  "messages": {
+    "loadFailed": "Échec du chargement de la configuration",
+    "updateFailed": "Échec de la mise à jour",
+    "modelUpdated": "{{slot}} défini sur {{name}}",
+    "modelCleared": "{{slot}} n'est plus défini",
+    "fastModelCleared": "Modèle rapide effacé ; le modèle principal sera utilisé",
+    "capabilityUpdated": "Modèle de capacité mis à jour"
+  }
+}

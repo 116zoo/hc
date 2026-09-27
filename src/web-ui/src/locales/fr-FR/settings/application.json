@@ -1,0 +1,273 @@
+{
+  "title": "Bases",
+  "subtitle": "Alimentation, journalisation, terminal, notifications et lancement à la connexion",
+  "common": {
+    "retry": "Réessayer"
+  },
+  "applicationGroups": {
+    "startupAndUpdates": {
+      "title": "Démarrage et mises à jour",
+      "description": "Gérer le lancement à la connexion, le comportement de veille pendant l'exécution et les vérifications de mises à jour."
+    },
+    "windowAndNotifications": {
+      "title": "Fenêtre et notifications",
+      "description": "Gérer ce que fait la fermeture de la fenêtre et quels événements doivent vous notifier."
+    }
+  },
+  "appearance": {
+    "title": "Apparence",
+    "hint": "Langue de l'interface et apparence",
+    "interfaceTitle": "Interface",
+    "interfaceHint": "Choisissez la langue utilisée dans Hacienda Work.",
+    "language": "Langue",
+    "appearances": "Apparences",
+    "builtIn": "Intégré",
+    "custom": "Personnalisé",
+    "export": "Exporter",
+    "delete": "Supprimer",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer l'apparence « {{name }} » ?",
+    "languageRowHint": "Choisissez un pack de langue comme langue d'interface active.",
+    "appearanceRowHint": "Choisissez l'apparence de l'interface.",
+    "systemAppearance": "Suivre le système",
+    "systemAppearanceDescription": "Utiliser une apparence claire ou sombre selon le réglage de votre OS. Se met à jour quand le système change.",
+    "presets": {
+      "openbitfun-dark": {
+        "name": "Sombre",
+        "description": "Apparence sombre par défaut"
+      },
+      "openbitfun-light": {
+        "name": "Clair",
+        "description": "Apparence claire - Surfaces blanches nettes, gris neutres doux, et actions bleu marine profond"
+      },
+      "openbitfun-monochrome": {
+        "name": "Noir et Blanc",
+        "description": "Apparence contraste noir et blanc - Chrome noir profond, espace de travail blanc brillant, et blocs neutres doux"
+      },
+      "openbitfun-midnight": {
+        "name": "Minuit",
+        "description": "Apparence gris minuit sombre - Professionnel et élégant, inspiré par JetBrains IDE"
+      },
+      "openbitfun-china-style": {
+        "name": "Charme d'Encre",
+        "description": "Apparence style chinois - Papier de riz et encre, bleu et vermillon, chaleureux et élégant"
+      },
+      "openbitfun-china-night": {
+        "name": "Nuit d'Encre",
+        "description": "Apparence chinoise sombre - Nuit d'encre étoilée, clair de lune comme l'eau, serein et élégant"
+      },
+      "openbitfun-cyber": {
+        "name": "Cyber",
+        "description": "Apparence style tech - Trou noir profond, néon futuriste, esthétique tech ultime"
+      },
+      "openbitfun-slate": {
+        "name": "Ardoise",
+        "description": "Apparence géométrique gris ardoise - Immersion profonde, esthétique grayscale haut contraste"
+      },
+      "openbitfun-tokyo-night": {
+        "name": "Tokyo Night",
+        "description": "Palette populaire Tokyo Night - Nuit indigo, reflets bleus et violets"
+      }
+    },
+    "fontSize": {
+      "title": "Taille de Police",
+      "hint": "Ajuster la taille du texte dans l'interface et les conversations. La taille du texte de l'éditeur est configurée séparément dans les paramètres de l'Éditeur.",
+      "uiSizeLabel": "Interface et chat",
+      "uiSizeHint": "Choisissez une échelle confortable pour la navigation, les panneaux, les paramètres et le contenu des conversations.",
+      "levels": {
+        "compact": "Compact",
+        "small": "Petit",
+        "default": "Défaut",
+        "medium": "Moyen",
+        "large": "Grand",
+        "custom": "Personnalisé"
+      },
+      "customPxLabel": "Taille personnalisée (12–20 px)",
+      "previewLabel": "Aperçu taille police",
+      "previewPlaceholder": "Tapez pour prévisualiser la taille sélectionnée"
+    }
+  },
+  "autoUpdate": {
+    "sections": {
+      "title": "Mises à jour",
+      "hint": "Vérifier les nouvelles versions après le démarrage"
+    },
+    "toggleLabel": "Vérification automatique des mises à jour",
+    "toggleDescription": "Vérifier automatiquement au démarrage et pendant l'exécution. Chaque version est annoncée une fois. Vous pouvez toujours vérifier manuellement dans le menu Plus en bas à gauche quand cela est désactivé.",
+    "messages": {
+      "loading": "Chargement...",
+      "loadFailed": "Échec de la lecture des paramètres de mise à jour",
+      "saveFailed": "Échec de la sauvegarde des paramètres de mise à jour",
+      "saved": "Préférence de mise à jour sauvegardée"
+    }
+  },
+  "launchAtLogin": {
+    "sections": {
+      "title": "Connexion",
+      "hint": "Démarrer Hacienda Work quand vous vous connectez à ce compte"
+    },
+    "toggleLabel": "Lancer à la connexion",
+    "toggleDescription": "Démarrer automatiquement Hacienda Work après votre connexion. Le comportement exact dépend de votre système d'exploitation.",
+    "messages": {
+      "loading": "Chargement...",
+      "loadFailed": "Échec de la lecture du paramètre de lancement à la connexion",
+      "saveFailed": "Échec de la mise à jour du paramètre de lancement à la connexion"
+    }
+  },
+  "preventSleep": {
+    "sections": {
+      "title": "Alimentation",
+      "hint": "Comportement de veille de l'ordinateur pendant l'exécution de Hacienda Work"
+    },
+    "toggleLabel": "Empêcher la veille",
+    "toggleDescription": "Garder l'ordinateur éveillé tant que Hacienda Work s'exécute, qu'une tâche soit active ou non. L'écran peut quand même s'éteindre, et la veille explicite ou la fermeture du couvercle d'un portable suit la politique du système.",
+    "messages": {
+      "loading": "Chargement…",
+      "loadFailed": "Échec de la lecture du paramètre d'empêchement de veille",
+      "saveFailed": "Échec de la mise à jour du paramètre d'empêchement de veille",
+      "saved": "Paramètre d'empêchement de veille sauvegardé"
+    }
+  },
+  "logging": {
+    "sections": {
+      "logging": "Journalisation",
+      "loggingHint": "Niveau de log et répertoire pour cette session",
+      "level": "Niveau de Log",
+      "path": "Chemin du Log de Démarrage"
+    },
+    "level": {
+      "description": "Contrôle la verbosité des logs en temps réel. Les changements s'appliquent immédiatement."
+    },
+    "sensitiveDiagnostics": {
+      "label": "Inclure les données de diagnostic sensibles",
+      "description": "Désactivé par défaut. Quand activé, les logs locaux peuvent inclure les prompts, les charges utiles de requêtes et réponses des modèles, les arguments d'outils, les chemins de fichiers, et les charges utiles d'événements webview pour le dépannage. Hacienda Work ne téléverse pas ces fichiers de logs automatiquement."
+    },
+    "path": {
+      "description": "Répertoire où les fichiers de log pour cette exécution sont écrits."
+    },
+    "diagnostics": {
+      "label": "Bundle de Diagnostic",
+      "description": "Exporter les logs récents locaux, les rapports de crash, et les métadonnées d'exécution comme un fichier zip. Hacienda Work ne le téléverse pas automatiquement.",
+      "confirmTitle": "Exporter le bundle de diagnostic ?",
+      "confirmSensitive": "Le bundle inclura des données de diagnostic sensibles et peut contenir des prompts, des requêtes et réponses de modèles, des arguments d'outils, et des chemins de fichiers. Sauvegardez-le seulement dans un emplacement de confiance et examinez-le avant de le partager.",
+      "confirmStandard": "Le bundle peut contenir des chemins locaux, des détails d'exécution, et des informations d'erreur. Sauvegardez-le seulement dans un emplacement de confiance et examinez-le avant de le partager.",
+      "confirmAction": "Exporter"
+    },
+    "previousCrash": {
+      "title": "La session précédente s'est terminée de façon inattendue",
+      "description": "Les logs de la dernière session sont disponibles à {{path}}."
+    },
+    "previousUncleanShutdown": {
+      "title": "La session précédente n'a pas enregistré d'arrêt normal",
+      "description": "Les logs de la dernière session sont disponibles à {{path}}. Cela peut arriver après un redémarrage, un arrêt système, ou un rechargement en développement."
+    },
+    "startupRecovery": {
+      "title": "La session précédente s'est terminée de façon inattendue",
+      "message": "Hacienda Work a trouvé un rapport de crash de la session précédente. Vous pouvez exporter le diagnostic si vous voulez signaler le problème."
+    },
+    "configRecovery": {
+      "title": "Configuration récupérée",
+      "message": "Hacienda Work a réparé ou isolé {{count }} problème(s) de configuration pour que l'app puisse démarrer. Examinez vos paramètres de modèle avant de continuer."
+    },
+    "levels": {
+      "trace": "Trace",
+      "debug": "Debug",
+      "info": "Info",
+      "warn": "Warn",
+      "error": "Error",
+      "off": "Off"
+    },
+    "actions": {
+      "refreshTooltip": "Actualiser le statut d'exécution",
+      "openFolder": "Ouvrir le Dossier",
+      "openFolderTooltip": "Ouvrir le dossier de logs dans l'explorateur de fichiers",
+      "exportDiagnostics": "Exporter les Diagnostics",
+      "openLoggingSettings": "Ouvrir les Paramètres de Journalisation"
+    },
+    "messages": {
+      "loading": "Chargement...",
+      "loadFailed": "Échec du chargement de la configuration de journalisation",
+      "saveFailed": "Échec de la sauvegarde du niveau de journalisation",
+      "levelUpdated": "Niveau de journalisation mis à jour",
+      "sensitiveDiagnosticsUpdated": "Préférence de journalisation de diagnostic sensible mise à jour",
+      "refreshed": "Statut d'exécution actualisé",
+      "openedFolder": "Dossier de logs ouvert",
+      "openFailed": "Échec de l'ouverture du dossier de logs",
+      "pathUnavailable": "Chemin du dossier de logs indisponible",
+      "diagnosticsExported": "Bundle de diagnostic exporté",
+      "diagnosticsExportFailed": "Échec de l'exportation du bundle de diagnostic"
+    }
+  },
+  "terminal": {
+    "sections": {
+      "terminal": "Terminal",
+      "terminalHint": "Shell par défaut",
+      "defaultTerminal": "Terminal par Défaut"
+    },
+    "controls": {
+      "refreshTooltip": "Actualiser les terminaux disponibles",
+      "autoDetect": "Détection Auto (Recommandé)",
+      "description": "Type de shell par défaut pour les nouveaux terminaux et pour l'exécution des commandes de l'agent dans les espaces de travail locaux.",
+      "cmdFallbackMessage": "Les commandes de l'agent utilisent en réalité PowerShell.",
+      "placeholder": "Sélectionner le terminal par défaut",
+      "noShells": "Aucun terminal disponible détecté"
+    },
+    "panelPosition": {
+      "label": "Ouvrir le terminal dans",
+      "description": "Où les nouveaux onglets de terminal s'ouvrent dans une session",
+      "placeholder": "Sélectionner l'emplacement du terminal",
+      "options": {
+        "right": "Panneau droit",
+        "bottom": "Panneau bas"
+      }
+    },
+    "messages": {
+      "loading": "Chargement...",
+      "loadFailed": "Échec du chargement de la configuration",
+      "updated": "Terminal par défaut mis à jour",
+      "panelPositionUpdated": "Emplacement du panneau terminal mis à jour",
+      "saveFailed": "Échec de la sauvegarde de la configuration",
+      "refreshed": "Liste des terminaux disponibles actualisée"
+    }
+  },
+  "windowBehavior": {
+    "sections": {
+      "title": "Comportement de la Fenêtre",
+      "hint": "Ce qui se passe quand le bouton de fermeture est cliqué"
+    },
+    "closeButtonLabel": "Action du bouton de fermeture",
+    "closeButtonDescription": "Action par défaut quand le bouton de fermeture de la fenêtre (×) est cliqué.",
+    "options": {
+      "quit": "Quitter",
+      "minimizeToTray": "Minimiser dans la Zone de Notification",
+      "ask": "Demander à chaque fois"
+    },
+    "messages": {
+      "loading": "Chargement...",
+      "loadFailed": "Échec de la lecture des paramètres de comportement de fenêtre",
+      "saveFailed": "Échec de la sauvegarde des paramètres de comportement de fenêtre",
+      "saved": "Paramètres de comportement de fenêtre sauvegardés"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "hint": "Préférences de notifications toast",
+    "dialogCompletion": {
+      "label": "Notification de fin de tâche",
+      "description": "Afficher une notification toast quand une tâche IA se termine pendant que la fenêtre n'est pas au premier plan"
+    },
+    "permissionRequest": {
+      "label": "Notification de demande de permission",
+      "description": "Afficher une notification toast quand une action nécessite votre approbation pendant que la fenêtre n'est pas au premier plan"
+    },
+    "startupTips": {
+      "label": "Afficher les astuces au démarrage",
+      "description": "Afficher une carte d'astuce d'utilisation à chaque démarrage de l'app pour aider à découvrir les fonctionnalités"
+    },
+    "messages": {
+      "loading": "Chargement…",
+      "loadFailed": "Échec de la lecture des paramètres de notification",
+      "saveSuccess": "Paramètres de notification sauvegardés",
+      "saveFailed": "Échec de la sauvegarde des paramètres de notification"
+    }
+  }
+}
