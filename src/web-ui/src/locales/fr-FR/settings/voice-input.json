@@ -1,0 +1,264 @@
+{
+  "title": "Saisie Vocale",
+  "subtitle": "La transcription locale reste sur cet appareil et n'envoie pas l'audio ; les appels vocaux en temps réel utilisent une configuration cloud séparée.",
+  "loading": "Chargement des paramètres de saisie vocale...",
+  "sections": {
+    "basic": "Saisie vocale",
+    "basicDescription": "La reconnaissance s'exécute sur cet appareil. Les enregistrements et l'audio de transcription ne sont pas envoyés."
+  },
+  "languages": {
+    "auto": "Auto",
+    "zh": "中文",
+    "yue": "粤语",
+    "en": "English",
+    "ja": "日本語",
+    "ko": "한국어",
+    "ar": "العربية",
+    "de": "Deutsch",
+    "fr": "Français",
+    "es": "Español",
+    "pt": "Português",
+    "id": "Bahasa Indonesia",
+    "it": "Italiano",
+    "ru": "Русский",
+    "th": "ไทย",
+    "vi": "Tiếng Việt",
+    "tr": "Türkçe",
+    "hi": "हिन्दी",
+    "ms": "Bahasa Melayu",
+    "nl": "Nederlands",
+    "sv": "Svenska",
+    "da": "Dansk",
+    "fi": "Suomi",
+    "pl": "Polski",
+    "cs": "Čeština",
+    "fil": "Filipino",
+    "fa": "فارسی",
+    "el": "Ελληνικά",
+    "hu": "Magyar",
+    "mk": "Македонски",
+    "ro": "Română"
+  },
+  "composer": {
+    "enabled": {
+      "label": "Afficher le bouton voix dans la saisie",
+      "description": "Utiliser le microphone pour entrer du texte dans la saisie de conversation."
+    },
+    "language": {
+      "label": "Langue de reconnaissance",
+      "description": "Automatique par défaut ; choisissez une langue seulement quand la détection est imprécise."
+    }
+  },
+  "voiceCall": {
+    "title": "Appel vocal en temps réel",
+    "description": "Quand activé, l'audio du microphone est envoyé depuis ce contrôleur à Volcengine pour un traitement en temps réel. Ceci est séparé de la transcription locale.",
+    "loading": "Chargement des paramètres de voix en temps réel…",
+    "enabled": {
+      "label": "Activer l'assistant vocal client",
+      "description": "Parler au modèle vocal end-to-end temps réel de Volcengine depuis le lanceur client en bas à droite, lui laisser comprendre l'état de l'espace de travail, et démarrer des tâches Hacienda Work."
+    },
+    "apiKey": {
+      "label": "Clé API Volcengine",
+      "description": "Utilisée seulement par ce contrôleur pour la connexion vocale ; elle n'est pas envoyée à un espace de travail distant ou appareil pair avec une tâche.",
+      "placeholder": "Entrez la clé API de voix end-to-end temps réel"
+    },
+    "voice": {
+      "label": "ID de voix",
+      "description": "Utilise la voix féminine Jupiter de la démo officielle par défaut."
+    },
+    "status": {
+      "label": "Configuration de connexion",
+      "description": "La sauvegarde stocke cette configuration sans vérifier la clé API ou la connexion. Puis ouvrez Hello en bas à droite du client et basculez du chat textuel à la voix temps réel."
+    },
+    "save": "Sauvegarder la voix temps réel",
+    "messages": {
+      "loadFailed": "Échec du chargement des paramètres de voix temps réel du contrôleur",
+      "saved": "Paramètres de voix temps réel sauvegardés",
+      "saveFailed": "Échec de la sauvegarde des paramètres de voix temps réel",
+      "required": "Entrez une clé API et une voix avant d'activer la voix temps réel.",
+      "unsaved": "Vous avez des modifications de voix temps réel non sauvegardées."
+    },
+    "call": {
+      "title": "Appel en Direct",
+      "close": "Fermer la fenêtre d'appel",
+      "button": "Démarrer un appel vocal temps réel",
+      "launcherCompactLabel": "Salut",
+      "launcherLabel": "Bonjour",
+      "switchToVoice": "Basculer vers la voix temps réel",
+      "switchToChat": "Retour au chat textuel",
+      "identity": {
+        "start": "Voix en direct",
+        "ongoing": "Appel en cours",
+        "connecting": "Connexion",
+        "retry": "Reconnecter"
+      },
+      "empty": "Commencez simplement à parler. Quand vous demandez du travail, je démarrerai une nouvelle session Hacienda Work.",
+      "mute": "Couper le microphone",
+      "unmute": "Réactiver le microphone",
+      "hangUp": "Raccrocher",
+      "settings": "Paramètres de voix temps réel",
+      "configureFirst": "Configurez d'abord une clé API de voix temps réel Volcengine.",
+      "startFailed": "Échec du démarrage de l'appel vocal temps réel",
+      "taskComplete": "La tâche Hacienda Work est terminée. Je prépare le résultat.",
+      "taskFailed": "La tâche Hacienda Work a échoué. Je prépare une explication.",
+      "taskStopping": "Arrêt de la tâche Hacienda Work en cours…",
+      "taskStopped": "La tâche Hacienda Work en cours s'est arrêtée.",
+      "taskAlreadyComplete": "La tâche s'est déjà terminée, il n'y a donc rien à arrêter.",
+      "noActiveTask": "Il n'y a pas de tâche Hacienda Work en cours pour le moment.",
+      "taskOutcome": {
+        "completed": "La tâche est terminée. {{conclusion}}",
+        "completedWithoutConclusion": "La tâche est terminée, mais n'a retourné aucune conclusion écrite.",
+        "failed": "La tâche est incomplète. Raison : {{reason}}",
+        "failedWithoutReason": "La tâche est incomplète, et aucune raison spécifique n'a été retournée.",
+        "cancelled": "La tâche est incomplète car elle a été arrêtée comme demandé."
+      },
+      "status": {
+        "connecting": "Connexion à Volcengine…",
+        "connected": "Connecté, création de la conversation…",
+        "listening": "Écoute",
+        "thinking": "Réflexion",
+        "readingClientContext": "Lecture de l'état client…",
+        "switchingWorkspace": "Changement d'espace de travail…",
+        "speaking": "Parle",
+        "ending": "Fin de l'appel…",
+        "error": "La connexion vocale temps réel a échoué",
+        "disconnected": "La connexion vocale temps réel a été interrompue",
+        "microphoneDisconnected": "Le microphone a été déconnecté",
+        "retryingAudio": "Nouvelle tentative de lecture vocale…",
+        "audioPlaybackFailed": "Échec de la lecture vocale. Vérifiez la sortie audio système."
+      },
+      "taskPhases": {
+        "starting": "Démarrage de la tâche.",
+        "working": "Hacienda Work travaille encore sur la tâche. Je continuerai à la suivre.",
+        "using_tools": "Hacienda Work utilise des outils pour faire avancer la tâche.",
+        "waiting_approval": "La tâche attend votre approbation dans Hacienda Work.",
+        "needs_input": "Hacienda Work a besoin de plus d'informations dans la session de tâche.",
+        "finishing": "Le travail principal est fait et Hacienda Work prépare le résultat final.",
+        "stopping": "Arrêt de la tâche Hacienda Work en cours."
+      },
+      "historySaveFailed": "L'historique vocal n'a pas pu être sauvegardé. La transcription est conservée pour réessai."
+    }
+  },
+  "diagnostics": {
+    "microphone": {
+      "label": "Périphérique d'entrée",
+      "description": "Utilise le défaut système sauf si vous choisissez un appareil pour cet ordinateur.",
+      "systemDefault": "Défaut système",
+      "unnamed": "Microphone {{index}}"
+    },
+    "recognition": {
+      "label": "Tester la saisie vocale",
+      "description": "Dites une courte phrase pour vérifier le microphone et la reconnaissance locale ensemble.",
+      "start": "Démarrer le test",
+      "finish": "Arrêter l'enregistrement",
+      "preparing": "Préparation",
+      "transcribing": "Reconnaissance",
+      "timing": "L'inférence a pris {{duration}} ms"
+    },
+    "messages": {
+      "deviceDisconnected": "Le microphone sélectionné a été déconnecté.",
+      "recognitionFailed": "Le test de saisie vocale a échoué.",
+      "noSpeech": "Aucune parole n'a été reconnue."
+    }
+  },
+  "status": {
+    "label": "Statut",
+    "manageModels": "Gérer les modèles",
+    "unknownModel": "Modèle de parole local",
+    "useLocal": "Basculer vers la reconnaissance locale",
+    "downloadModel": "Télécharger le modèle",
+    "viewDetails": "Voir les détails",
+    "repair": "Examiner et réparer",
+    "ready": {
+      "badge": "Prêt",
+      "title": "La saisie vocale est prête",
+      "description": "{{model}} traite la parole sur cet appareil. L'audio n'est pas envoyé.",
+      "summary": "Modèle téléchargé : <model>{{model}}</model>"
+    },
+    "setup": {
+      "badge": "Non téléchargé",
+      "title": "Modèle vocal non téléchargé",
+      "description": "Téléchargez-le pour utiliser la saisie vocale. Il utilise environ {{size}}.",
+      "summary": "Modèle vocal <warning>non téléchargé</warning> — téléchargez-le pour utiliser la saisie vocale."
+    },
+    "downloading": {
+      "badge": "Téléchargement",
+      "title": "Téléchargement du modèle vocal",
+      "description": "La saisie vocale sera disponible quand {{model}} finira de télécharger."
+    },
+    "verifying": {
+      "badge": "Vérification",
+      "title": "Vérification du modèle vocal",
+      "description": "Vérification que {{model}} est complet et prêt à l'emploi."
+    },
+    "deleting": {
+      "badge": "Suppression",
+      "title": "Suppression du modèle vocal",
+      "description": "Suppression de {{model}} de cet appareil."
+    },
+    "unavailable": {
+      "badge": "Indisponible",
+      "title": "La saisie vocale cloud est indisponible",
+      "description": "Votre configuration cloud est préservée. Basculez vers la reconnaissance locale pour utiliser la saisie vocale."
+    },
+    "error": {
+      "badge": "Nécessite une réparation",
+      "title": "Modèle vocal indisponible",
+      "description": "{{model}} ne peut pas être utilisé. Examinez-le et téléchargez-le à nouveau."
+    }
+  },
+  "localModels": {
+    "title": "Modèles vocaux locaux",
+    "description": "Choisir le modèle que cet appareil utilise pour la reconnaissance vocale.",
+    "loading": "Chargement des modèles vocaux locaux..."
+  },
+  "states": {
+    "not_installed": "Non installé",
+    "downloading": "Téléchargement",
+    "installed": "Installé",
+    "verifying": "Vérification",
+    "corrupt": "Nécessite une réparation",
+    "deleting": "Suppression",
+    "error": "Erreur"
+  },
+  "model": {
+    "refresh": "Actualiser",
+    "progress": "{{percent}}% · {{downloaded}} / {{total}}",
+    "progressCompact": "{{percent}}%",
+    "download": "Télécharger",
+    "repair": "Télécharger à nouveau",
+    "select": "Utiliser",
+    "selected": "En cours d'utilisation",
+    "cancel": "Annuler",
+    "openFolder": "Ouvrir l'emplacement",
+    "verify": "Vérifier",
+    "delete": "Supprimer",
+    "more": "Plus d'actions sur le modèle",
+    "keep": "Conserver",
+    "deleteConfirmTitle": "Supprimer le modèle de parole local ?",
+    "deleteConfirmMessage": "{{name }} sera supprimé du stockage local.",
+    "empty": "Aucun modèle de parole n'est disponible.",
+    "resourceHints": {
+      "sensevoice": "Léger, recommandé",
+      "qwen3": "Amélioré, multilingue",
+      "default": "Sur l'appareil"
+    }
+  },
+  "messages": {
+    "unsupported": "La saisie vocale est disponible dans l'app de bureau Hacienda Work.",
+    "loadFailed": "Échec du chargement des paramètres de saisie vocale",
+    "modelsLoadFailed": "Échec du chargement du statut du modèle de parole local.",
+    "retry": "Réessayer",
+    "saveFailed": "Échec de la sauvegarde des paramètres de saisie vocale",
+    "downloadSuccess": "Modèle de parole téléchargé",
+    "localActivated": "Basculé vers la saisie vocale locale",
+    "downloadFailed": "Échec du téléchargement du modèle de parole",
+    "downloadCancelled": "Téléchargement du modèle de parole annulé",
+    "cancelFailed": "Échec de l'annulation du téléchargement",
+    "openFolderFailed": "Échec de l'ouverture de l'emplacement du modèle de parole",
+    "verifySuccess": "Modèle de parole vérifié",
+    "verifyFailed": "Échec de la vérification du modèle de parole",
+    "deleteSuccess": "Modèle de parole supprimé",
+    "deleteFailed": "Échec de la suppression du modèle de parole"
+  }
+}
