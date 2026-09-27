@@ -1,0 +1,599 @@
+{
+  "navigation": {
+    "search": {
+      "placeholder": "Rechercher dans les paramètres…",
+      "empty": "Aucun paramètre correspondant"
+    },
+    "categories": {
+      "application": "App & Interface",
+      "ai": "IA & Modèles",
+      "workspace": "Sessions & Espace de travail",
+      "tools": "Outils & Intégrations",
+      "data": "Données & Maintenance"
+    },
+    "pages": {
+      "general": {
+        "label": "Général",
+        "description": "Démarrage, mises à jour, comportement de la fenêtre, veille et notifications."
+      },
+      "appearance": {
+        "label": "Apparence",
+        "description": "Langue, thèmes, effets, packs d'apparence, et typographie de l'interface."
+      },
+      "pet": {
+        "label": "Mascotte",
+        "description": "Surface d'affichage, packs de personnages, import et aperçu."
+      },
+      "voice": {
+        "label": "Voix",
+        "description": "Saisie vocale, modèles de parole locaux, et appels vocaux en temps réel."
+      },
+      "shortcuts": {
+        "label": "Raccourcis Clavier",
+        "description": "Parcourir, personnaliser et réinitialiser les raccourcis clavier."
+      },
+      "terminal": {
+        "label": "Terminal",
+        "description": "Shell par défaut."
+      },
+      "editor": {
+        "label": "Éditeur",
+        "description": "Apparence de l'éditeur de code, indentation, affichage et formatage."
+      },
+      "models": {
+        "label": "Modèles",
+        "description": "Modèles par défaut, fournisseurs, abonnements, catalogue et proxy réseau."
+      },
+      "memory": {
+        "label": "Mémoire",
+        "description": "Génération, utilisation, extraction et consolidation de la mémoire."
+      },
+      "sessionWorkspace": {
+        "label": "Session & Espace de travail",
+        "description": "Harnais par défaut, titres de session, et recherche dans l'espace de travail actuel."
+      },
+      "worktrees": {
+        "label": "Worktrees",
+        "description": "Isolation Git worktree et défauts pour sessions parallèles."
+      },
+      "execution": {
+        "label": "Exécution & Permissions",
+        "description": "Permissions d'outils, exécution, revue et paramètres de récupération."
+      },
+      "browserDesktopControl": {
+        "label": "Contrôle Navigateur & Bureau",
+        "description": "Connexions navigateur, interaction bureau, et permissions système requises."
+      },
+      "automation": {
+        "label": "Automatisation",
+        "description": "Actions rapides et hooks de cycle de vie d'Agent."
+      },
+      "webSearch": {
+        "label": "Recherche Web",
+        "description": "Choisir le fournisseur WebSearch, l'endpoint et les identifiants locaux à l'appareil."
+      },
+      "mcp": {
+        "label": "MCP",
+        "description": "Gérer les serveurs MCP, connexions et outils exposés."
+      },
+      "acp": {
+        "label": "Agents ACP",
+        "description": "Configurer les agents externes qui se connectent via le protocole Agent Client Protocol."
+      },
+      "usage": {
+        "label": "Statistiques d'Appels",
+        "description": "Requêtes modèles, utilisation des tokens, et taux de cache."
+      },
+      "archivedSessions": {
+        "label": "Sessions Archivées",
+        "description": "Consulter, restaurer ou supprimer définitivement les sessions archivées."
+      },
+      "diagnostics": {
+        "label": "Logs & Diagnostics",
+        "description": "Niveaux de log, informations d'exécution, et dépannage."
+      }
+    },
+    "views": {
+      "common": "Commun",
+      "advanced": "Avancé",
+      "local": "Local",
+      "ssh": "SSH",
+      "json": "JSON Avancé",
+      "quick-actions": "Actions Rapides",
+      "hooks": "Hooks"
+    }
+  },
+  "changeGuard": {
+    "title": "Sauvegarder les paramètres non finis ?",
+    "message": "Des paramètres non sauvegardés nécessitent votre attention avant de partir.",
+    "message_one": "{{count}} élément de paramètre non sauvegardé nécessite votre attention avant de partir. S'il échoue, vous resterez ici.",
+    "message_other": "{{count}} éléments de paramètres non sauvegardés nécessitent votre attention avant de partir. Si l'un échoue, vous resterez ici et les sauvegardes terminées ne s'exécuteront pas à nouveau.",
+    "saveFailed": "Certains paramètres n'ont pas pu être sauvegardés. Examinez l'erreur sur cette page et réessayez, ou ignorez ces changements avant de partir.",
+    "saveAndLeave": "Sauvegarder et Partir",
+    "discardAndLeave": "Ignorer et Partir",
+    "keepEditing": "Continuer l'Édition",
+    "unsavedPage": "Cette page a des modifications non sauvegardées"
+  },
+  "changeStatus": {
+    "unsaved": "Non sauvegardé",
+    "saving": "Sauvegarde…",
+    "saved": "Sauvegardé",
+    "error": "Échec de la sauvegarde"
+  },
+  "changeActions": {
+    "save": "Sauvegarder les Modifications",
+    "discard": "Ignorer les Modifications"
+  },
+  "general": {
+    "title": "Général",
+    "language": {
+      "title": "Langue",
+      "description": "Sélectionner la langue de l'interface",
+      "auto": "Détection Auto"
+    },
+    "appearance": {
+      "title": "Apparence",
+      "description": "Sélectionner l'apparence de l'interface",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Suivre le Système"
+    },
+    "startup": {
+      "title": "Démarrage",
+      "restoreSession": "Restaurer la Session Précédente",
+      "showWelcome": "Afficher la Page d'Accueil"
+    }
+  },
+  "editor": {
+    "title": "Éditeur",
+    "font": {
+      "title": "Police",
+      "family": "Famille de Police",
+      "size": "Taille de Police",
+      "lineHeight": "Hauteur de Ligne"
+    },
+    "display": {
+      "title": "Affichage",
+      "wordWrap": "Retour à la Ligne",
+      "minimap": "Afficher Minimap",
+      "lineNumbers": "Afficher les Numéros de Ligne",
+      "breadcrumbs": "Afficher le Fil d'Ariane",
+      "whitespace": "Afficher les Espaces Blancs"
+    },
+    "behavior": {
+      "title": "Comportement",
+      "autoSave": "Sauvegarde Auto",
+      "autoSaveDelay": "Délai Sauvegarde Auto",
+      "formatOnSave": "Formater à la Sauvegarde",
+      "formatOnPaste": "Formater au Collage"
+    },
+    "indentation": {
+      "title": "Indentation",
+      "type": "Type d'Indentation",
+      "spaces": "Espaces",
+      "tabs": "Tabulations",
+      "size": "Taille d'Indentation"
+    }
+  },
+  "ai": {
+    "title": "Paramètres IA",
+    "model": {
+      "title": "Modèle",
+      "select": "Sélectionner le Modèle",
+      "provider": "Fournisseur",
+      "apiKey": "Clé API",
+      "baseUrl": "URL de Base",
+      "add": "Ajouter un Modèle",
+      "edit": "Éditer le Modèle",
+      "delete": "Supprimer le Modèle"
+    },
+    "behavior": {
+      "title": "Comportement",
+      "streaming": "Streaming",
+      "temperature": "Température",
+      "maxTokens": "Max Tokens",
+      "contextLength": "Longueur de Contexte"
+    },
+    "agent": {
+      "title": "Agent",
+      "defaultAgent": "Agent par Défaut",
+      "customAgents": "Agents Personnalisés"
+    }
+  },
+  "terminal": {
+    "title": "Terminal",
+    "shell": {
+      "title": "Shell",
+      "default": "Shell par Défaut",
+      "profiles": "Profils Shell"
+    },
+    "display": {
+      "title": "Affichage",
+      "fontSize": "Taille de Police",
+      "fontFamily": "Famille de Police",
+      "cursorStyle": "Style du Curseur",
+      "scrollback": "Lignes de Défilement"
+    }
+  },
+  "workspace": {
+    "files": {
+      "title": "Fichiers",
+      "exclude": "Exclure les Fichiers",
+      "watcherExclude": "Exclure du Surveillant",
+      "associations": "Associations de Fichiers"
+    },
+    "search": {
+      "title": "Recherche",
+      "exclude": "Exclure de la Recherche",
+      "useIgnoreFiles": "Utiliser les Fichiers Ignore"
+    }
+  },
+  "keyboard": {
+    "title": "Raccourcis Clavier",
+    "description": "Visualisez et éditez les liaisons ci-dessous.",
+    "search": "Rechercher raccourcis ou liaisons de touches…",
+    "apply": "Appliquer",
+    "saving": "Sauvegarde…",
+    "reset": "Réinitialiser aux Défauts",
+    "resetConfirmTitle": "Réinitialiser tous les raccourcis clavier ?",
+    "resetConfirmMessage": "Toutes les liaisons de touches personnalisées seront supprimées et les défauts restaurés.",
+    "clickToRecord": "Cliquer pour enregistrer une nouvelle liaison de touche",
+    "recording": "Appuyez sur la nouvelle combinaison de touches…",
+    "revertChange": "Annuler ce changement",
+    "noResults": "Aucun raccourci correspondant trouvé",
+    "conflict": "Conflit",
+    "conflictBlocking": "Des raccourcis sont en conflit. Enregistrez une liaison différente pour l'une des actions en conflit, ou annulez le changement avant d'appliquer.",
+    "saveError": "Échec de la sauvegarde, veuillez réessayer",
+    "resetError": "Échec de la réinitialisation, veuillez réessayer",
+    "mergedNonUniform": "Liaisons mixtes — enregistrer pour réinitialiser comme un ensemble",
+    "keyLabels": {
+      "space": "Espace",
+      "enter": "Entrée",
+      "escape": "Échap",
+      "tab": "Tab",
+      "delete": "Suppr",
+      "backspace": "Ret. Arr.",
+      "arrowUp": "Flèche Haut",
+      "arrowDown": "Flèche Bas",
+      "arrowLeft": "Flèche Gauche",
+      "arrowRight": "Flèche Droite"
+    },
+    "scopes": {
+      "app": "Global",
+      "canvas": "Canevas Éditeur",
+      "editor": "Éditeur de code (focus texte)",
+      "chat": "Session Agent",
+      "terminal": "Terminal",
+      "filetree": "Arborescence Fichiers",
+      "git": "Git"
+    },
+    "shortcuts": {
+      "panel": {
+        "toggleLeft": "Étendre ou réduire la navigation gauche",
+        "toggleBoth": "Réduire Tous les Panneaux"
+      },
+      "nav": {
+        "toggleSearch": "Ouvrir la recherche de navigation"
+      },
+      "scene": {
+        "focusMerged": "Changer de scène",
+        "focusMergedHint": "Enregistrez Alt (ou vos modificateurs choisis) + n'importe quel chiffre 1–3 une fois ; les touches 1–3 correspondent aux scènes de gauche à droite.",
+        "openSession": "Ouvrir la Session Agent",
+        "openGit": "Ouvrir Git",
+        "openSettings": "Ouvrir les Paramètres",
+        "openTerminal": "Ouvrir le Terminal"
+      },
+      "canvas": {
+        "missionControl": "Contrôle de Mission",
+        "splitHorizontal": "Division Horizontale",
+        "splitVertical": "Division Verticale",
+        "anchorZone": "Basculer la Zone d'Ancre",
+        "maximize": "Maximiser l'Éditeur"
+      },
+      "editor": {
+        "findInFile": "Rechercher dans le fichier (Monaco)"
+      },
+      "tab": {
+        "close": "Fermer l'Onglet Actuel",
+        "reopenClosed": "Rouvrir l'Onglet Fermé",
+        "switchMerged": "Changer d'onglet d'éditeur",
+        "switchMergedHint": "Enregistrez modificateur + n'importe quel chiffre 1–9 une fois ; les mêmes modificateurs s'appliquent à tous les emplacements d'onglet."
+      },
+      "chat": {
+        "btwFill": "Démarrer une session de fil latéral",
+        "stopGeneration": "Arrêter la Génération",
+        "activateInput": "Activer la Saisie",
+        "newSession": "Nouvelle Session",
+        "insertNewline": "Insérer un Saut de Ligne dans la Saisie Chat"
+      },
+      "filetree": {
+        "rename": "Renommer",
+        "delete": "Supprimer",
+        "refresh": "Actualiser",
+        "newFile": "Nouveau Fichier",
+        "newFolder": "Nouveau Dossier",
+        "collapseAll": "Tout Réduire",
+        "paste": "Coller"
+      },
+      "git": {
+        "commit": "Commit",
+        "refresh": "Actualiser le Statut",
+        "stageAll": "Indexer Toutes les Modifications",
+        "unstageAll": "Désindexer Toutes les Modifications",
+        "push": "Push",
+        "pull": "Pull"
+      }
+    }
+  },
+  "advanced": {
+    "title": "Avancé",
+    "experimental": {
+      "title": "Fonctionnalités Expérimentales",
+      "description": "Ces fonctionnalités peuvent être instables"
+    },
+    "data": {
+      "title": "Données",
+      "export": "Exporter les Paramètres",
+      "import": "Importer les Paramètres",
+      "reset": "Réinitialiser Tous les Paramètres",
+      "resetConfirm": "Êtes-vous sûr de vouloir réinitialiser tous les paramètres ? Cette action est irréversible."
+    }
+  },
+  "about": {
+    "title": "À Propos",
+    "version": "Version",
+    "checkUpdate": "Vérifier les Mises à Jour",
+    "changelog": "Journal des Modifications",
+    "license": "Licence",
+    "openSource": "Licences Open Source",
+    "feedback": "Commentaires",
+    "reportIssue": "Signaler un Problème",
+    "documentation": "Documentation"
+  },
+  "aiModel": {
+    "title": "Configuration du Modèle",
+    "subtitle": "Configurer les modèles IA et les clés API",
+    "addModel": "Ajouter un Modèle",
+    "editModel": "Éditer la Configuration du Modèle",
+    "newModel": "Nouvelle Configuration de Modèle",
+    "editSubtitle": "Paramètres de Base du Modèle",
+    "deleteModel": "Supprimer le Modèle",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette configuration ?",
+    "modelName": "Nom du Modèle",
+    "modelId": "ID du Modèle",
+    "provider": "Format de Requête",
+    "providerPlaceholder": "Sélectionner le format de requête",
+    "apiKey": "Clé API",
+    "apiKeyPlaceholder": "Entrez votre Clé API",
+    "baseUrl": "URL de l'API",
+    "baseUrlPlaceholder": "Entrez l'URL de l'API (optionnel)",
+    "configName": "Nom de la Configuration",
+    "configNamePlaceholder": "Donnez un nom à cette configuration",
+    "maxTokens": "Max Tokens de Sortie",
+    "maxTokensHint": "Tokens maximum pour la sortie du modèle par requête (affecte la longueur de la réponse)",
+    "contextWindow": "Taille de la Fenêtre de Contexte",
+    "contextWindowHint": "Taille maximale de la fenêtre de contexte supportée par le modèle (pour calculer le pourcentage d'utilisation des tokens)",
+    "temperature": "Température",
+    "streaming": "Streaming",
+    "enabled": "Activé",
+    "test": "Tester la Connexion",
+    "testing": "Test en cours...",
+    "testSuccess": "Connexion réussie",
+    "testFailed": "Connexion échouée",
+    "noModels": "Aucune configuration de modèle",
+    "noModelsHint": "Cliquez sur le bouton ci-dessus pour ajouter votre premier modèle IA",
+    "createFirst": "Créer la Première Configuration",
+    "noMatchingModels": "Aucun modèle correspondant trouvé",
+    "searchPlaceholder": "Rechercher nom de modèle, fournisseur...",
+    "newConfig": "Nouvelle Configuration",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "edit": "Éditer",
+    "delete": "Supprimer",
+    "description": "Description",
+    "descriptionPlaceholder": "Description de la configuration (optionnel)",
+    "tabs": {
+      "api": "Configuration API",
+      "proxy": "Configuration Proxy"
+    },
+    "categories": {
+      "all": "Tout",
+      "text": "Texte",
+      "multimodal": "Image",
+      "other": "Utilitaire"
+    },
+    "category": {
+      "label": "Catégorie de Modèle",
+      "placeholder": "Sélectionner la catégorie de modèle",
+      "general_chat": "Génération de Texte",
+      "multimodal": "Compréhension d'Image",
+      "image_generation": "Génération d'Image",
+      "speech_recognition": "Reconnaissance Vocale"
+    },
+    "categoryHints": {
+      "general_chat": "Génération de Texte : Générer des réponses textuelles, du code, etc. pour la plupart des scénarios de conversation",
+      "multimodal": "Compréhension d'Image : Comprendre le contenu d'image et avoir des conversations mixtes texte-image",
+      "image_generation": "Génération d'Image : Générer des images à partir de descriptions textuelles",
+      "speech_recognition": "Reconnaissance Vocale : Convertir la parole en texte (ex. GLM-ASR)"
+    },
+    "modelNameHint": "GLM-ASR utilise glm-asr, les autres modèles vocaux utilisent leurs noms de modèles correspondants",
+    "thinking": {
+      "enable": "Activer la Réflexion",
+      "enableHint": "Nécessite que le modèle supporte le mode réflexion"
+    },
+    "details": {
+      "basicInfo": "Informations de Base",
+      "modelName": "Nom du Modèle",
+      "provider": "Format de Requête",
+      "apiUrl": "URL de l'API",
+      "contextWindow": "Fenêtre de Contexte",
+      "maxOutput": "Sortie Max",
+      "description": "Description",
+      "tokens": "tokens"
+    },
+    "proxy": {
+      "enable": "Activer le Proxy",
+      "enableHint": "Quand activé, toutes les requêtes IA seront envoyées via le proxy (nécessite redémarrage de l'IDE)",
+      "url": "URL du Proxy",
+      "urlPlaceholder": "http://127.0.0.1:7890 ou socks5://127.0.0.1:1080",
+      "urlHint": "Supporte les proxies HTTP/HTTPS/SOCKS5, format : protocol://adresse:port",
+      "username": "Nom d'utilisateur (optionnel)",
+      "usernamePlaceholder": "Nom d'utilisateur d'authentification proxy",
+      "password": "Mot de passe (optionnel)",
+      "passwordPlaceholder": "Mot de passe d'authentification proxy",
+      "save": "Sauvegarder la Configuration Proxy",
+      "saveSuccess": "Configuration proxy sauvegardée, redémarrez l'IDE pour prendre effet"
+    },
+    "messages": {
+      "fillRequired": "Veuillez remplir les champs requis",
+      "fillModelName": "Veuillez remplir le nom du modèle",
+      "saveFailed": "Échec de la sauvegarde",
+      "deleteFailed": "Échec de la suppression de la configuration",
+      "loadFailed": "Échec du chargement de la configuration IA",
+      "errorDetails": "Détails de l'erreur"
+    },
+    "capabilities": {
+      "text_chat": "Chat",
+      "image_understanding": "Vision",
+      "image_generation": "Image",
+      "search": "Recherche",
+      "function_calling": "Outils",
+      "speech_recognition": "Voix"
+    }
+  },
+  "superAgent": {
+    "title": "Super Agent",
+    "subtitle": "Configurer les affectations de modèles de l'agent principal",
+    "textChat": "Chat Textuel",
+    "textChatDesc": "Gérer les conversations quotidiennes et questions/réponses",
+    "codeGeneration": "Génération de Code",
+    "codeGenerationDesc": "Générer et compléter du code",
+    "codeReview": "Revue de Code",
+    "codeReviewDesc": "Revoir et optimiser le code",
+    "planning": "Planification de Tâches",
+    "planningDesc": "Décomposer et planifier des tâches complexes",
+    "selectModel": "Sélectionner le Modèle",
+    "notConfigured": "Non Configuré",
+    "configured": "Configuré",
+    "modelUpdated": "{{capability}} mis à jour vers {{modelName}}",
+    "capabilities": {
+      "text_chat": "Modèle Chat Textuel",
+      "image_understanding": "Modèle Compréhension d'Image",
+      "image_generation": "Modèle Génération d'Image",
+      "search": "Modèle API de Recherche",
+      "speech_recognition": "Modèle Reconnaissance Vocale"
+    },
+    "capabilityDescs": {
+      "text_chat": "Gère toutes les conversations textuelles, génération de code, appels d'outils, etc.",
+      "image_understanding": "Analyse et comprend le contenu d'image, supporte les conversations mixtes texte-image",
+      "image_generation": "Génère des images à partir de descriptions textuelles (ex. DALL-E, Stable Diffusion)",
+      "search": "Recherche web en temps réel pour support des données les plus récentes",
+      "speech_recognition": "Convertit la parole en texte, supporte la saisie vocale (ex. GLM-ASR)"
+    }
+  },
+  "aiFeatures": {
+    "title": "Fonctionnalités IA",
+    "subtitle": "Configurer les fonctionnalités d'amélioration IA",
+    "codeCompletion": "Complétion de Code",
+    "codeCompletionDesc": "Suggestions intelligentes de complétion de code",
+    "inlineChat": "Chat Inline",
+    "inlineChatDesc": "Discuter avec l'IA directement dans l'éditeur",
+    "semanticSearch": "Recherche Sémantique",
+    "semanticSearchDesc": "Recherche de code basée sur la sémantique",
+    "autoFix": "Correction Auto",
+    "autoFixDesc": "Corriger automatiquement les erreurs et avertissements de code"
+  },
+  "modes": {
+    "title": "Modes",
+    "subtitle": "Configurer les différents modes de travail",
+    "agentMode": "Mode Agent",
+    "agentModeDesc": "L'IA peut exécuter du code et utiliser des outils",
+    "chatMode": "Mode Chat",
+    "chatModeDesc": "Conversation pure, pas d'actions",
+    "askMode": "Mode Demande",
+    "askModeDesc": "Mode lecture seule, répondre seulement aux questions"
+  },
+  "agenticTools": {
+    "title": "Paramètres d'Outils",
+    "subtitle": "Configurer les permissions et le comportement des outils de l'Agent",
+    "fileOperations": "Opérations sur Fichiers",
+    "fileOperationsDesc": "Autoriser l'IA à lire et écrire des fichiers",
+    "terminalAccess": "Accès Terminal",
+    "terminalAccessDesc": "Autoriser l'IA à exécuter des commandes terminal",
+    "webSearch": "Recherche Web",
+    "webSearchDesc": "Autoriser l'IA à rechercher sur le web",
+    "browserControl": "Contrôle Navigateur",
+    "browserControlDesc": "Autoriser l'IA à contrôler le navigateur"
+  },
+  "skills": {
+    "title": "Compétences",
+    "subtitle": "Gérer les extensions de compétences IA",
+    "addSkill": "Ajouter une Compétence",
+    "noSkills": "Aucune compétence",
+    "noSkillsHint": "Les compétences peuvent étendre les capacités de l'IA"
+  },
+  "agents": {
+    "title": "Agents",
+    "subtitle": "Configurer les agents",
+    "addAgent": "Ajouter un Agent",
+    "noAgents": "Aucun sous-agent",
+    "noAgentsHint": "Les sous-agents peuvent gérer des types de tâches spécifiques"
+  },
+  "mcp": {
+    "title": "MCP",
+    "subtitle": "Gérer les connexions aux serveurs MCP",
+    "addServer": "Ajouter un Serveur",
+    "serverName": "Nom du Serveur",
+    "serverUrl": "URL du Serveur",
+    "connected": "Connecté",
+    "disconnected": "Déconnecté",
+    "noServers": "Aucun serveur MCP",
+    "noServersHint": "Ajoutez des serveurs MCP pour étendre les fonctionnalités"
+  },
+  "editorConfig": {
+    "title": "Éditeur",
+    "subtitle": "Configurer l'éditeur de code",
+    "fontSize": "Taille de Police",
+    "fontFamily": "Famille de Police",
+    "lineHeight": "Hauteur de Ligne",
+    "tabSize": "Taille de Tabulation",
+    "wordWrap": "Retour à la Ligne",
+    "minimap": "Afficher Minimap",
+    "lineNumbers": "Afficher les Numéros de Ligne"
+  },
+  "terminalConfig": {
+    "title": "Terminal",
+    "subtitle": "Configurer le terminal intégré",
+    "shell": "Shell par Défaut",
+    "fontSize": "Taille de Police",
+    "fontFamily": "Famille de Police",
+    "cursorStyle": "Style du Curseur",
+    "scrollback": "Lignes de Défilement"
+  },
+  "configPageHeaderExample": {
+    "basic": {
+      "title": "Paramètres de Base"
+    },
+    "apiNetwork": {
+      "title": "API & Réseau",
+      "subtitle": "Configurer et gérer les modèles IA, y compris les clés API et les paramètres de modèle par défaut"
+    },
+    "learning": {
+      "title": "Apprentissage & Connaissances",
+      "subtitle": "Gérer la mémoire IA, les bases de connaissances et les compétences",
+      "import": "Importer",
+      "addMemory": "Ajouter une Mémoire"
+    },
+    "agents": {
+      "title": "Configuration des Agents",
+      "subtitle": "Configurer et gérer les agents, y compris les agents fonctionnels et super agents",
+      "create": "Créer un Agent"
+    },
+    "appearance": {
+      "title": "Paramètres d'Apparence",
+      "subtitle": "Personnaliser l'apparence et les couleurs de l'app",
+      "import": "Importer l'Apparence",
+      "export": "Exporter l'Apparence Actuelle"
+    }
+  }
+}

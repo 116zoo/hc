@@ -1,0 +1,77 @@
+{
+  "success": {
+    "fileSaved": "Fichier enregistré",
+    "fileCreated": "Fichier créé",
+    "fileDeleted": "Fichier supprimé",
+    "fileRenamed": "Fichier renommé",
+    "folderCreated": "Dossier créé",
+    "folderDeleted": "Dossier supprimé",
+    "copied": "Copié dans le presse-papiers",
+    "settingsSaved": "Paramètres enregistrés",
+    "configImported": "Configuration importée",
+    "configExported": "Configuration exportée",
+    "gitCommit": "Commit réussi",
+    "gitPush": "Push réussi",
+    "gitPull": "Pull réussi",
+    "gitStash": "Modifications mises en réserve",
+    "gitStashApply": "Réserve appliquée",
+    "snapshotCreated": "Instantané créé",
+    "snapshotRestored": "Instantané restauré",
+    "languageChanged": "Langue changée",
+    "connectionEstablished": "Connexion établie"
+  },
+  "error": {
+    "fileSaveFailed": "Échec de l'enregistrement du fichier",
+    "fileCreateFailed": "Échec de la création du fichier",
+    "fileDeleteFailed": "Échec de la suppression du fichier",
+    "operationFailed": "Échec de l'opération",
+    "networkError": "Erreur réseau",
+    "unexpectedError": "Une erreur inattendue s'est produite"
+  },
+  "warning": {
+    "unsavedChanges": "Vous avez des modifications non enregistrées",
+    "largeFile": "Fichier volumineux, le chargement peut être lent",
+    "deprecatedFeature": "Cette fonctionnalité est obsolète",
+    "experimentalFeature": "Ceci est une fonctionnalité expérimentale",
+    "lowMemory": "Faible mémoire",
+    "diskSpace": "Espace disque faible"
+  },
+  "info": {
+    "loading": "Chargement...",
+    "processing": "Traitement...",
+    "downloading": "Téléchargement...",
+    "uploading": "Téléversement...",
+    "indexing": "Indexation des fichiers...",
+    "searching": "Recherche...",
+    "updating": "Mise à jour...",
+    "installing": "Installation...",
+    "connecting": "Connexion...",
+    "syncing": "Synchronisation...",
+    "assistantBootstrapWaitingForModelConfiguration": "Le démarrage de l'assistant attend la configuration du modèle IA."
+  },
+  "announcements": {
+    "release_letter": {
+      "skip": "Lire la lettre",
+      "replay": "Rejouer l'animation de la lettre de sortie",
+      "replay_mascot": "Rejouer le saut du personnage OpenBitFun"
+    },
+    "common": {
+      "learn_more": "En savoir plus",
+      "got_it": "Compris",
+      "close": "Fermer",
+      "prev": "Précédent",
+      "next": "Page suivante",
+      "done": "Terminé",
+      "never_show_again": "Ne plus afficher",
+      "page": "Page"
+    }
+  },
+  "confirm": {
+    "deleteFile": "Êtes-vous sûr de vouloir supprimer ce fichier ?",
+    "deleteFolder": "Êtes-vous sûr de vouloir supprimer ce dossier et tout son contenu ?",
+    "discardChanges": "Êtes-vous sûr de vouloir annuler toutes les modifications ?",
+    "resetSettings": "Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?",
+    "closeUnsaved": "Vous avez des modifications non enregistrées. Êtes-vous sûr de vouloir fermer ?",
+    "exitApp": "Êtes-vous sûr de vouloir quitter ?"
+  }
+}

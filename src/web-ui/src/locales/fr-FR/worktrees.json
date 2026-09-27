@@ -1,0 +1,117 @@
+{
+  "labels": {
+    "detached": "détaché {{commit}}"
+  },
+  "strip": {
+    "toggleLabel": "worktree",
+    "newWorktree": "Nouveau worktree",
+    "toggleOffDescription": "Exécuter cette session dans son propre worktree Git pour que les agents parallèles ne se perturbent pas mutuellement.",
+    "toggleOnDescription": "Exécution dans un worktree isolé à {{path}}. Désactiver pour exécuter dans le répertoire du projet.",
+    "togglePendingOnDescription": "L'isolement worktree est activé. Le worktree sera créé après l'envoi du premier message.",
+    "togglePendingOffDescription": "L'isolement worktree sera désactivé après l'envoi du premier message.",
+    "toggleLocked": "L'isolement worktree ne peut être modifié qu'avant le premier message de la session.",
+    "dispatchBaseline": "Les tâches distantes s'exécutent dans une copie isolée. Cela ne peut pas être changé après la sélection d'une cible.",
+    "retained": "Le worktree contenait encore du travail local et a été conservé à {{path}}."
+  },
+  "settings": {
+    "title": "Worktrees",
+    "description": "Valeurs par défaut utilisées quand une session s'exécute dans son propre worktree Git. Les chemins sont résolus sur l'hôte d'exécution actuel ; les changements de racine n'affectent que les nouveaux worktrees.",
+    "loading": "Chargement des paramètres worktree…",
+    "loadFailed": "Impossible de charger les paramètres worktree.",
+    "retry": "Réessayer",
+    "saveFailed": "Impossible d'enregistrer les paramètres worktree.",
+    "saved": "Paramètres worktree enregistrés.",
+    "unsaved": "Vous avez des paramètres worktree non enregistrés.",
+    "required": "Le chemin racine et le préfixe de branche sont requis.",
+    "save": "Enregistrer",
+    "reset": "Restaurer les défauts",
+    "isolation": {
+      "title": "Isolation de session",
+      "description": "Les sessions s'exécutent dans le répertoire du projet par défaut. Le commutateur worktree à côté de la branche déplace une session dans son propre checkout."
+    },
+    "rootPath": {
+      "label": "Racine worktree",
+      "description": "Les nouveaux worktrees sont stockés sous ce répertoire sur l'hôte d'exécution actuel."
+    },
+    "branchPrefix": {
+      "label": "Préfixe de branche",
+      "description": "Préfixe suggéré lors de la création d'une branche pour un worktree détaché."
+    },
+    "copyChanges": {
+      "label": "Copier les modifications locales par défaut",
+      "description": "Désactivé par défaut. Copie les modifications non commitées du projet dans le nouveau worktree, en préservant l'indexation."
+    },
+    "autoDelete": {
+      "label": "Supprimer automatiquement les anciens worktrees",
+      "description": "Après la création d'un worktree, OpenBitFun supprime les worktrees gérés les plus anciens au-delà de la limite de l'espace de travail lorsqu'ils peuvent être supprimés en toute sécurité."
+    },
+    "autoDeleteLimit": {
+      "label": "Limite de suppression auto",
+      "description": "Worktrees gérés à conserver par espace de travail. Les worktrees avec conversations associées, modifications locales, commits non publiés ou verrous Git sont toujours conservés.",
+      "invalid": "Entrez un nombre de {{min}} à {{max}}."
+    }
+  },
+  "management": {
+    "title": "Worktrees de l'espace de travail",
+    "description": "Worktrees sous la racine OpenBitFun configurée sur l'hôte d'exécution actuel, groupés par espace de travail propriétaire.",
+    "loading": "Analyse des worktrees OpenBitFun…",
+    "loadFailed": "Impossible de charger la liste des worktrees OpenBitFun.",
+    "refresh": "Actualiser les worktrees",
+    "retry": "Réessayer",
+    "worktreeCount": "{{count}} worktrees",
+    "deleted": "{{path}} supprimé.",
+    "empty": {
+      "title": "Aucun worktree OpenBitFun",
+      "description": "Les worktrees créés pour les sessions isolées apparaîtront ici."
+    },
+    "lifecycle": {
+      "managed": "Géré",
+      "permanent": "Conservé définitivement",
+      "external": "Externe"
+    },
+    "state": {
+      "dirty": "Modifications locales",
+      "unpublishedCommits": "Commits non publiés",
+      "locked": "Verrouillé par Git",
+      "missing": "Répertoire manquant",
+      "activeSessions": "Sessions non archivées : {{count}}"
+    },
+    "sessions": {
+      "title": "Conversations",
+      "summary": "{{count}} conversations",
+      "openLabel": "Ouvrir la conversation {{name}}",
+      "openFailed": "Impossible d'ouvrir cette conversation. Actualisez la liste et réessayez.",
+      "restoreTitle": "Restaurer et ouvrir cette conversation ?",
+      "restoreMessage": "{{name}} est archivée. La restaurer avant de l'ouvrir ?",
+      "empty": "Aucune conversation associée.",
+      "status": {
+        "active": "Active",
+        "archived": "Archivée"
+      }
+    },
+    "protection": {
+      "locked": "Déverrouillez ce worktree dans Git avant de le supprimer.",
+      "missing": "Le répertoire du worktree est manquant. Nettoyez manuellement l'enregistrement Git obsolète."
+    },
+    "delete": {
+      "action": "Supprimer",
+      "actionLabel": "Supprimer le worktree {{path}}",
+      "title": "Supprimer ce worktree ?",
+      "message": "Le checkout sera supprimé. Cette action est irréversible.",
+      "messageWithSessions": "Le checkout sera supprimé. Les conversations associées restent dans l'historique, mais leur checkout ne sera plus disponible.",
+      "forceTitle": "Supprimer et ignorer le travail local ?",
+      "forceMessage": "Ce worktree contient des modifications locales ou des commits détachés. Le supprimer éliminera définitivement ce travail local.",
+      "forceMessageWithSessions": "Les modifications locales ou commits détachés seront définitivement perdus. Les conversations associées restent dans l'historique sans leur checkout.",
+      "forceAction": "Supprimer et ignorer",
+      "cancel": "Annuler"
+    },
+    "errors": {
+      "locked": "Ce worktree est verrouillé par Git et ne peut pas être supprimé.",
+      "dirty": "Ce worktree contient encore des modifications locales.",
+      "unpublishedCommits": "Ce worktree contient encore des commits détachés non publiés.",
+      "notFound": "Ce worktree n'existe plus. Actualisez la liste et réessayez.",
+      "remoteUnsupported": "Les worktrees SSH distants ne sont pas encore pris en charge.",
+      "deleteFailed": "Impossible de supprimer le worktree."
+    }
+  }
+}

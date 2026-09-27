@@ -1,0 +1,164 @@
+{
+  "title": "Explorateur de fichiers",
+  "search": {
+    "placeholder": "Rechercher dans l'espace de travail...",
+    "noResults": "Aucun résultat correspondant trouvé",
+    "enterKeyword": "Entrez un mot-clé pour commencer la recherche",
+    "modeFiles": "Fichiers",
+    "modeContent": "Texte",
+    "limitReachedFiles": "Affichage des {{count}} premières correspondances de fichiers. Affinez la requête pour réduire les résultats.",
+    "limitReachedContent": "Affichage des {{count}} premières correspondances de contenu. Affinez la requête pour réduire les résultats.",
+    "limitReachedFilesCompact": "Limite fichiers {{count}}",
+    "limitReachedContentCompact": "Limite contenu {{count}}",
+    "backendSummary": "{{candidateDocs}} docs candidats, {{matchedLines}} lignes correspondantes, {{matchedOccurrences}} occurrences correspondantes.",
+    "backend": {
+      "indexed": "Indexé",
+      "indexed_workspace": "Espace de travail indexé",
+      "text_fallback": "Recherche texte de secours",
+      "scan_fallback": "Recherche scan de secours"
+    },
+    "index": {
+      "actions": {
+        "build": "Construire l'index",
+        "rebuild": "Reconstruire l'index",
+        "refresh": "Actualiser le statut d'index",
+        "running": "Indexation..."
+      },
+      "badges": {
+        "baseAdvancing": "Index en rattrapage",
+        "probePending": "Dernière observation"
+      },
+      "phase": {
+        "preparing": "Préparation",
+        "needs_index": "Index nécessaire",
+        "no_index_needed": "Aucun index nécessaire",
+        "building": "Construction",
+        "ready": "Prêt",
+        "tracking_changes": "Suivi des modifications",
+        "refreshing": "Actualisation",
+        "limited": "Limité",
+        "unknown": "Inconnu",
+        "non_git": "Pas un dépôt Git"
+      },
+      "summary": {
+        "preparing": "Préparation de l'espace de travail de recherche géré.",
+        "needs_index": "L'indexation automatique évalue cet espace de travail ou a sélectionné la recherche de secours. Aucune action manuelle n'est nécessaire.",
+        "building": "Construction de l'index de l'espace de travail.",
+        "ready": "Index géré prêt. La recherche de contenu peut utiliser l'index géré.",
+        "tracking_changes": "L'index géré est utilisable et les modifications de l'espace de travail sont suivies. Après un changement de branche, l'index rattrape automatiquement le nouveau commit.",
+        "refreshing": "Actualisation de l'index de l'espace de travail avec les dernières modifications de fichiers.",
+        "limited": "Index géré limité. La recherche peut toujours utiliser le secours ; reconstruire l'index peut le restaurer.",
+        "unavailable": "Le statut de l'index de recherche est indisponible pour le moment.",
+        "non_git": "Cet espace de travail n'est pas un dépôt Git, donc l'index de recherche ne s'applique pas ; la recherche de contenu utilise l'implémentation de secours."
+      },
+      "autoIndex": {
+        "pending": "Évaluation de la nécessité d'un index.",
+        "eligible": "Au-dessus du seuil d'indexation ; la tâche d'indexation démarre.",
+        "belowThreshold": "Seulement {{files}} fichiers, en dessous du seuil de {{threshold}} — la recherche directe est plus rapide.",
+        "unsupported": "Ne peut pas être indexé : {{reason}}."
+      },
+      "indicator": {
+        "label": "Statut de l'index de l'espace de travail",
+        "checking": "Vérification du statut d'index...",
+        "tones": {
+          "green": "Index prêt",
+          "yellow": "Index nécessite une attention",
+          "gray": "Recherche de secours disponible",
+          "red": "Index en mauvaise santé"
+        },
+        "progressKnown": "{{processed}} / {{total}}",
+        "progressUnknown": "{{processed}} éléments traités",
+        "dirtyFiles": "Modifications en attente : {{modified}} modifiés, {{deleted}} supprimés, {{new}} nouveaux",
+        "baseAdvancing": "Avancement de l'index vers le dernier commit.",
+        "probePending": "Réconciliation des modifications worktree ; les comptes de fichiers modifiés ci-dessus proviennent de la dernière observation.",
+        "probeDegraded": "La sonde d'espace de travail est dégradée et la vue d'espace de travail indexé peut cesser de suivre les modifications.",
+        "hoverTooltip": "Index Flashgrep : {{status}}"
+      },
+      "taskState": {
+        "queued": "En file d'attente",
+        "running": "En cours",
+        "completed": "Terminé",
+        "failed": "Échoué",
+        "cancelled": "Annulé"
+      }
+    }
+  },
+  "options": {
+    "caseSensitive": "Sensible à la casse (Aa)",
+    "wholeWord": "Mot entier (Ab)",
+    "useRegex": "Utiliser les expressions régulières (.*)"
+  },
+  "actions": {
+    "switchToSearch": "Passer à la recherche",
+    "switchToTree": "Passer à l'arborescence des fichiers",
+    "retry": "Réessayer"
+  },
+  "status": {
+    "searchingFilename": "Recherche dans les noms de fichiers...",
+    "searchingContent": "Recherche dans le contenu...",
+    "loadingFileTree": "Chargement de l'arborescence des fichiers..."
+  },
+  "empty": {
+    "selectWorkspace": "L'arborescence des fichiers s'affichera après la sélection d'un espace de travail"
+  },
+  "dialog": {
+    "newFile": {
+      "title": "Nouveau fichier",
+      "placeholder": "Entrez le nom du fichier",
+      "confirm": "Créer",
+      "cancel": "Annuler"
+    },
+    "newFolder": {
+      "title": "Nouveau dossier",
+      "placeholder": "Entrez le nom du dossier",
+      "confirm": "Créer",
+      "cancel": "Annuler"
+    },
+    "largeFile": {
+      "title": "Fichier volumineux",
+      "message": "Le fichier fait {{size}}, ce qui dépasse 2 Mo. L'ouverture de gros fichiers peut geler l'interface. Voulez-vous continuer ?",
+      "confirm": "Ouvrir quand même",
+      "cancel": "Annuler"
+    }
+  },
+  "validation": {
+    "invalidFilename": "Le nom de fichier contient des caractères invalides"
+  },
+  "transfer": {
+    "downloading": "Téléchargement",
+    "uploading": "Téléversement",
+    "missingConnection": "L'espace de travail distant n'a pas d'ID de connexion SSH.",
+    "failed": "Échec du transfert de fichier : {{error}}",
+    "dropHint": "Déposez les fichiers ici pour les téléverser",
+    "stop": "Arrêter"
+  },
+  "archive": {
+    "compress": "Compresser",
+    "decompress": "Extraire",
+    "compressSuccess": "\"{{name}}\" compressé avec succès",
+    "compressFailed": "Échec de la compression.\n{{error}}",
+    "decompressSuccess": "\"{{name}}\" extrait avec succès",
+    "decompressFailed": "Échec de l'extraction.\n{{error}}"
+  },
+  "notifications": {
+    "createFileSuccess": "Fichier créé avec succès",
+    "createFileFailed": "Échec de la création du fichier : {{error}}",
+    "createFolderSuccess": "Dossier créé avec succès",
+    "createFolderFailed": "Échec de la création du dossier : {{error}}",
+    "renameSuccess": "Renommé avec succès",
+    "renameFailed": "Échec du renommage : {{error}}",
+    "deleteSuccess": "Supprimé avec succès",
+    "deleteFailed": "Échec de la suppression : {{error}}",
+    "pasteSuccess": "{{count}} fichiers collés avec succès",
+    "pasteSuccessFiles": "{{count}} fichiers collés avec succès",
+    "pasteSuccessFolders": "{{count}} dossiers collés avec succès",
+    "pasteSuccessItems": "{{count}} éléments collés avec succès",
+    "pasteFailed": "{{count}} fichiers n'ont pas pu être collés",
+    "pasteNoFiles": "Aucun fichier dans le presse-papiers",
+    "pastingFiles": "Collage de {{count}} fichiers vers {{target}}...",
+    "openExplorerFailed": "Échec de l'ouverture de l'explorateur de fichiers : {{error}}",
+    "selectWorkspaceFirst": "Veuillez d'abord ouvrir un espace de travail",
+    "searchIndexBuildStarted": "Construction de l'index de l'espace de travail démarrée.",
+    "searchIndexRebuildStarted": "Reconstruction de l'index de l'espace de travail démarrée."
+  }
+}

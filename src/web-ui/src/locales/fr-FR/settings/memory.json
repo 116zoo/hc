@@ -1,0 +1,132 @@
+{
+  "title": "Mémoire",
+  "subtitle": "Contrôler la génération automatique de mémoire, l'utilisation, et le périmètre de consolidation.",
+  "scopeNotice": "Ces paramètres, candidats de session, et fichiers de mémoire appartiennent à l'hôte exécutant actuellement OpenBitFun. Un autre appareil ou hôte pair peut avoir des données et paramètres de mémoire différents.",
+  "sections": {
+    "basic": {
+      "title": "Bases",
+      "description": "Contrôler si de nouvelles mémoires sont générées et si les mémoires consolidées sont utilisées dans les sessions."
+    },
+    "models": {
+      "title": "Modèles",
+      "description": "Choisir les modèles utilisés pour extraire et consolider les mémoires."
+    },
+    "advanced": {
+      "title": "Paramètres avancés",
+      "description": "Ajuster les limites d'extraction et de consolidation de mémoire. Ces paramètres sont optionnels."
+    },
+    "extraction": {
+      "title": "Extraction",
+      "description": "Contrôler quelles sessions terminées sont éligibles pour l'extraction de mémoire."
+    },
+    "consolidation": {
+      "title": "Consolidation",
+      "description": "Contrôler comment les résultats extraits sont préparés avant de devenir de la mémoire à long terme."
+    }
+  },
+  "fields": {
+    "memoryEnabled": {
+      "label": "Mémoire",
+      "description": "Quand activé, les mémoires sont générées automatiquement et utilisées dans les sessions."
+    },
+    "memoryActions": {
+      "label": "Actions de mémoire",
+      "description": "Ouvrir le dossier de mémoire, restaurer les paramètres par défaut, ou effacer définitivement les données de mémoire sur l'hôte d'exécution actuel."
+    },
+    "generateMemories": {
+      "label": "Générer les mémoires automatiquement",
+      "description": "Extraire et consolider la mémoire réutilisable depuis les sessions locales terminées en arrière-plan."
+    },
+    "useMemories": {
+      "label": "Utiliser les mémoires dans les sessions",
+      "description": "Les nouvelles sessions peuvent lire le résumé de mémoire consolidé comme contexte."
+    },
+    "generateForBtwSessions": {
+      "label": "Générer les mémoires depuis les sessions BTW",
+      "description": "Autoriser les sessions BTW à contribuer à la mémoire globale."
+    },
+    "externalContextPolicy": {
+      "label": "Gestion du contexte externe",
+      "description": "Choisir comment l'extraction de mémoire gère les sessions qui ont utilisé la recherche web, la lecture de page web, ou des outils similaires."
+    },
+    "minRolloutIdleHours": {
+      "label": "Temps d'inactivité minimum",
+      "description": "Combien de temps une session terminée doit rester inactive avant l'extraction."
+    },
+    "maxRolloutAgeDays": {
+      "label": "Âge maximum de la session",
+      "description": "Les sessions plus anciennes que ce nombre de jours ne sont plus considérées pour l'extraction. Cela ne peut pas dépasser la rétention des candidats."
+    },
+    "maxRolloutsPerStartup": {
+      "label": "Limite d'extraction par exécution",
+      "description": "Nombre maximum de sessions réclamées pour l'extraction de mémoire chaque fois que la tâche mémoire démarre."
+    },
+    "maxRolloutsScanLimit": {
+      "label": "Limite de scan par exécution",
+      "description": "Nombre maximum de sessions terminées vérifiées en cherchant des candidats d'extraction."
+    },
+    "phase1MaxConcurrency": {
+      "label": "Concurrence d'extraction",
+      "description": "Nombre maximum de sessions éligibles extraites en même temps."
+    },
+    "extractModel": {
+      "label": "Modèle d'extraction",
+      "description": "Modèle utilisé pour distiller les mémoires candidates depuis les transcripts de session."
+    },
+    "maxRawMemories": {
+      "label": "Limite de candidats de consolidation",
+      "description": "Résultats extraits maximum utilisés dans chaque passe de consolidation de mémoire à long terme."
+    },
+    "maxUnusedDays": {
+      "label": "Rétention des candidats",
+      "description": "Résultats extraits non utilisés plus anciens que ce nombre de jours ne sont plus consolidés. Cela doit être au moins l'âge maximum de la session."
+    },
+    "consolidationModel": {
+      "label": "Modèle de consolidation",
+      "description": "Modèle utilisé pour fusionner les candidats et mettre à jour les fichiers de mémoire à long terme."
+    }
+  },
+  "models": {
+    "primary": "Modèle principal",
+    "fast": "Modèle rapide",
+    "followPrimary": "Suivre le modèle principal",
+    "followExtraction": "Suivre le modèle d'extraction",
+    "unavailable": "{{id}} (désactivé ou manquant)"
+  },
+  "externalContextPolicy": {
+    "clearToolResults": "Effacer les résultats d'outils externes",
+    "allow": "Autoriser les résultats d'outils externes",
+    "skipSession": "Ignorer la session"
+  },
+  "actions": {
+    "manage": "Gérer",
+    "expandAdvanced": "Étendre les paramètres avancés",
+    "collapseAdvanced": "Réduire les paramètres avancés",
+    "resetSettings": "Réinitialiser les Paramètres de Mémoire",
+    "resetSettingsConfirmTitle": "Réinitialiser les paramètres de mémoire ?",
+    "resetSettingsConfirm": "Cela restaure les commutateurs de mémoire, modèles, et paramètres avancés sur l'hôte d'exécution actuel à leurs défauts. Les données de mémoire existantes ne sont pas supprimées.",
+    "resetSettingsConfirmAction": "Restaurer les défauts",
+    "openDirectory": "Ouvrir le Dossier de Mémoire",
+    "resetMemory": "Effacer définitivement la mémoire",
+    "resetMemoryConfirm": "Cela supprime définitivement toutes les données de mémoire et fichiers d'espace de travail de mémoire sur l'hôte d'exécution actuel. Cela ne peut pas être annulé.",
+    "resetMemoryConfirmAction": "Effacer définitivement"
+  },
+  "units": {
+    "hours": "h",
+    "days": "j"
+  },
+  "messages": {
+    "loading": "Chargement des paramètres de mémoire…",
+    "loadFailed": "Échec du chargement des paramètres de mémoire",
+    "loadFailedLocked": "Les paramètres de mémoire n'ont pas pu être lus. Cette page est verrouillée pour éviter d'écraser la configuration sur l'hôte d'exécution actuel.",
+    "retry": "Recharger",
+    "saved": "Paramètres de mémoire sauvegardés",
+    "saveFailed": "Échec de la sauvegarde des paramètres de mémoire",
+    "rolloutAgeExceedsRetention": "L'âge maximum de la session ne peut pas dépasser la rétention des candidats",
+    "settingsReset": "Paramètres de mémoire réinitialisés",
+    "settingsResetFailed": "Échec de la réinitialisation des paramètres de mémoire",
+    "openDirectoryFailed": "Échec de l'ouverture du dossier de mémoire",
+    "memoryReset": "Mémoire effacée définitivement",
+    "memoryResetFailed": "Échec de l'effacement définitif de la mémoire"
+  }
+}

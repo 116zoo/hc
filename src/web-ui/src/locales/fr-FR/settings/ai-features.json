@@ -1,0 +1,57 @@
+{
+  "title": "Fonctionnalités IA",
+  "subtitle": "Configurer les fonctionnalités d'amélioration IA et les modèles",
+  "tabs": {
+    "all": "Tout",
+    "switches": "Commutateurs de Fonctionnalités",
+    "models": "Config Modèle"
+  },
+  "sections": {
+    "interaction": "Interaction",
+    "development": "Développement",
+    "analysis": "Analyse"
+  },
+  "features": {
+    "sessionTitle": {
+      "title": "Titre de Session Auto",
+      "subtitle": "L'IA génère automatiquement des titres concis pour les nouvelles conversations",
+      "warning": "Le titre de session utilisera les 20 premiers caractères du message utilisateur"
+    },
+    "compression": {
+      "title": "Compression de Contexte",
+      "subtitle": "Compresser intelligemment le contexte de conversation long"
+    }
+  },
+  "model": {
+    "label": "Modèle",
+    "primary": "Modèle Principal",
+    "fast": "Modèle Rapide"
+  },
+  "common": {
+    "enable": "Activer",
+    "reset": "Réinitialiser",
+    "save": "Sauvegarder",
+    "saving": "Sauvegarde..."
+  },
+  "models": {
+    "empty": "Aucun modèle disponible. Veuillez ajouter des modèles dans \"Modèles\" d'abord.",
+    "placeholder": "Utiliser le modèle de l'Agent principal",
+    "updateSuccess": "{{agentName}} utilisera {{modelName}}"
+  },
+  "builtinAgents": {
+    "git-func-agent": {
+      "displayName": "Fonctions Git",
+      "description": "Messages de commit, revue de code"
+    }
+  },
+  "loading": {
+    "text": "Chargement de la configuration..."
+  },
+  "messages": {
+    "saveSuccess": "Paramètres sauvegardés",
+    "saveFailed": "Échec de la sauvegarde",
+    "confirmReset": "Êtes-vous sûr de vouloir réinitialiser les commutateurs de fonctionnalités aux défauts ?",
+    "hasChanges": "Vous avez des modifications non sauvegardées",
+    "updateFailed": "Échec de la mise à jour"
+  }
+}

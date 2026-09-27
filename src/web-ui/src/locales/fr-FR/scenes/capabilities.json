@@ -1,0 +1,22 @@
+{
+  "skills": "Compétences",
+  "subagents": "Agents",
+  "mcp": "MCP",
+  "refresh": "Actualiser les états des capacités",
+  "reconnect": "Reconnecter",
+  "mcpWarning": "{{count}} serveur(s) MCP nécessite(nt) une attention",
+  "loadFailed": "Échec du chargement des capacités",
+  "toggleFailed": "Échec de la mise à jour du commutateur de capacité",
+  "mcpReconnectSuccess": "{{name}} reconnecté",
+  "mcpReconnectFailed": "Échec de la reconnexion de {{name}}",
+  "emptySkills": "Aucune compétence configurée",
+  "emptySubagents": "Aucun agent disponible",
+  "emptyAgents": "Aucun agent disponible",
+  "emptyMcp": "Aucun serveur MCP configuré",
+  "path": "Chemin",
+  "toolCount": "Outils",
+  "serverType": "Type",
+  "clickToCopy": "Cliquer pour copier le chemin",
+  "pathCopied": "Chemin copié",
+  "pathCopyFailed": "Échec de la copie du chemin"
+}

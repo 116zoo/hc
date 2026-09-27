@@ -17,22 +17,26 @@
     "web-ui": [
       "zh-CN",
       "en-US",
+      "fr-FR",
       "zh-TW"
     ],
     "mobile-web": [
       "zh-CN",
       "zh-TW",
-      "en-US"
+      "en-US",
+      "fr-FR"
     ],
     "installer": [
       "en-US",
+      "fr-FR",
       "zh-CN",
       "zh-TW"
     ],
     "core": [
       "zh-CN",
       "zh-TW",
-      "en-US"
+      "en-US",
+      "fr-FR"
     ]
   },
   "surfaces": {
@@ -115,6 +119,35 @@
         "label": "English",
         "nativeName": "English",
         "continueLabel": "Continue"
+      }
+    },
+    {
+      "id": "fr-FR",
+      "rustVariant": "FrFR",
+      "name": "Français",
+      "englishName": "French",
+      "nativeName": "Français",
+      "shortName": "FR",
+      "rtl": false,
+      "dateFormat": "DD/MM/YYYY",
+      "numberFormat": {
+        "decimal": ",",
+        "thousands": " "
+      },
+      "aliases": [
+        "fr",
+        "fr-FR"
+      ],
+      "contentFallbacks": [
+        "en-US"
+      ],
+      "modelLanguageName": "French",
+      "shortModelInstruction": "Utilisez le français",
+      "installer": {
+        "uiCode": "fr",
+        "label": "French",
+        "nativeName": "Français",
+        "continueLabel": "Continuer"
       }
     },
     {
