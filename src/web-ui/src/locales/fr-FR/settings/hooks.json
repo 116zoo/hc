@@ -1,0 +1,112 @@
+{
+  "title": "Hooks d'Agent",
+  "subtitle": "Exécuter des commandes personnalisées sur les événements du cycle de vie de l'Agent.",
+  "loading": "Chargement des paramètres de hooks...",
+  "activation": {
+    "title": "Activation",
+    "description": "Les hooks s'exécutent avec vos privilèges utilisateur. Activez seulement les commandes en lesquelles vous avez confiance."
+  },
+  "fields": {
+    "enabled": {
+      "label": "Activer les hooks"
+    },
+    "projectHooks": {
+      "label": "Activer le fichier de hooks du projet",
+      "description": "Lit et exécute .openbitfun/config/hooks.json depuis l'espace de travail. Activez seulement pour les dépôts de confiance."
+    }
+  },
+  "projectHooksRisk": {
+    "title": "Autoriser le code de l'espace de travail à exécuter des Hooks ?",
+    "message": "Quand activé, .openbitfun/config/hooks.json dans « {{workspace }} » peut exécuter des commandes avec vos permissions utilisateur. Activez ceci seulement pour un espace de travail en qui vous avez confiance après avoir examiné son fichier de Hooks.",
+    "currentWorkspace": "l'espace de travail actuel",
+    "confirm": "Je l'ai examiné, activer les Hooks"
+  },
+  "locations": {
+    "title": "Où les hooks sont déclarés",
+    "description": "Les modifications de hooks.json prennent effet sans redémarrer Hacienda Work.",
+    "userFile": {
+      "label": "Fichier de hooks utilisateur",
+      "description": "config/hooks.json dans le répertoire de configuration utilisateur de Hacienda Work."
+    },
+    "projectFile": {
+      "label": "Fichier de hooks du projet",
+      "description": ".openbitfun/config/hooks.json dans l'espace de travail actuel. Requiert Activer le fichier de hooks du projet."
+    }
+  },
+  "imports": {
+    "title": "Hooks importés",
+    "description": "Examiner et gérer les hooks importés depuis Claude Code ou Codex.",
+    "masterDisabled": "Les hooks importés sont conservés, mais le commutateur principal les empêche de s'exécuter.",
+    "refresh": "Actualiser",
+    "remoteUnsupported": "Les hooks importés sont indisponibles pour les espaces de travail distants.",
+    "loading": "Chargement des hooks importés...",
+    "loadFailed": "Les hooks importés n'ont pas pu être chargés.",
+    "refreshFailed": "Les hooks importés n'ont pas pu être actualisés.",
+    "empty": "Aucun hook importé. Actualisez pour vérifier Claude Code et Codex.",
+    "review": "Examiner",
+    "update": "Examiner la mise à jour",
+    "remove": "Supprimer",
+    "toggle": "Activer les hooks importés depuis {{name}}",
+    "state": {
+      "current": "Instantané actuel depuis {{location}}",
+      "update_available": "Une mise à jour est disponible depuis {{location}}",
+      "source_missing": "La source est manquante ; l'instantané examiné reste disponible",
+      "update_check_failed": "La vérification de mise à jour a échoué ; l'instantané examiné reste disponible",
+      "bundle_missing": "Les fichiers gérés sont manquants ; réexaminez la source pour les réparer"
+    },
+    "planFailed": "L'importation de hooks n'a pas pu être préparée pour examen.",
+    "reviewTitle": "Examiner les hooks depuis {{name}}",
+    "reviewWarning": "Ces commandes s'exécutent avec vos privilèges de compte. Confirmez seulement après avoir examiné chaque commande et dépendance ci-dessous.",
+    "timeout": "Timeout effectif : {{seconds}} secondes",
+    "dependency": {
+      "managed": "Dépendance copiée",
+      "external": "Dépendance externe"
+    },
+    "skipped": "Ignorés {{count }} élément(s) : {{reason}}",
+    "cancel": "Annuler",
+    "confirm": "Importer les hooks examinés",
+    "confirmUpdate": "Appliquer la mise à jour examinée",
+    "stale": "La source a changé. Rien n'a été écrit ; examinez ce plan actualisé.",
+    "applyFailed": "L'importation de hooks examinée n'a pas pu être appliquée.",
+    "applied": "Les hooks importés sont activés pour l'événement correspondant suivant.",
+    "appliedDisabled": "La mise à jour examinée a été appliquée ; ces hooks importés restent désactivés.",
+    "appliedMasterDisabled": "Les hooks importés sont prêts mais ne s'exécuteront pas tant que Activer les hooks n'est pas activé.",
+    "updated": "État du hook importé mis à jour.",
+    "stateChanged": "État du hook importé changé. Examinez l'état actualisé et réessayez.",
+    "updateFailed": "L'état du hook importé n'a pas pu être mis à jour.",
+    "storeInvalid": "L'état du hook importé nécessite une réparation",
+    "reset": "Réinitialiser l'état géré",
+    "removeTitle": "Supprimer les hooks importés ?",
+    "removeSourceUntouched": "Seule la copie gérée par Hacienda Work est supprimée. La source Claude Code ou Codex n'est pas modifiée.",
+    "removeConfirm": "Supprimer la copie gérée",
+    "resetTitle": "Réinitialiser l'état invalide du hook importé ?",
+    "resetWarning": "Ceci supprime l'index géré par Hacienda Work invalide pour ce périmètre. Les fichiers de l'application source ne sont pas modifiés.",
+    "resetConfirm": "Réinitialiser l'état géré"
+  },
+  "compatibility": {
+    "title": "Compatibilité Codex",
+    "description": "Hacienda Work utilise le contrat Hooks de Codex et peut exécuter directement des scripts de hooks compatibles.",
+    "reference": {
+      "label": "Référence des événements et charges utiles",
+      "open": "Ouvrir la doc"
+    }
+  },
+  "messages": {
+    "saved": "Paramètres de hooks sauvegardés",
+    "saveFailed": "Échec de la sauvegarde des paramètres de hooks",
+    "loadFailed": "Échec du chargement des paramètres de hooks",
+    "loadFailedLocked": "Les paramètres de hooks n'ont pas pu être lus. Les commutateurs associés sont verrouillés pour éviter d'activer l'exécution de commande par erreur.",
+    "retry": "Recharger"
+  },
+  "discovery": {
+    "title": "Hooks externes découverts",
+    "description": "Inspecter les déclarations de Hooks locales depuis DeepSeek Harness, PI et OpenCode. La découverte ne les exécute ni ne les importe.",
+    "disabled": "Désactivé dans la source",
+    "unsupported": "Non supporté par le pont source",
+    "opaque": "Nécessite l'inspection du runtime natif",
+    "nativeOnly": "Événement natif ; activation non vérifiée",
+    "readOnly": "Lecture seule",
+    "loading": "Découverte des hooks externes...",
+    "empty": "Aucune déclaration de Hook externe trouvée."
+  }
+}

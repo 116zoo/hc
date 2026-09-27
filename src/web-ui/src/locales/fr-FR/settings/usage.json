@@ -1,0 +1,90 @@
+{
+  "title": "Statistiques d'Appels",
+  "subtitle": "Appels de modèles historiques stockés sur l'hôte d'exécution actuel. Les données ne sont pas fusionnées ni synchronisées entre les hôtes ; voir les requêtes, tokens et taux de cache par modèle, fournisseur et endpoint.",
+  "overview": {
+    "title": "Aperçu de l'Utilisation",
+    "description": "Appels depuis l'hôte d'exécution actuel pour {{timeRange}}, avec dates et heures groupées dans {{timeZone}}. Le changement de filtres actualise les données automatiquement."
+  },
+  "timeRange": {
+    "label": "Période",
+    "last24Hours": "Dernières 24 Heures",
+    "today": "Aujourd'hui",
+    "thisWeek": "Cette Semaine",
+    "thisMonth": "Ce Mois",
+    "all": "Tout le Temps"
+  },
+  "granularity": {
+    "label": "Granularité",
+    "hour": "Par Heure",
+    "day": "Par Jour"
+  },
+  "filter": {
+    "kind": {
+      "label": "Champ de filtre",
+      "all": "Tous",
+      "provider": "Fournisseur",
+      "model": "Modèle"
+    },
+    "placeholder": "Filtrer les fournisseurs ou modèles",
+    "inputLabel": "Filtrer les statistiques d'utilisation",
+    "clear": "Effacer le filtre",
+    "empty": {
+      "title": "Aucune donnée d'utilisation correspondante",
+      "description": "Aucun appel ne correspond au filtre actuel."
+    }
+  },
+  "refresh": "Actualiser",
+  "loading": "Chargement des statistiques d'utilisation…",
+  "loadFailed": "Échec du chargement des statistiques d'utilisation. Veuillez réessayer.",
+  "unsupported": "L'appareil connecté utilise une version plus ancienne d'Hacienda Work qui ne supporte pas les statistiques d'utilisation.",
+  "empty": {
+    "title": "Aucune donnée d'utilisation pour l'instant",
+    "description": "Les statistiques d'appels de modèles apparaîtront ici une fois que vous commencerez à discuter avec un modèle."
+  },
+  "summary": {
+    "requests": "Requêtes",
+    "tokens": "Tokens Totaux",
+    "cachedTokens": "Tokens en Cache",
+    "cacheHitRate": "Taux de Cache"
+  },
+  "chart": {
+    "totalTokens": "{{count}} tokens",
+    "tokensUnit": "Tokens"
+  },
+  "distributions": {
+    "title": "Distribution de l'Utilisation",
+    "byModel": "Distribution par Modèle",
+    "byGroup": "Distribution d'Utilisation par Groupe",
+    "byEndpoint": "Distribution par Endpoint"
+  },
+  "cacheHitRate": {
+    "title": "Taux de Cache des Modèles"
+  },
+  "attribution": {
+    "deletedConfig": "Configuration supprimée",
+    "unknownConfig": "Configuration inconnue",
+    "unknownProvider": "Fournisseur inconnu",
+    "unknownModel": "Modèle inconnu",
+    "unknownEndpoint": "Endpoint inconnu"
+  },
+  "trend": {
+    "title": "Tendance d'Utilisation des Tokens",
+    "description": "Suivre les tokens d'entrée, de sortie, d'écriture cache, de lecture cache, et le taux de cache dans le temps.",
+    "dataTableCaption": "Détails de la tendance d'utilisation des tokens",
+    "time": "Heure",
+    "legend": {
+      "input": "Entrée",
+      "output": "Sortie",
+      "cacheRead": "Lecture Cache",
+      "cacheHitRate": "Taux de Cache"
+    }
+  },
+  "table": {
+    "caption": "Détails {{dimension}}",
+    "model": "Modèle",
+    "group": "Groupe",
+    "endpoint": "Endpoint",
+    "requests": "Requêtes",
+    "tokens": "Token"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "title": "Éditeur",
+  "subtitle": "Paramètres d'apparence et de comportement de l'éditeur",
+  "sections": {
+    "appearance": {
+      "title": "Apparence",
+      "description": "Configuration de l'apparence visuelle"
+    },
+    "behavior": {
+      "title": "Comportement d'Édition",
+      "description": "Paramètres de comportement d'interaction"
+    },
+    "display": {
+      "title": "Paramètres d'Affichage",
+      "description": "Fonctionnalités d'assistance visuelle"
+    },
+    "advanced": {
+      "title": "Fonctionnalités Avancées",
+      "description": "Basculeurs de fonctionnalités améliorées"
+    }
+  },
+  "appearance": {
+    "font": "Police",
+    "fontWeight": "Poids de Police",
+    "fontWeightNormal": "Normal",
+    "fontWeightBold": "Gras",
+    "fontSize": "Taille de Police",
+    "lineHeight": "Hauteur de Ligne",
+    "cursorStyle": "Style du Curseur",
+    "cursorBlinking": "Clignotement du Curseur",
+    "cursorStyles": {
+      "line": "Ligne",
+      "lineThin": "Ligne Fine",
+      "block": "Bloc",
+      "blockOutline": "Contour de Bloc",
+      "underline": "Soulignement",
+      "underlineThin": "Soulignement Fin"
+    },
+    "cursorBlinkings": {
+      "blink": "Clignotement",
+      "smooth": "Lisse",
+      "phase": "Phase",
+      "expand": "Étendre",
+      "solid": "Solide"
+    },
+    "lineHeightDesc": "Hauteur de ligne relative à la taille de police (em). Par exemple, 1,5 em à 14 px fait 21 px."
+  },
+  "behavior": {
+    "tabSize": "Largeur de Tabulation",
+    "insertSpaces": "Insérer des Espaces",
+    "insertSpacesDesc": "Activé : Tab insère des espaces jusqu'au prochain arrêt de tabulation. Désactivé : insère un caractère de tabulation. Le texte existant n'est pas converti.",
+    "wordWrap": "Retour à la Ligne",
+    "wordWrapOptions": {
+      "off": "Désactivé",
+      "on": "Activé",
+      "wordWrapColumn": "À la Colonne",
+      "bounded": "Au Viewport et à la Colonne"
+    },
+    "lineNumbers": "Numéros de Ligne",
+    "lineNumberOptions": {
+      "on": "Activé",
+      "off": "Désactivé",
+      "relative": "Relatif",
+      "interval": "Intervalle"
+    },
+    "smoothScrolling": "Défilement Fluide",
+    "smoothScrollingDesc": "Activer l'animation de défilement fluide",
+    "scrollBeyondLastLine": "Défiler Au-delà de la Dernière Ligne",
+    "scrollBeyondLastLineDesc": "Défiler après la fin du fichier pour centrer le contenu",
+    "tabSizeDesc": "Largeur d'un arrêt de tabulation en colonnes de caractères (ch). Défaut : 4. Définit aussi la largeur d'indentation lors de l'insertion d'espaces.",
+    "detectIndentation": "Détecter l'Indentation",
+    "detectIndentationDesc": "Utiliser l'indentation du fichier à l'ouverture ; sinon utiliser les défauts ci-dessus. Désactiver pour toujours utiliser vos défauts. La barre de statut ne change que le fichier actuel.",
+    "detectIndentationUnsupported": "Cet hôte ne supporte pas la sauvegarde des paramètres de détection d'indentation. Mettez à jour l'hôte pour activer cette option."
+  },
+  "display": {
+    "minimap": "Afficher Minimap",
+    "minimapDesc": "Afficher la minimap du code sur le côté de l'éditeur",
+    "minimapPosition": "Position de la Minimap",
+    "minimapPositionLeft": "Gauche",
+    "minimapPositionRight": "Droite",
+    "minimapSize": "Taille de la Minimap",
+    "minimapSizeAuto": "Auto",
+    "minimapSizeFill": "Remplir",
+    "minimapSizeFit": "Ajuster",
+    "whitespace": "Rendu des Espaces Blancs",
+    "whitespaceOptions": {
+      "none": "Aucun",
+      "boundary": "Frontière",
+      "selection": "Sélection",
+      "trailing": "Final",
+      "all": "Tous"
+    },
+    "lineHighlight": "Surlignage de la Ligne Courante",
+    "lineHighlightOptions": {
+      "none": "Aucun",
+      "gutter": "Gouttière Seule",
+      "line": "Ligne Seule",
+      "all": "Tous"
+    }
+  },
+  "advanced": {
+    "semanticHighlighting": "Surlignage Sémantique",
+    "semanticHighlightingDesc": "Utiliser l'information sémantique pour améliorer le surlignage du code",
+    "bracketPairColorization": "Coloration des Paires d'Acolades",
+    "bracketPairColorizationDesc": "Utiliser différentes couleurs pour les paires d'acolades imbriquées",
+    "formatOnSave": "Formater à la Sauvegarde",
+    "formatOnSaveDesc": "Formater automatiquement le code à la sauvegarde",
+    "formatOnPaste": "Formater au Collage",
+    "formatOnPasteDesc": "Formater automatiquement lors du collage de code",
+    "trimAutoWhitespace": "Supprimer les Espaces Blancs Finaux",
+    "trimAutoWhitespaceDesc": "Supprimer les espaces blancs en fin de ligne à la sauvegarde"
+  },
+  "messages": {
+    "loading": "Chargement...",
+    "loadFailed": "Échec du chargement de la configuration",
+    "loadFailedLocked": "Les paramètres de l'éditeur n'ont pas pu être lus. Cette page est verrouillée pour éviter d'écraser la configuration actuelle avec les défauts.",
+    "retry": "Recharger",
+    "saveSuccess": "Config sauvegardée, les éditeurs ouverts seront mis à jour",
+    "saveFailed": "Échec de la sauvegarde de la configuration"
+  }
+}

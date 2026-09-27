@@ -1,0 +1,656 @@
+{
+  "title": "Applications IA externes",
+  "subtitle": "Examiner les commandes, outils, agents et MCP compatibles découverts depuis d'autres applications IA.",
+  "governance": {
+    "title": "Sources externes et sécurité",
+    "subtitle": "Contrôler l'accès aux sources, la politique de sécurité, les approbations et les conflits pour l'hôte d'exécution actuel."
+  },
+  "legacyHostNotice": "Cet hôte d'exécution utilise le protocole legacy de sources externes. Le Mode Sûr nécessite une mise à jour de l'hôte.",
+  "loading": "Vérification des sources externes…",
+  "checkingNonBlocking": "Vérification des mises à jour…",
+  "applications": {
+    "title": "Applications découvertes",
+    "empty": "Aucun réglage d'app compatible trouvé.",
+    "toggleLabel": "Activer ou désactiver {{name}}",
+    "enableInAdvanced": "Activer les applications externes dans les paramètres Avancés d'abord.",
+    "attentionRequired": "Nécessite une attention. Ouvrez les paramètres Avancés pour continuer.",
+    "openAdvanced": "Ouvrir les paramètres Avancés pour {{name}}",
+    "advanced": {
+      "title": "Paramètres avancés"
+    }
+  },
+  "hooksManagement": {
+    "title": "Hooks",
+    "loading": "Chargement de la gestion des Hooks…"
+  },
+  "hooks": {
+    "title": "Hooks",
+    "description": "Voir la configuration des Hooks depuis OpenCode, Claude Code et Codex. Hacienda Work ne lit que les fichiers de config sans exécuter aucun code.",
+    "refresh": "Actualiser les Hooks",
+    "refreshing": "Actualisation des Hooks…",
+    "showMoreSources": "Afficher {{count}} sources supplémentaires",
+    "showMoreEntries": "Afficher {{count}} Hooks supplémentaires",
+    "showMoreDiagnostics": "Afficher {{count}} diagnostics supplémentaires",
+    "showMoreSourcesForProvider": "Afficher {{count}} sources supplémentaires pour {{provider}}",
+    "showMoreEntriesForProvider": "Afficher {{count}} Hooks supplémentaires pour {{provider}}",
+    "showMoreDiagnosticsForProvider": "Afficher {{count}} diagnostics supplémentaires pour {{provider}}",
+    "loading": "Vérification de la configuration des Hooks…",
+    "pending": "La découverte des Hooks est encore en cours. Le catalogue se mettra à jour automatiquement.",
+    "empty": "Aucune configuration de Hook n'a été trouvée.",
+    "error": "La configuration des Hooks est indisponible ({{code}}).",
+    "staleAfterRefresh": "L'actualisation a échoué ({{code}}). Affichage du dernier résultat réussi.",
+    "pollInterrupted": "La découverte automatique des Hooks a été interrompue ({{code}}). Actualisez pour réessayer ; tout contenu visible peut provenir de la dernière vérification réussie.",
+    "summary": "{{hooks}} Hooks · {{mapped}} correspondants · {{sources}} sources",
+    "providerEmpty": "Aucune configuration de Hook n'a été trouvée pour cette application.",
+    "providerFailed": "Échec de la lecture de la configuration des Hooks pour cette application ; aucun contenu n'est disponible.",
+    "providerStaleEmpty": "La dernière lecture réussie n'a trouvé aucun Hook, et la dernière actualisation a aussi échoué.",
+    "noEntries": "Aucun événement de Hook n'a été trouvé dans cette source.",
+    "entriesDeferred": "Plus de Hooks sont disponibles via le bouton Afficher plus ci-dessous.",
+    "matcher": "Correspondance : {{matcher}}",
+    "matcherValue": {
+      "all": "Tous",
+      "dynamic": "Dynamique",
+      "unavailable": "Indisponible",
+      "unknown": "Inconnu"
+    },
+    "diagnostics": "Diagnostics",
+    "readOnly": "Lecture seule. Hacienda Work n'affiche que ces configurations et n'exécute aucun Hook.",
+    "unsupported": {
+      "remote": "L'inspection des Hooks n'est pas disponible pour les espaces de travail distants dans cette version.",
+      "peer": "L'inspection des Hooks n'est pas disponible via le Mode Pair dans cette version."
+    },
+    "health": {
+      "available": "Disponible",
+      "partial": "Partiellement lu",
+      "degraded": "Dégradé",
+      "unavailable": "Indisponible",
+      "stale": "Dernier résultat réussi",
+      "failed": "Échec de lecture"
+    },
+    "handler": {
+      "function": "Fonction",
+      "command": "Commande",
+      "http": "HTTP",
+      "mcp_tool": "Outil MCP",
+      "prompt": "Prompt",
+      "agent": "Agent"
+    },
+    "scope": {
+      "user_global": "Utilisateur",
+      "project": "Projet",
+      "remote_user": "Utilisateur distant",
+      "remote_project": "Projet distant"
+    },
+    "activation": {
+      "disabled": "Désactivé dans la configuration native",
+      "unsupported": "Non supporté par le runtime natif",
+      "unknown": "Impossible de confirmer si activé"
+    },
+    "diagnosticCategory": {
+      "nativeDisabled": "Les Hooks sont désactivés dans cette configuration native.",
+      "activationUnknown": "Hacienda Work ne lit que les fichiers de config sans exécuter l'application source, donc il ne peut pas confirmer si ces Hooks sont activés. C'est informatif seulement et n'affecte pas les autres fonctionnalités.",
+      "staticCoverage": "Hacienda Work a découvert certains Hooks en lisant les fichiers de config. L'application source peut enregistrer des Hooks additionnels au runtime qui ne deviennent visibles que quand l'app s'exécute réellement.",
+      "opaque": "Certaine logique d'enregistrement de Hook nécessite l'exécution du code source pour être identifiée, ce que l'inspection statique ne peut pas résoudre.",
+      "inspectionLimit": "Certaine configuration de Hook a été omise par une limite de sécurité d'inspection statique.",
+      "invalidConfiguration": "Certaine configuration de Hook est invalide ou n'a pas pu être analysée.",
+      "unavailable": "Certaine configuration de Hook n'a pas pu être lue.",
+      "generic": "L'inspection des Hooks a rapporté un diagnostic."
+    },
+    "projection": {
+      "tool_before": "Correspond à l'outil-avant de Hacienda Work",
+      "tool_after": "Correspond à l'outil-après de Hacienda Work",
+      "nativeOnly": "Événement natif uniquement",
+      "opaque": "Enregistrement statique opaque"
+    }
+  },
+  "common": {
+    "details": "Détails",
+    "hideDetails": "Masquer les détails",
+    "close": "Fermer",
+    "unknown": "Inconnu",
+    "selected": "Actuellement utilisé",
+    "selectedUnavailable": "Sélectionné, actuellement indisponible",
+    "notSelected": "Non utilisé",
+    "availableChoice": "Choix disponible",
+    "openInExplorer": "Ouvrir dans l'explorateur de fichiers",
+    "openInExplorerRemote": "Les chemins d'espace de travail distant ne peuvent pas être ouverts dans le gestionnaire de fichiers local",
+    "openInExplorerUnavailable": "Cet hôte ne peut pas ouvrir les emplacements source"
+  },
+  "actions": {
+    "refresh": "Actualiser",
+    "refreshing": "Actualisation…",
+    "updated": "Sauvegardé.",
+    "waitForUpdate": "Un autre changement est encore en cours de sauvegarde. Attendez qu'il se termine avant de faire un autre choix.",
+    "agentUpdated": "Changements pour {{name}} sauvegardés et statut actualisé.",
+    "modelBindingUpdated": "Liaison modèle d'agent sauvegardée et agents affectés actualisés.",
+    "mcpUpdated": "Choix de serveur MCP sauvegardé et statut actualisé."
+  },
+  "bulkActions": {
+    "enablePending": "Activer tous en attente ({{count}})",
+    "disableAll": "Tout désactiver",
+    "enableRisk": "Cela approuve exactement les {{count}} éléments actuellement affichés. Si la découverte change, Hacienda Work vous demandera de réexaminer.",
+    "enabled": "Éléments en attente sélectionnés activés.",
+    "disabled": "Éléments sélectionnés désactivés."
+  },
+  "recoveryActions": {
+    "refresh": "Actualiser le statut",
+    "retry": "Réessayer",
+    "review": "Examiner les éléments",
+    "resolve_conflict": "Résoudre le conflit",
+    "install_runtime": "Installer ou réparer le runtime requis, puis actualiser.",
+    "reconnect_host": "Reconnecter ou mettre à niveau l'hôte d'exécution, puis réessayer.",
+    "exit_safe_mode": "Quitter le Mode Sûr",
+    "upgrade_host": "Mettre à niveau l'Hôte",
+    "view_reason": "Voir la raison"
+  },
+  "safeMode": {
+    "title": "Mode Sûr Externe",
+    "description": "Bloquer les nouveaux appels d'outils externes, d'agents et de MCP tout en gardant les commandes découvertes et diagnostics visibles. Les appels déjà en cours ne sont pas annulés.",
+    "activeNotice": "Les nouveaux appels externes sont bloqués pour ce processus Hôte. Les appels déjà en cours peuvent se terminer ; redémarrer ou changer l'Hôte désactive le Mode Sûr.",
+    "toggleLabel": "Utiliser le Mode Sûr Externe",
+    "entered": "Le Mode Sûr Externe est actif.",
+    "exited": "Le Mode Sûr Externe est désactivé et les intégrations éligibles ont été réconciliées."
+  },
+  "unavailable": {
+    "hostTitle": "Indisponible ici",
+    "hostDescription": "Voir ou gérer les paramètres externes dans Desktop.",
+    "remoteDescription": "Les paramètres externes sont indisponibles pour ce projet distant. Basculez vers un projet local.",
+    "remoteConnectionDescription": "Connexion distante indisponible. Réessayez la connexion."
+  },
+  "policy": {
+    "title": "Paramètres d'intégration",
+    "externalBadge": "Externe",
+    "readySummary": "{{count}} éléments trouvés",
+    "attentionSummary": "{{count}} éléments nécessitent une attention",
+    "enabledLabel": "Autoriser la compatibilité externe",
+    "updated": "Sauvegardé.",
+    "recoveryRequired": "Ces paramètres sont plus récents, donc l'accès externe est désactivé.",
+    "unknownStatus": "Cet état de paramètres n'est pas supporté, donc l'accès externe est désactivé.",
+    "hostReadOnlyHint": "Lecture seule. Gérez ceci dans Desktop.",
+    "remoteReadOnlyHint": "Ce projet distant est en lecture seule. Basculez vers un projet local pour le gérer.",
+    "backupAndReset": "Sauvegarder et réinitialiser",
+    "resetConfirmTitle": "Sauvegarder et réinitialiser la politique ?",
+    "resetConfirmMessage": "Hacienda Work préservera la politique plus récente dans une sauvegarde locale, la remplacera par des défauts sûrs, et gardera l'exécution externe désactivée jusqu'à ce que vous l'activiez.",
+    "recoveryResetComplete": "La politique incompatible a été sauvegardée et réinitialisée aux défauts sûrs.",
+    "inherited": "Hérité",
+    "projectOverride": "Remplacement projet",
+    "resetWorkspace": "Utiliser les paramètres globaux",
+    "adapterRevision": "Adaptateur {{revision}}",
+    "sourceCount": "{{count}} emplacements source",
+    "capabilities": "Personnaliser les capacités",
+    "capabilitiesFor": "Personnaliser les capacités {{ecosystem}}",
+    "modeLabel": "Mode de compatibilité {{ecosystem}}",
+    "capabilityAccessLabel": "Accès {{ecosystem}} {{capability}}",
+    "unsupportedSafelyOff": "Non supporté par cette version (sûrement désactivé)",
+    "capabilitiesHint": "Choisir comment chaque type de contenu externe est découvert et utilisé.",
+    "safetyLimited": "Limite de sécurité",
+    "scope": {
+      "user": "Global",
+      "workspace": "Ce projet",
+      "workspaceHint": "Affecte ce projet seulement.",
+      "workspaceUnavailable": "Ouvrez un projet pour le configurer séparément."
+    },
+    "mode": {
+      "recommended": "Recommandé",
+      "discoverOnly": "Découvrir seulement",
+      "disabled": "Désactivé",
+      "custom": "Personnalisé"
+    },
+    "access": {
+      "disabled": "Désactivé",
+      "discoverOnly": "Découvrir",
+      "askBeforeUse": "Demander avant utilisation",
+      "auto": "Utiliser automatiquement"
+    },
+    "capability": {
+      "reference": "Références",
+      "command": "Commandes",
+      "tool": "Outils",
+      "subagent": "Agents",
+      "mcp": "Serveurs MCP"
+    },
+    "health": {
+      "available": "Adaptateur disponible",
+      "partial": "Adaptateur partiellement disponible",
+      "degraded": "Adaptateur dégradé",
+      "unavailable": "Adaptateur indisponible"
+    },
+    "state": {
+      "checking": "Vérification",
+      "attention": "Nécessite une attention",
+      "ready": "Prêt",
+      "noConfig": "Aucune configuration"
+    }
+  },
+  "errors": {
+    "loadFailed": "Les paramètres externes n'ont pas pu être lus. Actualisez pour réessayer.",
+    "refreshFailed": "La vérification a échoué. Les éléments activés sont inchangés.",
+    "mutationUnknown": "Le statut de sauvegarde est inconnu. Actualisez pour confirmer."
+  },
+  "operationErrors": {
+    "rejected": "Les paramètres actuels n'autorisent pas ce changement.",
+    "refreshRequired": "Le catalogue a changé avant que cette action ne se termine. Actualisez, examinez l'état actuel, et réessayez.",
+    "policyIncompatible": "Les paramètres externes ont été écrits par une version plus récente d'Hacienda Work. Sauvegardez et réinitialisez-les avant de faire des changements.",
+    "unavailableRetry": "Temporairement indisponible. Réessayez plus tard.",
+    "internal": "L'action a échoué et aucun paramètre n'a été changé. Réessayez ci-dessous. Si cela continue d'échouer, contactez le support avec le numéro de référence.",
+    "referenceId": "Référence support (inclure quand vous contactez le support) : {{id}}"
+  },
+  "diagnostics": {
+    "summary": "{{count}} éléments nécessitent une attention. Examinez les détails pour voir ce qui est affecté.",
+    "sourceSummary": "{{name}} a {{count}} problèmes",
+    "category": {
+      "confirmationStateUnavailable": "Hacienda Work n'a pas pu vérifier les confirmations d'outils sauvegardées, donc les outils affectés restent désactivés. Vérifiez le stockage des paramètres Hacienda Work, puis actualisez.",
+      "conflictHistoryUnavailable": "Hacienda Work n'a pas pu sauvegarder l'information de conflit, donc les noms affectés restent indisponibles. Vérifiez le stockage des paramètres Hacienda Work, puis actualisez.",
+      "checkInProgress": "Une source est encore en cours de vérification. Le contenu existant reste disponible.",
+      "checkTimedOut": "La vérification d'une source a pris trop de temps. L'autre contenu reste disponible ; actualisez pour réessayer.",
+      "confirmationRequired": "Une source a besoin de votre confirmation avant qu'Hacienda Work puisse l'utiliser.",
+      "sourceTooLarge": "Certains fichiers ont été ignorés car la source est trop grande. Réduisez sa taille, puis actualisez.",
+      "invalidSettings": "Certains paramètres n'ont pas pu être lus et ont été ignorés. Corrigez la source, puis actualisez.",
+      "unreadableSource": "Hacienda Work n'a pas pu lire une partie d'une source. Vérifiez l'accès aux fichiers, puis actualisez.",
+      "notSupported": "Ce type de contenu externe n'est pas encore supporté, donc Hacienda Work ne l'a pas chargé ni exécuté.",
+      "checkFailed": "Hacienda Work n'a pas pu vérifier une source. Les autres sources restent disponibles ; actualisez pour réessayer.",
+      "runtimeUnavailable": "Un serveur MCP de cette source est indisponible. Désactivez-le, corrigez sa configuration ou son authentification, puis réactivez-le.",
+      "sourceIssue": "Hacienda Work n'a pas pu finir de vérifier une source. Le contenu utilisable existant reste disponible ; actualisez ou examinez les détails techniques."
+    }
+  },
+  "sources": {
+    "title": "Sources de configuration",
+    "description": "Les paramètres restent dans leurs emplacements d'origine. Ouvrez cette page pour vérifier les changements automatiquement.",
+    "globalOnly": "Affichage des sources disponibles pour tous les espaces de travail. Ouvrez un espace de travail pour aussi afficher les sources de ce projet.",
+    "empty": "Aucune configuration trouvée.",
+    "commandCount": "{{count}} commandes",
+    "toolCount": "{{count}} outils",
+    "agentCount": "{{count}} agents",
+    "mcpCount": "{{count}} serveurs MCP",
+    "toggleLabel": "Activer {{name}}"
+  },
+  "agents": {
+    "title": "Agents trouvés",
+    "description": "Les agents restent dans leur application d'origine. Avant d'en activer un, examinez son modèle, ses outils et où il s'exécute. Hacienda Work demande à nouveau si ses instructions ou ces paramètres changent.",
+    "disable": "Désactiver",
+    "enable": "Activer l'agent",
+    "reviewTitle": "Examiner comment {{name}} s'exécute",
+    "approvalWarning": "Une fois activé, cet agent peut instruire le modèle sélectionné à utiliser les outils montrés ci-dessus. Hacienda Work demande à nouveau si ses instructions, son modèle, ses outils ou ses sources de configuration changent.",
+    "role": {
+      "primary": "Sessions principales",
+      "subagent": "Tâches ponctuelles ; pas de suivi",
+      "all": "Sessions principales et tâches ponctuelles"
+    },
+    "modelUnavailable": "Indisponible",
+    "modelResolvedFromParentAtTaskStart": "Résolu depuis la session parente au démarrage de la tâche",
+    "requestedModel": "Demandé par la source : {{model}}",
+    "requestedModelProfile": "Profil demandé : {{profile}}",
+    "modelBindingMethod": "Résolution : {{method}}",
+    "model": "Modèle : {{model}}",
+    "tools": "Outils : {{tools}}",
+    "executionDomain": "S'exécute dans : cet ordinateur et l'espace de travail actuel",
+    "compatibility": "Statut : {{state}}",
+    "noDescription": "Aucune description fournie",
+    "noTools": "Aucun outil",
+    "unavailableToolsUnknown": "Les noms n'ont pas été fournis par cet hôte",
+    "sourceLocations": "Sources de configuration ({{count}})"
+  },
+  "agentModelBindings": {
+    "title": "Liaisons modèle d'agent",
+    "affectedAgents": "Affecte {{count}} agents",
+    "effectiveModel": "Utilise {{model}}",
+    "configuredEffort": "Effort configuré : {{value}}",
+    "selectLabel": "Choisir un modèle Hacienda Work pour {{request}}",
+    "automatic": "Correspondance automatique",
+    "targetUnavailable": "Indisponible : {{target}}",
+    "request": {
+      "default": "Défaut Hacienda Work",
+      "inherit": "Modèle de la session parente"
+    },
+    "profile": {
+      "namedVariant": "Variante nommée {{name}}",
+      "reasoningEffort": "Effort de raisonnement {{value}}"
+    },
+    "target": {
+      "source": "Utiliser la correspondance de source automatique",
+      "unbound": "Pas de liaison de modèle",
+      "primary": "Modèle principal",
+      "fast": "Modèle rapide",
+      "model": "Modèle configuré"
+    },
+    "method": {
+      "default": "Défaut Hacienda Work",
+      "inherit": "Hérité de la session parente",
+      "exact": "Modèle configuré exact",
+      "explicit": "Liaison utilisateur",
+      "binding_required": "Choisir un modèle",
+      "binding_unavailable": "Modèle sauvegardé indisponible"
+    }
+  },
+  "agentState": {
+    "approval_required": "Confirmation requise",
+    "declined": "Maintenu désactivé",
+    "disabled": "Désactivé",
+    "active": "Activé",
+    "conflict": "Choix requis",
+    "blocked": "Non supporté pour l'instant",
+    "unavailable": "Temporairement indisponible"
+  },
+  "agentChanges": {
+    "unavailable": "{{name}} n'est plus disponible pour les nouvelles tâches ({{state}}). Examinez son modèle actuel, ses outils, sa source ou son conflit de nom ci-dessous.",
+    "unavailableMany": "{{count}} agents activés ne sont plus disponibles pour les nouvelles tâches. Examinez leurs paramètres actuels ci-dessous.",
+    "removedState": "Source supprimée"
+  },
+  "agentCompatibility": {
+    "ready": "Supporté",
+    "ready_with_degradation": "Supporté, mais certains paramètres ne s'appliqueront pas",
+    "blocked": "Non supporté",
+    "invalid": "Erreur de configuration"
+  },
+  "agentDiagnostics": {
+    "activationBlocked": "Cet agent ne peut pas être activé.",
+    "degradedOnly": "Certains paramètres ne s'appliqueront pas.",
+    "configurationUnavailable": {
+      "reason": "Hacienda Work n'a pas pu lire ses paramètres de modèle, donc cet agent ne peut pas être activé.",
+      "impact": "{{impact}}",
+      "nextStep": "Vérifiez les paramètres de modèle Hacienda Work, puis actualisez."
+    },
+    "modelUnavailable": {
+      "reason": "Le modèle demandé n'est pas disponible dans Hacienda Work.",
+      "impact": "{{impact}}",
+      "nextStep": "Choisissez un modèle disponible dans l'application source, ou configurez un modèle disponible dans Hacienda Work, puis actualisez."
+    },
+    "toolUnavailable": {
+      "reason": "Outils indisponibles : {{tools}}",
+      "impact": "{{impact}}",
+      "nextStep": "Supprimez ou remplacez ces outils dans l'application source, puis actualisez."
+    },
+    "promptMissing": {
+      "reason": "Cet agent manque d'un prompt valide.",
+      "impact": "{{impact}}",
+      "nextStep": "Ajoutez un prompt dans l'application source, puis actualisez."
+    },
+    "unsupportedSetting": {
+      "reason": "Hacienda Work ne supporte pas le paramètre {{setting}}, donc cet agent ne peut pas être activé.",
+      "impact": "{{impact}}",
+      "nextStep": "Supprimez ce paramètre dans l'application source, puis actualisez."
+    },
+    "ignoredSetting": {
+      "reason": "Hacienda Work ne supporte pas le paramètre {{setting}} et l'ignorera. Cela n'affecte pas l'utilisation.",
+      "impact": "{{impact}}",
+      "nextStep": ""
+    },
+    "settings": {
+      "unknownField": "champ inconnu",
+      "ambientPermissions": "permissions globales",
+      "permissions": "permissions",
+      "options": "options",
+      "nativeAgentOverlay": "superposition d'agent intégré",
+      "legacyPrimaryMode": "mode principal legacy",
+      "primaryAgentMode": "mode agent principal",
+      "toolPatterns": "patterns d'outils",
+      "defaultPermissions": "permissions par défaut",
+      "variant": "variante de modèle",
+      "temperature": "température",
+      "topP": "top_p",
+      "steps": "limite d'étapes",
+      "maxSteps": "max étapes",
+      "color": "couleur d'affichage",
+      "primaryFacet": "facette agent principal"
+    },
+    "invalidDefinition": {
+      "reason": "Cet agent a une configuration invalide.",
+      "impact": "{{impact}}",
+      "nextStep": "Corrigez la configuration de l'agent dans l'application source, puis actualisez."
+    },
+    "unsupportedBehavior": {
+      "reason": "Cet agent utilise des paramètres qu'Hacienda Work ne supporte pas, donc il ne peut pas être activé.",
+      "impact": "{{impact}}",
+      "nextStep": "Mettez à jour l'agent dans l'application source, puis actualisez."
+    },
+    "ignoredOption": {
+      "reason": "Hacienda Work ne supporte pas ce paramètre et l'ignorera. Cela n'affecte pas l'utilisation.",
+      "impact": "{{impact}}",
+      "nextStep": ""
+    }
+  },
+  "agentConflicts": {
+    "title": "Agents avec le même nom",
+    "description": "Hacienda Work ne choisit pas silencieusement. Les choix en attente et actuels restent visibles, et un choix est mémorisé jusqu'à ce qu'un de ces agents change.",
+    "agentName": "Plusieurs agents sont nommés {{name}}",
+    "disableAll": "Ne pas utiliser aucun de ceux-ci",
+    "pending": "Choisir quel agent utiliser pour les futures tâches. Choisir un agent externe confirme aussi le modèle, les outils et où il s'exécute comme montré ci-dessous.",
+    "currentSelection": "Le choix actuel est utilisé pour les nouvelles tâches. Choisissez une autre option ci-dessus pour le changer.",
+    "currentSelectionUnavailable": "Cette source est encore sélectionnée, mais elle est actuellement désactivée ou indisponible pour les nouvelles tâches. Activez-la ou réparez-la, choisissez une autre option, ou gardez ce nom indisponible.",
+    "selectionApproves": "Ce choix confirme le modèle, les outils, l'emplacement d'exécution et les sources de configuration montrés ci-dessous."
+  },
+  "mcp": {
+    "title": "Serveurs MCP trouvés",
+    "description": "Les paramètres MCP restent dans l'application source. Les serveurs externes sont en lecture seule ici ; désactivez-en un ou changez-le dans son application d'origine.",
+    "externalSource": "Application IA externe",
+    "source": "Source : {{source}}",
+    "sourceLocation": "Configuration : {{location}}",
+    "sourceLocationLabel": "Configuration",
+    "scope": "S'applique à : {{scope}}",
+    "command": "Commande : {{command}}",
+    "url": "Adresse : {{url}}",
+    "workingDirectory": "Démarre dans : {{location}}",
+    "environmentCount": "{{count}} variables d'environnement configurées",
+    "environmentNames": "Variables d'environnement : {{names}}",
+    "environmentReads": "Lit depuis l'environnement Hacienda Work : {{names}}",
+    "argumentCount": "Arguments de commande : {{count}}",
+    "headerCount": "{{count}} en-têtes HTTP configurés",
+    "headerNames": "En-têtes HTTP : {{names}}",
+    "timeoutSummary": "Remplacements de timeout : {{values}}",
+    "timeoutStartup": "démarrage {{duration}}",
+    "timeoutCatalog": "catalogue {{duration}}",
+    "timeoutExecution": "exécution {{duration}}",
+    "timeoutMilliseconds": "{{value}} ms",
+    "changePolicy": "Hacienda Work demande à nouveau avant de charger une configuration de serveur modifiée.",
+    "failureReason": "Raison : {{reason}}",
+    "failureReasons": {
+      "authentication": "Une authentification est requise pour ce serveur MCP.",
+      "timeout": "Le serveur MCP n'a pas fini de démarrer avant son timeout.",
+      "commandUnavailable": "La commande MCP configurée n'a pas pu être démarrée.",
+      "workingDirectoryUnavailable": "Le répertoire de travail MCP configuré est indisponible.",
+      "connectionFailed": "Hacienda Work n'a pas pu se connecter au serveur MCP.",
+      "protocolFailed": "Le serveur MCP n'a pas complété la négociation de démarrage MCP.",
+      "nativeConfigurationUnavailable": "Hacienda Work n'a pas pu lire la configuration MCP actuelle.",
+      "hostReadOnly": "Cet hôte peut découvrir les serveurs MCP mais ne peut pas les exécuter.",
+      "configurationChanged": "La configuration MCP a changé avant l'activation. Actualisez et confirmez à nouveau.",
+      "configurationInvalid": "La configuration MCP ne peut pas être utilisée par le runtime Hacienda Work.",
+      "hostUnavailable": "Le runtime MCP n'est pas disponible dans cet hôte.",
+      "installFailed": "Hacienda Work n'a pas pu enregistrer ce serveur MCP avec le runtime.",
+      "preparationFailed": "Hacienda Work n'a pas pu préparer cette configuration MCP pour l'activation.",
+      "serverMissing": "Le serveur MCP n'est plus enregistré avec le runtime.",
+      "runtimeFailed": "Le serveur MCP a échoué ou s'est arrêté de façon inattendue.",
+      "stopped": "Le serveur MCP n'est pas en cours d'exécution actuellement.",
+      "statusUnavailable": "Hacienda Work n'a pas pu lire le statut actuel du serveur MCP.",
+      "other": "Le serveur MCP a échoué à démarrer. Vérifiez sa configuration source et les logs Hacienda Work."
+    },
+    "runtimeUnavailableGuidance": "Désactivez ce serveur, corrigez la configuration source ou l'authentification, puis réactivez-le. Redémarrer Hacienda Work n'est généralement pas requis.",
+    "unsupportedGuidance": "Changez ce paramètre dans l'application source, puis actualisez.",
+    "enable": "Activer le serveur",
+    "disable": "Désactiver",
+    "empty": "Aucun serveur MCP trouvé.",
+    "emptyGuidance": "Hacienda Work cherche des serveurs MCP dans les emplacements suivants mais n'en a trouvé aucun :",
+    "emptyLocation": {
+      "userGlobal": "Utilisateur global : ~/.config/opencode/opencode.json",
+      "project": "Projet : .opencode/opencode.json",
+      "envConfig": "Fichier pointé par la variable d'environnement OPENCODE_CONFIG"
+    },
+    "transport": {
+      "local_stdio": "Processus local",
+      "streamable_http": "Connexion distante"
+    }
+  },
+  "mcpApprovals": {
+    "title": "Serveurs MCP à examiner",
+    "description": "Hacienda Work a trouvé une configuration exécutable ou réseau depuis une autre application IA. Elle n'est pas démarrée ou contactée tant que vous ne la confirmez pas.",
+    "compactWarning": "L'activation peut exécuter cette commande avec vos permissions utilisateur ou se connecter à ce service ; le serveur peut recevoir les données envoyées dans les appels d'outils.",
+    "showDetails": "Afficher la configuration et le risque",
+    "warning": "Les commandes locales peuvent lire les variables d'environnement listées, et les requêtes distantes peuvent envoyer les en-têtes listés. Examinez ces détails avant d'activer.",
+    "keepDisabled": "Maintenir désactivé",
+    "enable": "Activer le serveur"
+  },
+  "mcpState": {
+    "approval_required": "Confirmation requise",
+    "starting": "Démarrage",
+    "active": "Activé",
+    "declined": "Maintenu désactivé",
+    "conflict": "Choix requis",
+    "covered": "Non sélectionné",
+    "source_disabled": "Source désactivée",
+    "configuration_changed": "Modifiée ; confirmer à nouveau",
+    "unsupported": "Non supporté",
+    "runtime_unavailable": "Temporairement indisponible",
+    "removed": "Supprimé"
+  },
+  "mcpConflicts": {
+    "title": "Serveurs MCP avec le même nom",
+    "description": "Hacienda Work ne choisit pas silencieusement. Choisissez le serveur Hacienda Work ou externe à utiliser ; le choix est mémorisé jusqu'à ce qu'une de ces configurations change.",
+    "serverName": "Plusieurs serveurs MCP sont nommés {{name}}",
+    "pending": "Choisissez un serveur. Choisir un serveur externe confirme aussi cette configuration.",
+    "currentSelection": "Le choix actuel est utilisé. Choisissez une autre option disponible pour le changer.",
+    "unavailable": "Actuellement indisponible",
+    "nativeDisabled": "Activez ce serveur Hacienda Work avant de le sélectionner",
+    "review": "Examiner {{name}}",
+    "approveAndUse": "Approuver et utiliser {{name}}"
+  },
+  "tools": {
+    "title": "Outils trouvés",
+    "description": "Le code de l'outil reste dans son emplacement d'origine. Hacienda Work ne l'exécute pas pendant la vérification de la source.",
+    "review": "Examiner les paramètres",
+    "disable": "Désactiver ces outils",
+    "reviewTitle": "Examiner {{name}} depuis {{source}}",
+    "reason": "Raison : {{reason}}",
+    "nextStep": "Prochaine étape : {{nextStep}}",
+    "targetScope": "Cette action s'applique à chaque outil fourni par cette source."
+  },
+  "toolApprovals": {
+    "title": "Outils à examiner",
+    "description": "Avant d'activer le code d'outil depuis une autre application, examinez d'où vient le code et à quoi il peut accéder.",
+    "source": "Source : {{location}}",
+    "sourceRoot": "Dossier source : {{location}}",
+    "modulePath": "Fichier de code : {{location}}",
+    "scope": "S'applique à : {{scope}}",
+    "executionDomain": "S'exécute dans : {{domain}}",
+    "runtime": "Exécuter avec : {{runtime}}",
+    "workingDirectory": "Démarre dans le dossier : {{location}}",
+    "capabilities": "Peut accéder directement à : {{capabilities}}",
+    "warning": "Le code d'outil s'exécute avec vos permissions utilisateur et hérite de vos variables d'environnement. Il n'est pas isolé par un sandbox système d'exploitation. Les processus qu'il démarre peuvent continuer à tourner après votre annulation.",
+    "keepDisabled": "Maintenir désactivé",
+    "enable": "Activer les outils"
+  },
+  "capability": {
+    "file_system": "fichiers",
+    "network": "réseau",
+    "process": "processus",
+    "environment": "variables d'environnement"
+  },
+  "toolState": {
+    "approval_required": "Confirmation requise",
+    "declined": "Maintenu désactivé",
+    "disabled": "Désactivé",
+    "active": "Activé",
+    "conflict": "Choix requis",
+    "unsupported": "Pas encore supporté",
+    "runtime_unavailable": "Environnement d'exécution indisponible",
+    "load_failed": "Impossible de charger"
+  },
+  "toolReason": {
+    "approval_required": "Examinez l'accès de ce fichier d'outil avant de l'activer.",
+    "declined": "Vous avez choisi de maintenir ces outils désactivés.",
+    "disabled": "La source ou sa capacité d'outil est désactivée par la politique.",
+    "active": "Le code d'outil est chargé et prêt à l'emploi.",
+    "conflict": "Un autre outil a le même nom.",
+    "unsupported": "Ce fichier d'outil contient du code ou des opérations qu'Hacienda Work ne supporte pas.",
+    "runtime_unavailable": "L'environnement d'exécution JavaScript requis est indisponible.",
+    "load_failed": "Hacienda Work n'a pas pu charger ce fichier d'outil."
+  },
+  "toolNextStep": {
+    "approval_required": "Examinez la source et l'accès ci-dessus, puis activez ou maintenez ces outils désactivés.",
+    "declined": "Examinez la source et l'accès ci-dessus avant d'activer ces outils.",
+    "disabled": "Activez cette source ou sa capacité d'outil avant d'utiliser ces outils.",
+    "active": "Aucune action nécessaire. Désactivez ces outils pour arrêter d'utiliser les outils de cette source.",
+    "conflict": "Choisissez quel outil utiliser ci-dessous, ou laissez-les désactivés.",
+    "unsupported": "Changez la source en un fichier JavaScript unique supporté par Hacienda Work, puis actualisez.",
+    "runtime_unavailable": "Installez ou réparez Node.js, puis actualisez. Vous pouvez continuer sans ces outils JavaScript externes pendant que l'environnement d'exécution est indisponible.",
+    "load_failed": "Corrigez la source et actualisez, ou maintenez ces outils désactivés."
+  },
+  "toolConflicts": {
+    "title": "Outils avec le même nom",
+    "description": "Les choix en attente et actuels restent visibles. Jusqu'à ce que vous choisissiez, Hacienda Work continue d'utiliser un outil local ou MCP disponible ; s'il n'y en a aucun, ce nom reste désactivé. Les choix sont mémorisés jusqu'à ce que les outils disponibles changent.",
+    "toolName": "Plusieurs outils sont nommés {{name}}",
+    "pending": "Choisissez quel outil utiliser quand ce nom est appelé.",
+    "currentSelection": "Le choix actuel est utilisé pour ce nom d'outil. Choisissez une autre option ci-dessus pour le changer.",
+    "currentSelectionUnavailable": "Cette source d'outil est encore sélectionnée, mais elle est actuellement désactivée ou indisponible. Activez-la ou réparez-la, ou choisissez un autre outil."
+  },
+  "toolCandidateKind": {
+    "built_in": "Intégré",
+    "mcp": "MCP",
+    "external": "Externe"
+  },
+  "scope": {
+    "user_global": "Tous les espaces de travail",
+    "project": "Espace de travail actuel",
+    "remote_user": "Tous les espaces de travail distants",
+    "remote_project": "Espace de travail distant actuel"
+  },
+  "executionLocation": {
+    "local": "Cet ordinateur",
+    "remote": "Environnement distant actuel",
+    "unknown": "Inconnu"
+  },
+  "runtime": {
+    "java_script": "JavaScript",
+    "type_script": "TypeScript"
+  },
+  "lifecycle": {
+    "available": "Disponible",
+    "restricted": "Non supporté dans cette version",
+    "degraded": "Certains contenus indisponibles",
+    "unavailable": "Temporairement indisponible",
+    "removed": "Source supprimée",
+    "suppressed": "Désactivé",
+    "using_last_valid_version": "Utilisation de la dernière version fonctionnelle"
+  },
+  "conflicts": {
+    "title": "Commandes avec le même nom",
+    "description": "Hacienda Work ne choisit pas silencieusement. Les choix en attente et actuels restent visibles, et un choix est mémorisé jusqu'à ce qu'une des sources change.",
+    "commandName": "Plus d'une source fournit /{{name}}",
+    "pending": "Choisissez une source disponible pour utiliser cette commande.",
+    "currentSelection": "La source actuelle est utilisée pour cette commande. Choisissez une autre source disponible ci-dessus pour la changer.",
+    "currentSelectionUnavailable": "Cette source de commande est encore sélectionnée, mais elle ne peut pas s'exécuter dans son état actuel. Choisissez une source disponible ou corrigez cette source d'abord.",
+    "restricted": "Non supporté dans cette version"
+  },
+  "opencode": {
+    "title": "Extensions OpenCode",
+    "description": "Capacités externes découvertes depuis les configurations compatibles OpenCode.",
+    "summary": "Trouvé {{agents}} agents · {{commands}} commandes · {{tools}} outils · {{mcps}} MCP",
+    "configLocations": "Emplacements de configuration",
+    "inherited": "Hérité du mode global",
+    "capability": {
+      "reference": {
+        "description": "Répertoires locaux nommés depuis la configuration OpenCode",
+        "effect": "Affiche les références dans les vues de répertoires d'espace de travail et la navigation explicite de répertoires.",
+        "risk": "Les références n'accordent pas d'accès fichier supplémentaire."
+      },
+      "subagent": {
+        "description": "{{count}} agents trouvés · depuis {{scope}}",
+        "effect": "Permet d'appeler les agents définis dans OpenCode.",
+        "risk": "Les agents peuvent faire des appels de modèle ; confirmez que la source est de confiance."
+      },
+      "command": {
+        "description": "{{count}} commandes trouvées · depuis {{scope}}",
+        "effect": "Permet d'appeler les commandes OpenCode dans Hacienda Work.",
+        "risk": ""
+      },
+      "mcp": {
+        "description": "{{count}} serveurs MCP trouvés",
+        "effect": "Permet de se connecter aux serveurs MCP configurés dans OpenCode.",
+        "risk": "Les serveurs MCP peuvent démarrer des processus locaux ou se connecter à des adresses distantes."
+      },
+      "tool": {
+        "description": "{{count}} outils trouvés · depuis {{scope}}",
+        "effect": "Permet d'utiliser les outils définis dans OpenCode.",
+        "risk": "Le code d'outil s'exécute avec vos permissions utilisateur, pas dans un sandbox."
+      }
+    }
+  }
+}
