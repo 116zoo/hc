@@ -1,10 +1,11 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useAgentCanvasStore } from '@/app/components/panels/content-canvas/stores';
 import { getActiveSurfaceScope } from '@/infrastructure/peer-device/deviceSurface';
-import { useDispatchJobStore } from '@/features/dispatch/dispatchJobStore';
 import { FlowChatStore } from '../store/FlowChatStore';
 import { selectActiveBtwSessionTab, type BtwSessionPanelData } from '../services/btwSessionPane';
 import { getSessionConversationCapability } from '../session-drivers/conversationCapability';
+import { sessionDriverOwnershipSources } from '../session-drivers/registry';
+import { resolveSessionDriverId } from '../session-drivers/resolve';
 import type { Session } from '../types/flow-chat';
 import {
   resolveComposerTargets,
@@ -12,6 +13,13 @@ import {
   type ComposerTargetCandidate,
   type ComposerTargetSelection,
 } from '../utils/chatInputTarget';
+
+const ownershipSources = sessionDriverOwnershipSources();
+
+function subscribeToDriverOwnership(listener: () => void): () => void {
+  const dispose = ownershipSources.map(source => source.subscribe(listener));
+  return () => dispose.forEach(unsubscribe => unsubscribe());
+}
 
 function candidatesFor(
   mainId: string | null,
@@ -43,8 +51,9 @@ export function useChatInputTargets(options: {
 }) {
   const surfaceId = getActiveSurfaceScope().surfaceId;
   // Driver ownership may arrive before the corresponding session projection.
-  useDispatchJobStore(state => [options.currentSessionId, options.activeChild?.childSessionId]
-    .map(id => Object.values(state.jobs).some(job => job.sessionId === id) ? '1' : '0').join(''));
+  const readOwnership = () => [options.currentSessionId, options.activeChild?.childSessionId]
+    .map(id => id ? resolveSessionDriverId(id, options.sessions.get(id)) : '').join('|');
+  useSyncExternalStore(subscribeToDriverOwnership, readOwnership, readOwnership);
   const [requested, setRequested] = useState<ComposerTargetSelection | null>(null);
   const requestedRef = useRef(requested);
   requestedRef.current = requested;

@@ -110,9 +110,6 @@ function readLinkedAgentSnapshot(sessionId: string): string {
   ]);
 }
 
-export const AgentControlToolCard: React.FC<ToolCardProps> = props => props.toolItem.toolName === 'AgentSpawn'
-  ? <AgentSpawnCard {...props} /> : <AgentInteractionToolCard {...props} />;
-
 const AgentSpawnCard: React.FC<ToolCardProps> = ({
   toolItem,
   sessionId,
@@ -254,3 +251,6 @@ const AgentSpawnCard: React.FC<ToolCardProps> = ({
     </div>
   );
 };
+
+export const AgentControlToolCard: React.FC<ToolCardProps> = props => props.toolItem.toolName === 'AgentSpawn'
+  ? <AgentSpawnCard {...props} /> : <AgentInteractionToolCard {...props} />;

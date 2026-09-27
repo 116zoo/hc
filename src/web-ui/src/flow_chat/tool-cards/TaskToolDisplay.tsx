@@ -218,12 +218,6 @@ function isDeepReviewReviewerTask(toolItem: FlowToolItem, parentSessionId?: stri
   return false;
 }
 
-export const TaskToolDisplay: React.FC<ToolCardProps> = props => {
-  const action = readTaskAction(readInteractionInput(props.toolItem), props.toolItem.toolResult);
-  return action === 'send_input' || action === 'cancel'
-    ? <AgentInteractionToolCard {...props} /> : <TaskLaunchDisplay {...props} />;
-};
-
 const TaskLaunchDisplay: React.FC<ToolCardProps> = ({
   toolItem,
   onOpenInPanel,
@@ -544,4 +538,10 @@ const TaskLaunchDisplay: React.FC<ToolCardProps> = ({
       />
     </div>
   );
+};
+
+export const TaskToolDisplay: React.FC<ToolCardProps> = props => {
+  const action = readTaskAction(readInteractionInput(props.toolItem), props.toolItem.toolResult);
+  return action === 'send_input' || action === 'cancel'
+    ? <AgentInteractionToolCard {...props} /> : <TaskLaunchDisplay {...props} />;
 };

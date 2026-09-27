@@ -27,31 +27,35 @@ export function useToolSessionParticipant(
   kind: 'agent' | 'session' = 'session',
   navigation?: { parentSessionId?: string; parentToolCallId?: string; enabled?: boolean },
 ): ToolCardParticipant {
+  const hasNavigation = Boolean(navigation);
+  const parentSessionId = navigation?.parentSessionId;
+  const parentToolCallId = navigation?.parentToolCallId;
+  const navigationEnabled = navigation?.enabled;
   const readSnapshot = useCallback(() => {
     const session = sessionId ? flowChatStore.getState().sessions.get(sessionId) : undefined;
-    const parent = navigation?.parentSessionId ? flowChatStore.getState().sessions.get(navigation.parentSessionId) : undefined;
+    const parent = parentSessionId ? flowChatStore.getState().sessions.get(parentSessionId) : undefined;
     return JSON.stringify([session?.title?.trim() ?? '', session?.sessionKind === 'subagent', Boolean(session),
       Boolean(parent), Boolean(parent?.config?.dispatchTarget || parent?.config?.dispatchJobId), getActiveSurfaceScope().epoch]);
-  }, [sessionId, navigation?.parentSessionId]);
+  }, [sessionId, parentSessionId]);
   const snapshot = useSyncExternalStore(subscribeToToolSessions, readSnapshot, readSnapshot);
   return useMemo<ToolCardParticipant>(() => {
     const [title, subagent, available, parentAvailable, detached, epoch] = JSON.parse(snapshot) as [string, boolean, boolean, boolean, boolean, number];
     const agent = subagent || kind === 'agent';
     const label = agent ? sessionId ? t(resolveSubagentNameKey(sessionId)) : fallback : title || fallback;
-    const canOpen = navigation && navigation.enabled !== false && !detached && sessionId
+    const canOpen = hasNavigation && navigationEnabled !== false && !detached && sessionId
       && (available || agent && parentAvailable);
     const link = canOpen ? {
       openLabel: t('toolCards.builtin.links.openSession'),
       onOpen: () => {
         const scope = getActiveSurfaceScope();
         if (scope.epoch !== epoch) return;
-        const parentId = navigation.parentSessionId;
+        const parentId = parentSessionId;
         const parent = parentId ? flowChatStore.getState().sessions.get(parentId) : undefined;
         const child = flowChatStore.getState().sessions.get(sessionId);
         if (agent && parentId && parent) {
           openBtwSessionInAuxPane({ childSessionId: sessionId, parentSessionId: parentId, sessionKind: 'subagent',
             sessionTitle: label, workspaceId: child?.workspaceId, workspacePath: parent.workspacePath,
-            parentToolCallId: child?.parentToolCallId || navigation.parentToolCallId,
+            parentToolCallId: child?.parentToolCallId || parentToolCallId,
             agentType: child?.mode || child?.config?.agentType || undefined, subagentType: child?.subagentType,
             remoteConnectionId: parent.remoteConnectionId, remoteSshHost: parent.remoteSshHost, includeInternal: true });
           return;
@@ -75,5 +79,5 @@ export function useToolSessionParticipant(
       };
     }
     return { ...link, id: sessionId, label, kind: 'session' };
-  }, [snapshot, sessionId, kind, fallback, t, navigation?.enabled, navigation?.parentSessionId, navigation?.parentToolCallId]);
+  }, [snapshot, sessionId, kind, fallback, t, hasNavigation, navigationEnabled, parentSessionId, parentToolCallId]);
 }

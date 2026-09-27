@@ -18,8 +18,8 @@ export function highlightFlowChatFocusTarget(element: HTMLElement): () => void {
     FOCUS_LINE_EVENT, { detail: { element, active } },
   ));
   publish(true);
+  const timer = window.setTimeout(() => publish(false), 1600);
   const clear = () => { window.clearTimeout(timer); publish(false); };
-  const timer = window.setTimeout(clear, 1600);
   return clear;
 }
 

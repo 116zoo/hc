@@ -51,6 +51,17 @@ export interface BuiltinCardModel {
 const SECRET_KEY = /^(?:token|(?:access|refresh|auth|private)[_-]?token|api[_-]?key|password|passwd|secret|client[_-]?secret|authorization|cookie|set-cookie)$/i;
 const BINARY_KEY = /^(?:blob|data_base64|image_base64|screenshot_base64|data_url)$/i;
 
+const OPERATION_KEYS: Partial<Record<SemanticBuiltinToolName, readonly string[]>> = {
+  Worktree: ['list', 'create_session', 'create_branch', 'remove'],
+  PortForward: ['targets', 'detect', 'start', 'list', 'stop'],
+  FrontendWorkbench: ['prepare', 'status', 'inspect', 'invoke', 'apply', 'rollback'],
+  ReviewPlatform: ['get_workspace_snapshot', 'list_remotes', 'list_pull_requests', 'count_pull_requests',
+    'get_pull_request', 'get_pull_request_detail_page', 'get_pull_request_ci_log', 'create_pull_request',
+    'reply_to_thread', 'submit_review', 'approve_pull_request', 'revoke_approval', 'request_changes',
+    'resolve_thread', 'update_auth_token', 'clear_auth_token'],
+  Playbook: ['list', 'run'],
+};
+
 /** Redact known credentials even if a service echoed them into an error or nested JSON string. */
 export function redactBuiltinToolValue(value: unknown, input: unknown, replacement: string): unknown {
   const secrets: string[] = [];
@@ -212,14 +223,3 @@ export function buildBuiltinToolCardModel(item: FlowToolItem, name: SemanticBuil
   if (model.sections.length === 0 && typeof rawResult === 'string') context.section('results', rawResult);
   return model;
 }
-
-const OPERATION_KEYS: Partial<Record<SemanticBuiltinToolName, readonly string[]>> = {
-  Worktree: ['list', 'create_session', 'create_branch', 'remove'],
-  PortForward: ['targets', 'detect', 'start', 'list', 'stop'],
-  FrontendWorkbench: ['prepare', 'status', 'inspect', 'invoke', 'apply', 'rollback'],
-  ReviewPlatform: ['get_workspace_snapshot', 'list_remotes', 'list_pull_requests', 'count_pull_requests',
-    'get_pull_request', 'get_pull_request_detail_page', 'get_pull_request_ci_log', 'create_pull_request',
-    'reply_to_thread', 'submit_review', 'approve_pull_request', 'revoke_approval', 'request_changes',
-    'resolve_thread', 'update_auth_token', 'clear_auth_token'],
-  Playbook: ['list', 'run'],
-};

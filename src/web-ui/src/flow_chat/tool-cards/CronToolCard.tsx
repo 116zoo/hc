@@ -185,10 +185,8 @@ export const CronToolCard: React.FC<ToolCardProps> = React.memo(({ toolItem }) =
     ].filter((field): field is NonNullable<typeof field> => Boolean(field));
   }, [
     action,
-    describeSchedule,
     enabled,
     jobId,
-    jobs,
     lastError,
     lastRunStatus,
     nextRunText,
