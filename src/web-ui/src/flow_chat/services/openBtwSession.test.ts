@@ -3,7 +3,9 @@ import { ensureBtwSessionAvailable, openBtwSessionInAuxPane } from './btwSession
 import { openMainSession } from './sessionActivation';
 
 const mocks = vi.hoisted(() => ({
-  createTab: vi.fn(),
+  addTab: vi.fn(),
+  switchAgentCanvasScope: vi.fn(),
+  expandSessionAuxPane: vi.fn(),
   clearSessionUnreadCompletion: vi.fn(),
   findTabByMetadata: vi.fn(),
   updateTabContent: vi.fn(),
@@ -64,17 +66,19 @@ vi.mock('@/app/stores/sceneStore', () => ({
   },
 }));
 
-vi.mock('@/shared/utils/tabUtils', () => ({
-  createTab: (...args: unknown[]) => mocks.createTab(...args),
+vi.mock('@/app/scenes/session/sessionPanelLayout', () => ({
+  expandSessionAuxPane: (...args: unknown[]) => mocks.expandSessionAuxPane(...args),
 }));
 
 vi.mock('@/app/components/panels/content-canvas/stores', () => ({
+  switchAgentCanvasScope: (...args: unknown[]) => mocks.switchAgentCanvasScope(...args),
   useAgentCanvasStore: {
     getState: () => ({
       activeGroupId: 'primary',
       primaryGroup: { activeTabId: null, tabs: [] },
       secondaryGroup: { activeTabId: null, tabs: [] },
       tertiaryGroup: { activeTabId: null, tabs: [] },
+      addTab: (...args: unknown[]) => mocks.addTab(...args),
       findTabByMetadata: (...args: unknown[]) => mocks.findTabByMetadata(...args),
       updateTabContent: (...args: unknown[]) => mocks.updateTabContent(...args),
       switchToTab: (...args: unknown[]) => mocks.switchToTab(...args),
@@ -116,7 +120,9 @@ describe('openBtwSessionInAuxPane', () => {
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
     animationFrameCallbacks = [];
-    mocks.createTab.mockClear();
+    mocks.addTab.mockClear();
+    mocks.switchAgentCanvasScope.mockClear();
+    mocks.expandSessionAuxPane.mockClear();
     mocks.clearSessionUnreadCompletion.mockClear();
     mocks.findTabByMetadata.mockReset();
     mocks.updateTabContent.mockClear();
@@ -135,7 +141,7 @@ describe('openBtwSessionInAuxPane', () => {
     mocks.updateLayout.mockClear();
     mocks.openScene.mockClear();
     sessions = new Map();
-    activeSessionId = null;
+    activeSessionId = 'parent-session';
     vi.stubGlobal('requestAnimationFrame', vi.fn((callback: FrameRequestCallback) => {
       animationFrameCallbacks.push(callback);
       return animationFrameCallbacks.length;
@@ -154,7 +160,7 @@ describe('openBtwSessionInAuxPane', () => {
       expand: false,
     });
 
-    expect(mocks.createTab).toHaveBeenCalledWith(
+    expect(mocks.addTab).toHaveBeenCalledWith(
       expect.objectContaining({
         type: 'btw-session',
         data: expect.objectContaining({
@@ -162,6 +168,7 @@ describe('openBtwSessionInAuxPane', () => {
           parentSessionId: 'parent-session',
         }),
       }),
+      'active',
     );
 
     expect(mocks.clearSessionUnreadCompletion).not.toHaveBeenCalled();
@@ -187,13 +194,14 @@ describe('openBtwSessionInAuxPane', () => {
       expand: false,
     });
 
-    expect(mocks.createTab).toHaveBeenCalledWith(
+    expect(mocks.addTab).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({
           childSessionId: 'review-check-child',
           viewKind: 'review-check',
         }),
       }),
+      'active',
     );
     expect(mocks.addExternalSession).toHaveBeenCalledWith(
       'review-check-child',
@@ -206,8 +214,8 @@ describe('openBtwSessionInAuxPane', () => {
     );
   });
 
-  it('switches to an existing aux pane tab without expanding the right panel again', () => {
-    const dispatchEvent = stubWindowForPanelExpansion(false);
+  it('switches to an existing aux pane tab and asks its layout owner to reveal it', () => {
+    stubWindowForPanelExpansion(false);
     mocks.findTabByMetadata.mockReturnValue({
       tab: { id: 'existing-review-tab' },
       groupId: 'secondary',
@@ -235,14 +243,13 @@ describe('openBtwSessionInAuxPane', () => {
       }),
     );
     expect(mocks.switchToTab).toHaveBeenCalledWith('existing-review-tab', 'secondary');
-    expect(mocks.createTab).not.toHaveBeenCalled();
-    expect(dispatchEvent).not.toHaveBeenCalledWith(
-      expect.objectContaining({ type: 'expand-right-panel' }),
-    );
+    expect(mocks.addTab).not.toHaveBeenCalled();
+    expect(mocks.switchAgentCanvasScope).toHaveBeenCalledWith('parent-session');
+    expect(mocks.expandSessionAuxPane).toHaveBeenCalledOnce();
   });
 
-  it('expands the right panel before switching to an existing aux pane tab when collapsed', () => {
-    const dispatchEvent = stubWindowForPanelExpansion(true);
+  it('reveals an existing aux pane tab when collapsed', () => {
+    stubWindowForPanelExpansion(true);
     mocks.findTabByMetadata.mockReturnValue({
       tab: { id: 'existing-review-tab' },
       groupId: 'secondary',
@@ -255,10 +262,8 @@ describe('openBtwSessionInAuxPane', () => {
     });
 
     expect(mocks.switchToTab).toHaveBeenCalledWith('existing-review-tab', 'secondary');
-    expect(mocks.createTab).not.toHaveBeenCalled();
-    expect(dispatchEvent).toHaveBeenCalledWith(
-      expect.objectContaining({ type: 'expand-right-panel' }),
-    );
+    expect(mocks.addTab).not.toHaveBeenCalled();
+    expect(mocks.expandSessionAuxPane).toHaveBeenCalledOnce();
   });
 
   it('hydrates incomplete live subagent history when explicitly opening the aux pane', () => {

@@ -1,3 +1,4 @@
+import { lazyWithRecovery } from '@/shared/utils/lazyWithRecovery';
 import { useDeviceDirectory, resolveDeviceName } from '@/infrastructure/account/deviceDirectory';
 import { requireSessionOwningWorkspaceId } from '@/flow_chat/utils/sessionOrdering';
 /**
@@ -7,8 +8,8 @@ import { requireSessionOwningWorkspaceId } from '@/flow_chat/utils/sessionOrderi
  * Owns all data fetching / mutation for chat sessions.
  */
 
-import React, { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
-import { subscribeOverlayInteraction, createOverlayPortal, Button, Icon, IconButton, Input, Menu, MenuItem, OverflowText, Tooltip } from '@openbitfun/ui';
+import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import { subscribeOverlayInteraction, createOverlayPortal, Button, Icon, IconButton, Input, Menu, MenuItem, OverflowText, StatusPill, Tooltip } from '@openbitfun/ui';
 import { Loader2, Archive, FolderGit2, ListChecks } from 'lucide-react';
 import { RetainedMountBoundary } from '@/shared/presence';
 import { useI18n } from '@/infrastructure/i18n';
@@ -108,8 +109,8 @@ import { SessionStatusIndicator } from './SessionStatusIndicator';
 import './SessionsSection.scss';
 
 const log = createLogger('SessionsSection');
-const ScheduledJobsModal = lazy(() => import('@/app/components/scheduled-jobs/ScheduledJobsModal'));
-const WorkspaceSessionBatchModal = lazy(() => import('../workspaces/WorkspaceSessionBatchModal'));
+const ScheduledJobsModal = lazyWithRecovery(() => import('@/app/components/scheduled-jobs/ScheduledJobsModal'));
+const WorkspaceSessionBatchModal = lazyWithRecovery(() => import('../workspaces/WorkspaceSessionBatchModal'));
 
 type HistoryOpenIntentDispatchResult = 'none' | 'dispatched' | 'already-pending';
 
@@ -1782,7 +1783,9 @@ const SessionsSection: React.FC<SessionsSectionProps> = ({
                           <SessionTitleNumber number={titleNumber} />
                         </span>
                     {isChildSession ? (
-                      <span className="openbitfun-nav-panel__inline-item-btw-badge">{childSessionBadge}</span>
+                      <StatusPill className="openbitfun-nav-panel__inline-item-btw-badge" tone="neutral">
+                        {childSessionBadge}
+                      </StatusPill>
                     ) : null}
                     {isDispatched ? (
                       <span

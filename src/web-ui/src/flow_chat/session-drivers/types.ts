@@ -44,6 +44,8 @@ export interface SendMessageOptions {
    * Callers should not set this directly.
    */
   bypassPendingQueue?: boolean;
+  /** Use the existing send-now path to steer running work when supported. */
+  sendImmediately?: boolean;
   userMessageMetadata?: Record<string, unknown>;
   execution?: import('@/infrastructure/api/service-api/AgentAPI').AgentDialogTurnExecution;
   turnId?: string;

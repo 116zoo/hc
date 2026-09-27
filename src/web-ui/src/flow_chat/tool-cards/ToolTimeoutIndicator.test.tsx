@@ -15,7 +15,7 @@ const timeoutIndicatorStyles = readFileSync(
   'utf8',
 );
 const taskToolStyles = readFileSync(
-  new URL('./TaskToolDisplay.scss', import.meta.url),
+  new URL('../components/TaskDetailPanel/TaskDetailPanel.scss', import.meta.url),
   'utf8',
 );
 
