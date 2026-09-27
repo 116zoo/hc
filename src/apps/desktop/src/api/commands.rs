@@ -5800,6 +5800,60 @@ pub async fn workspace_file_upload(
     serde_json::to_value(status).map_err(|error| error.to_string())
 }
 
+#[cfg(feature = "basemind")]
+pub mod basemind_commands {
+    use super::*;
+    use openbitfun_basemind_integration::models::RedactedEntity;
+
+    #[derive(Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct RevealEntityRequest {
+        pub workspace_id: Option<String>,
+        pub entity_id: String,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct ReadRedactedDocumentRequest {
+        pub workspace_id: Option<String>,
+        pub file_path: String,
+    }
+
+    #[derive(Serialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct RedactedDocumentResponse {
+        pub markdown: String,
+        pub entities: Vec<RedactedEntity>,
+        pub source_format: String,
+    }
+
+    #[tauri::command]
+    pub async fn basemind_reveal_entity(
+        state: State<'_, AppState>,
+        request: RevealEntityRequest,
+    ) -> Result<String, String> {
+        let client = state.get_basemind_client().await?;
+        client.reveal_entity(&request.entity_id).await.map_err(|e| e.to_string())
+    }
+
+    #[tauri::command]
+    pub async fn basemind_read_redacted_document(
+        state: State<'_, AppState>,
+        request: ReadRedactedDocumentRequest,
+    ) -> Result<RedactedDocumentResponse, String> {
+        let client = state.get_basemind_client().await?;
+        let result = client
+            .extract_and_redact_path(&request.file_path)
+            .await
+            .map_err(|e| e.to_string())?;
+        Ok(RedactedDocumentResponse {
+            markdown: result.markdown,
+            entities: result.entities,
+            source_format: result.source_format,
+        })
+    }
+}
+
 #[cfg(test)]
 mod file_workspace_id_contract_tests {
     #[test]

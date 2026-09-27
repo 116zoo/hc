@@ -18,6 +18,12 @@ export const MOBILE_LOCALES = [
     shortName: "EN",
     aliases: ["en", "en-US"],
     contentFallbacks: ["zh-CN"],
+  },
+  {
+    id: "fr-FR",
+    shortName: "FR",
+    aliases: ["fr", "fr-FR"],
+    contentFallbacks: ["en-US"],
   }
 ] as const;
 const UNKNOWN_LANGUAGE_FALLBACK_CHAIN = ["en-US", "zh-CN"] as const satisfies readonly MobileLanguage[];
@@ -192,6 +198,59 @@ export const SHARED_TERMS_BY_LOCALE = {
       "done": "Done",
       "failed": "Failed",
       "cancelled": "Cancelled"
+    }
+  },
+  "fr-FR": {
+    "product": {
+      "name": "OpenBitFun",
+      "remote": "OpenBitFun Remote"
+    },
+    "features": {
+      "remoteControl": "Contrôle à distance",
+      "codeAgent": "Agent de code",
+      "deepReview": "Révision stricte",
+      "settings": "Paramètres",
+      "workspace": "Espace de travail"
+    },
+    "modes": {
+      "assistant": "Mode assistant",
+      "expert": "Mode expert",
+      "review": "Mode révision"
+    },
+    "agents": {
+      "Minimal": "Minimal",
+      "Standard": "Standard",
+      "Ultimate": "Ultime",
+      "Creative": "Créatif",
+      "Claw": "Assistant",
+      "Cowork": "Collaboration",
+      "DeepResearch": "Recherche approfondie",
+      "ComputerUse": "Utilisation ordinateur",
+      "default": "Assistant par défaut"
+    },
+    "tools": {
+      "explore": "Explorer",
+      "read": "Lire",
+      "write": "Écrire",
+      "shell": "Terminal",
+      "search": "Rechercher",
+      "edit": "Éditer",
+      "todo": "Tâches"
+    },
+    "connectionMethods": {
+      "lan": "Réseau local",
+      "openbitfunServer": "Serveur OpenBitFun",
+      "customServer": "Serveur personnalisé",
+      "botFeishu": "Bot Feishu",
+      "botTelegram": "Bot Telegram",
+      "botWeixin": "Bot WeChat"
+    },
+    "statuses": {
+      "loading": "Chargement",
+      "running": "En cours",
+      "done": "Terminé",
+      "failed": "Échec",
+      "cancelled": "Annulé"
     }
   }
 } as const satisfies Record<MobileLanguage, SharedI18nTerms>;

@@ -4,8 +4,10 @@
 
 pub mod anthropic;
 pub mod gemini;
+pub mod ollama;
 pub mod openai;
 pub(crate) mod shared;
 
 pub use anthropic::AnthropicMessageConverter;
 pub use gemini::GeminiMessageConverter;
+pub use ollama::OllamaMessageConverter;

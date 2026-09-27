@@ -542,6 +542,7 @@ impl AIClient {
                 )
                 .await
             }
+            // Ollama uses OpenAI-compatible format, handled by OpenAIChat variant
         }
     }
 
@@ -582,6 +583,8 @@ impl AIClient {
             ApiFormat::Anthropic => anthropic::discovery::list_models(self).await,
             ApiFormat::Gemini => gemini::discovery::list_models(self).await,
             ApiFormat::GeminiCodeAssist => gemini::code_assist::list_models(self).await,
+            // Ollama uses OpenAI-compatible format, but has its own discovery endpoint
+            // The ApiFormat::OpenAIChat variant handles "ollama" alias
         }
     }
 }

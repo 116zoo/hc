@@ -71,8 +71,10 @@ pub fn enabled_feature_groups() -> Vec<ToolPackFeatureGroup> {
             cfg!(feature = "computer-use"),
             ToolPackFeatureGroup::ComputerUse,
         ),
+        // Disable ImageAnalysis when basemind feature is enabled (Option B per spec §5)
+        // Basemind OCR not yet validated; prevents silent PII leak via unredacted image path.
         (
-            cfg!(feature = "image-analysis"),
+            cfg!(all(feature = "image-analysis", not(feature = "basemind"))),
             ToolPackFeatureGroup::ImageAnalysis,
         ),
         (cfg!(feature = "miniapp"), ToolPackFeatureGroup::MiniApp),

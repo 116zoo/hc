@@ -67,6 +67,7 @@ pub use api::*;
 use api::acp_client_api::*;
 use api::clipboard_file_api::*;
 use api::commands::*;
+use api::commands::basemind_commands;
 use api::computer_use_api::*;
 use api::config_api::*;
 use api::cron_api::*;
@@ -1937,6 +1938,11 @@ pub async fn run() {
             api::debug_api::debug_element_picked,
             api::debug_api::debug_open_devtools,
             api::debug_api::debug_close_devtools,
+            // Basemind integration
+            #[cfg(feature = "basemind")]
+            basemind_commands::basemind_reveal_entity,
+            #[cfg(feature = "basemind")]
+            basemind_commands::basemind_read_redacted_document,
         ])
         .build(tauri::generate_context!());
 

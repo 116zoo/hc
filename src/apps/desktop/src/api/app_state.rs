@@ -19,6 +19,9 @@ use openbitfun_core::service::{
 use openbitfun_core::util::errors::*;
 use openbitfun_services_integrations::speech::{SpeechService, SpeechStoragePaths};
 
+#[cfg(feature = "basemind")]
+use openbitfun_basemind_integration::BasemindClient;
+
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 use std::sync::atomic::AtomicBool;
@@ -98,6 +101,9 @@ pub struct AppState {
     /// Cancellation flags for active file transfers (download/upload), keyed by transfer_id.
     pub active_transfers: Arc<Mutex<HashMap<String, Arc<AtomicBool>>>>,
     pub announcement_scheduler: Arc<announcement::AnnouncementScheduler>,
+    // Basemind integration
+    #[cfg(feature = "basemind")]
+    pub basemind_client: Arc<RwLock<Option<Arc<BasemindClient>>>>,
 }
 
 impl AppState {
@@ -363,6 +369,9 @@ impl AppState {
             active_searches: Arc::new(Mutex::new(HashMap::new())),
             active_transfers: Arc::new(Mutex::new(HashMap::new())),
             announcement_scheduler,
+            // Basemind integration
+            #[cfg(feature = "basemind")]
+            basemind_client: Arc::new(RwLock::new(None)),
         };
 
         if let Some(workspace_info) = initial_workspace {
@@ -447,6 +456,13 @@ impl AppState {
             .await
             .clone()
             .ok_or(SSHServiceError::TerminalManagerNotInitialized)
+    }
+
+    // Basemind integration methods
+    #[cfg(feature = "basemind")]
+    pub async fn get_basemind_client(&self) -> Result<Arc<BasemindClient>, String> {
+        let client = self.basemind_client.read().await.clone();
+        client.ok_or_else(|| "Basemind client not initialized".to_string())
     }
 
     /// Set current remote workspace

@@ -12,6 +12,10 @@ pub(super) const INSTALLER_GENERATED_LOCALES: &[InstallerGeneratedLocaleEntry] =
         aliases: &["en", "en-US"],
     },
     InstallerGeneratedLocaleEntry {
+        code: "fr-FR",
+        aliases: &["fr", "fr-FR"],
+    },
+    InstallerGeneratedLocaleEntry {
         code: "zh-CN",
         aliases: &["zh", "zh-Hans", "zh-CN"],
     },

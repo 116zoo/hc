@@ -374,3 +374,17 @@ document a command only when a real workflow needs it.
 ## Agent-doc priority
 
 Prefer the nearest matching `AGENTS.md` / `AGENTS-CN.md` for the directory you are changing. If local guidance conflicts with this file, follow the more specific, nearer document.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs live as local markdown files under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical role strings (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Multi-context — `CONTEXT-MAP.md` at the root points at per-context `CONTEXT.md` files. See `docs/agents/domain.md`.

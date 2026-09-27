@@ -9,6 +9,11 @@
       "remoteControl": "Remote Control"
     }
   },
+  "fr-FR": {
+    "features": {
+      "remoteControl": "Contrôle à distance"
+    }
+  },
   "zh-TW": {
     "features": {
       "remoteControl": "遠端控制"

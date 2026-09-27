@@ -1,0 +1,1 @@
+{"nodes": [{"id": "pkg_openbitfun_agent_content", "label": "openbitfun-agent-content", "file_type": "code", "type": "package", "ecosystem": "cargo", "source_file": "src/crates/assembly/agent-content/Cargo.toml", "source_location": "L1"}], "edges": []}

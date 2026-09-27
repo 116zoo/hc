@@ -64,6 +64,18 @@ pub const GENERATED_LOCALE_CONTRACT: &[GeneratedLocaleContractEntry] = &[
         aliases: &["en", "en-US"],
         content_fallbacks: &[LocaleId::ZhCN],
     },
+    GeneratedLocaleContractEntry {
+        id: LocaleId::FrFR,
+        code: "fr-FR",
+        name: "Français",
+        english_name: "French",
+        native_name: "Français",
+        rtl: false,
+        model_language_name: "French",
+        short_model_instruction: "Utilisez le français",
+        aliases: &["fr", "fr-FR"],
+        content_fallbacks: &[LocaleId::EnUS],
+    },
 ];
 
 pub const GENERATED_SHARED_TERMS: &[GeneratedSharedTermEntry] = &[
@@ -621,6 +633,191 @@ pub const GENERATED_SHARED_TERMS: &[GeneratedSharedTermEntry] = &[
         locale: LocaleId::EnUS,
         key: "tools.write",
         value: "Write",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.Claw",
+        value: "Assistant",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.ComputerUse",
+        value: "Utilisation ordinateur",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.Cowork",
+        value: "Collaboration",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.Creative",
+        value: "Créatif",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.DeepResearch",
+        value: "Recherche approfondie",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.default",
+        value: "Assistant par défaut",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.Minimal",
+        value: "Minimal",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.Standard",
+        value: "Standard",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "agents.Ultimate",
+        value: "Ultime",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "connectionMethods.botFeishu",
+        value: "Bot Feishu",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "connectionMethods.botTelegram",
+        value: "Bot Telegram",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "connectionMethods.botWeixin",
+        value: "Bot WeChat",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "connectionMethods.customServer",
+        value: "Serveur personnalisé",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "connectionMethods.lan",
+        value: "Réseau local",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "connectionMethods.openbitfunServer",
+        value: "Serveur OpenBitFun",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "features.codeAgent",
+        value: "Agent de code",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "features.deepReview",
+        value: "Révision stricte",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "features.remoteControl",
+        value: "Contrôle à distance",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "features.settings",
+        value: "Paramètres",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "features.workspace",
+        value: "Espace de travail",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "modes.assistant",
+        value: "Mode assistant",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "modes.expert",
+        value: "Mode expert",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "modes.review",
+        value: "Mode révision",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "product.name",
+        value: "OpenBitFun",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "product.remote",
+        value: "OpenBitFun Remote",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "statuses.cancelled",
+        value: "Annulé",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "statuses.done",
+        value: "Terminé",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "statuses.failed",
+        value: "Échec",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "statuses.loading",
+        value: "Chargement",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "statuses.running",
+        value: "En cours",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "tools.edit",
+        value: "Éditer",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "tools.explore",
+        value: "Explorer",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "tools.read",
+        value: "Lire",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "tools.search",
+        value: "Rechercher",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "tools.shell",
+        value: "Terminal",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "tools.todo",
+        value: "Tâches",
+    },
+    GeneratedSharedTermEntry {
+        locale: LocaleId::FrFR,
+        key: "tools.write",
+        value: "Écrire",
     },
 ];
 

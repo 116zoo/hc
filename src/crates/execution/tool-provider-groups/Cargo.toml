@@ -22,6 +22,7 @@ pages = []
 creation = []
 canvas = []
 agent-control = []
+basemind = []
 product-full = ["basic", "git", "mcp", "browser-web", "computer-use", "image-analysis", "miniapp", "pages", "creation", "canvas", "agent-control"]
 
 [lints]
