@@ -24,8 +24,42 @@ export const HARMONY_FONT_ASSETS = Object.freeze([
   },
 ]);
 
+export const SOURCE_SERIF_4_FONT_ASSETS = Object.freeze([
+  {
+    relativePath: 'source-serif-4/SourceSerif4-Regular.ttf',
+    bytes: 268_589,
+    sha256: '17CD279F16F169747997A5A4C1703FABE2CBB4D5394E372B11535E8F7762AB4B',
+  },
+  {
+    relativePath: 'source-serif-4/SourceSerif4-Medium.ttf',
+    bytes: 268_576,
+    sha256: '317E5F4751D061109EA88443F9BC9923DC8691E4B9CF63BB7D53AC9F7621E411',
+  },
+  {
+    relativePath: 'source-serif-4/SourceSerif4-SemiBold.ttf',
+    bytes: 268_604,
+    sha256: 'ED4D249162092BA07F6743DC960A2954AE64F33EEA588301916A4502D35C9F97',
+  },
+  {
+    relativePath: 'source-serif-4/SourceSerif4-Bold.ttf',
+    bytes: 268_552,
+    sha256: '8899064EC540856E39E4B8A95647FB4CC07680B875A9EC690E9946F6910FD258',
+  },
+  {
+    relativePath: 'source-serif-4/SourceSerif4VF.ttf',
+    bytes: 268_505,
+    sha256: '20FB4628F63B1ACC808DFDF768B3D14F7C6635CF0D425A67BB99BE1765D12AA3',
+  },
+]);
+
 const HARMONY_FONT_STEMS = Object.freeze(
   HARMONY_FONT_ASSETS
+    .filter(({ relativePath }) => relativePath.endsWith('.ttf'))
+    .map(({ relativePath }) => relativePath.split('/').at(-1).replace(/\.ttf$/, '')),
+);
+
+const SOURCE_SERIF_4_FONT_STEMS = Object.freeze(
+  SOURCE_SERIF_4_FONT_ASSETS
     .filter(({ relativePath }) => relativePath.endsWith('.ttf'))
     .map(({ relativePath }) => relativePath.split('/').at(-1).replace(/\.ttf$/, '')),
 );
@@ -37,7 +71,30 @@ const FIRA_FONT_STEMS = Object.freeze([
   'FiraCode-VF',
 ]);
 
-const PRODUCT_FONT_ASSET_PATTERN = /(?:HarmonyOS[_-]Sans|FiraCode-|Noto[_-]Sans[_-]SC)[^/]*\.(?:ttf|otf|woff2?)$/i;
+export const FIRA_CODE_FONT_ASSETS = Object.freeze([
+  {
+    relativePath: 'fira-code/FiraCode-Regular.woff2',
+    bytes: 0,
+    sha256: '',
+  },
+  {
+    relativePath: 'fira-code/FiraCode-Medium.woff2',
+    bytes: 0,
+    sha256: '',
+  },
+  {
+    relativePath: 'fira-code/FiraCode-SemiBold.woff2',
+    bytes: 0,
+    sha256: '',
+  },
+  {
+    relativePath: 'fira-code/FiraCode-VF.woff2',
+    bytes: 0,
+    sha256: '',
+  },
+]);
+
+const PRODUCT_FONT_ASSET_PATTERN = /(?:HarmonyOS[_-]Sans|FiraCode-|Noto[_-]Sans[_-]SC|SourceSerif4)[^/]*\.(?:ttf|otf|woff2?)$/i;
 
 export function normalizeWebFontProfile(value) {
   if (value === APPLE_SYSTEM_FONT_PROFILE || value === HARMONY_BUNDLED_FONT_PROFILE) {
@@ -73,7 +130,7 @@ export function fontProfileForDesktopTarget({ target, platform = process.platfor
 
 export function verifyHarmonyFontSources(assetRoot) {
   for (const expected of HARMONY_FONT_ASSETS) {
-    const source = readFileSync(join(assetRoot, ...expected.relativePath.split('/')));
+    const source = readFileSync(join(assetRoot, 'harmonyos-sans', ...expected.relativePath.split('/')));
     const actualHash = createHash('sha256').update(source).digest('hex').toUpperCase();
     if (source.byteLength !== expected.bytes || actualHash !== expected.sha256) {
       throw new Error(
@@ -84,17 +141,34 @@ export function verifyHarmonyFontSources(assetRoot) {
     }
   }
 
-  const expectedFontPaths = new Set(
-    HARMONY_FONT_ASSETS
+  for (const expected of SOURCE_SERIF_4_FONT_ASSETS) {
+    const source = readFileSync(join(assetRoot, 'source-serif-4', ...expected.relativePath.split('/').slice(1)));
+    const actualHash = createHash('sha256').update(source).digest('hex').toUpperCase();
+    if (source.byteLength !== expected.bytes || actualHash !== expected.sha256) {
+      throw new Error(
+        `Source Serif 4 source changed: ${expected.relativePath}. `
+          + `Expected ${expected.bytes} bytes / ${expected.sha256}, `
+          + `received ${source.byteLength} bytes / ${actualHash}.`,
+      );
+    }
+  }
+
+  const expectedFontPaths = new Set([
+    ...HARMONY_FONT_ASSETS
+      .filter(({ relativePath }) => relativePath.endsWith('.ttf'))
+      .map(({ relativePath }) => `harmonyos-sans/${relativePath}`.toLowerCase()),
+    ...SOURCE_SERIF_4_FONT_ASSETS
       .filter(({ relativePath }) => relativePath.endsWith('.ttf'))
       .map(({ relativePath }) => relativePath.toLowerCase()),
-  );
+    ...FIRA_CODE_FONT_ASSETS
+      .map(({ relativePath }) => relativePath.toLowerCase()),
+  ]);
   const unexpectedFonts = listFontFiles(assetRoot).filter(
     (relativePath) => !expectedFontPaths.has(relativePath.toLowerCase()),
   );
   if (unexpectedFonts.length > 0) {
     throw new Error(
-      `HarmonyOS Sans source contains unapproved font files: ${unexpectedFonts.join(', ')}`,
+      `Font assets contain unapproved font files: ${unexpectedFonts.join(', ')}`,
     );
   }
 }
@@ -113,7 +187,7 @@ export function assertWebFontProfileBundle(profile, bundleFileNames) {
     return;
   }
 
-  const expectedStems = [...HARMONY_FONT_STEMS, ...FIRA_FONT_STEMS];
+  const expectedStems = [...HARMONY_FONT_STEMS, ...FIRA_FONT_STEMS, ...SOURCE_SERIF_4_FONT_STEMS];
   const matchesByStem = new Map(
     expectedStems.map((stem) => [
       stem,
@@ -140,7 +214,7 @@ export function assertWebFontProfileBundle(profile, bundleFileNames) {
   }
 
   const wrongFormats = expectedStems.flatMap((stem) => {
-    const expectedExtension = HARMONY_FONT_STEMS.includes(stem) ? '.ttf' : '.woff2';
+    const expectedExtension = HARMONY_FONT_STEMS.includes(stem) || SOURCE_SERIF_4_FONT_STEMS.includes(stem) ? '.ttf' : '.woff2';
     return matchesByStem.get(stem).filter(
       (name) => !name.toLowerCase().endsWith(expectedExtension),
     );
@@ -155,6 +229,7 @@ export function assertWebFontProfileBundle(profile, bundleFileNames) {
     'third-party/fonts/harmonyos-sans/LICENSE.txt',
     'third-party/fonts/harmonyos-sans/NOTICE.txt',
     'third-party/fonts/fira-code/LICENSE.txt',
+    'third-party/fonts/source-serif-4/LICENSE.txt',
   ]) {
     if (!names.includes(legalFile)) {
       throw new Error(`Harmony Web bundle is missing legal asset: ${legalFile}`);

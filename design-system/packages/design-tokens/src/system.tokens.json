@@ -35,6 +35,10 @@
         "$type": "fontFamily",
         "$description": "Shared code font for code, diffs, editors and terminals. Prefer bundled Fira Code; missing glyphs follow the localized body font.",
         "$value": "'Fira Code', 'Cascadia Mono', 'Cascadia Code', Consolas, 'Liberation Mono', SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Courier New', {font.family.sans}, monospace"
+      },
+      "aiResponse": {
+        "$type": "fontFamily",
+        "$value": "'OpenBitFun Source Serif 4', 'OpenBitFun Source Serif 4 VF', {font.family.sans}"
       }
     },
     "size": {
@@ -367,6 +371,13 @@
     "flow": {
       "body": {
         "fontFamily": { "$value": "{font.family.sans}" },
+        "fontSize": { "$value": "{font.size.base}" },
+        "fontWeight": { "$value": "{font.weight.regular}" },
+        "lineHeight": { "$value": "{lineHeight.reading}" },
+        "letterSpacing": { "$value": "{letterSpacing.normal}" }
+      },
+      "aiResponse": {
+        "fontFamily": { "$value": "{font.family.aiResponse}" },
         "fontSize": { "$value": "{font.size.base}" },
         "fontWeight": { "$value": "{font.weight.regular}" },
         "lineHeight": { "$value": "{lineHeight.reading}" },
