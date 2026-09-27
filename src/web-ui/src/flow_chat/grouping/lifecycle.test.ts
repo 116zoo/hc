@@ -76,20 +76,20 @@ describe('live collection lifecycle', () => {
     }
   });
 
-  it.each(['CallDeferredTool', 'OpenBitFunControl', 'ControlHub', 'ComputerUse'])('waits for %s parameters before sealing a run', toolName => {
+  it.each(['CallDeferredTool', 'OpenBitFunControl', 'ControlHub', 'ComputerUse'])('keeps reasoning beside %s while its parameters resolve', toolName => {
     const initial: FlowItem[] = [tool('read', 'explore', 'completed'),
       { id: 'thought', type: 'thinking', status: 'completed', timestamp: 1 }];
     const next = { ...tool('next', 'explore', 'streaming'), toolName, isParamsStreaming: true };
     const projecting = projectAdjacentFlowGroups([row('round', [...initial, next])]);
     const collecting = projecting.flatMap(getVirtualItemFlowGroups)[0];
     expect(collecting.phase).toBe('collecting');
-    expect(collecting.allItems.map(item => item.id)).toEqual(['read', 'thought']);
+    expect(collecting.allItems.map(item => item.id)).toEqual(['read']);
     expect(projectAdjacentFlowGroups(projecting)).toEqual(projecting);
     const resolved = projectAdjacentFlowGroups([row('round', [...initial,
       { ...next, isParamsStreaming: false, status: 'running' }])]).flatMap(getVirtualItemFlowGroups)[0];
     expect(resolved.groupId).toBe(collecting.groupId);
     expect(resolved.phase).toBe('settled');
-    expect(resolved.allItems.map(item => item.id)).toEqual(['read', 'thought']);
+    expect(resolved.allItems.map(item => item.id)).toEqual(['read']);
   });
 
   it('seals for a known noncollectible card even while its parameters are streaming', () => {

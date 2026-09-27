@@ -872,7 +872,7 @@ describe('sessionToVirtualItems explore grouping', () => {
     expect((items[2] as ModelRoundVirtualItem).data.items[0].status).toBe('running');
   });
 
-  it('collects live trailing reasoning while leaving the possible final answer visible', () => {
+  it('keeps reasoning beside the possible final answer while the preceding group stays visible', () => {
     const session = makeSession();
     session.dialogTurns[0].status = 'processing';
     const thought: FlowThinkingItem = { id: 'thinking-2', type: 'thinking', content: 'Working',
@@ -880,10 +880,9 @@ describe('sessionToVirtualItems explore grouping', () => {
     session.dialogTurns[0].modelRounds.push(makeRound({ id: 'round-2',
       items: [thought, makeTextItem('answer', 'The answer')], isComplete: false, isStreaming: true }));
     const items = sessionToVirtualItems(session);
-    expect(items.flatMap(getVirtualItemFlowGroups)[0].allItems.map(item => item.id)).toEqual(['tool-1', 'thinking-2']);
-    expect((items[2] as ModelRoundVirtualItem).projectedGroups).toEqual([
-      { type: 'critical', item: expect.objectContaining({ id: 'answer' }) },
-    ]);
+    expect(items.flatMap(getVirtualItemFlowGroups)[0].allItems.map(item => item.id)).toEqual(['tool-1']);
+    expect((items[2] as ModelRoundVirtualItem).projectedGroups).toBeUndefined();
+    expect((items[2] as ModelRoundVirtualItem).data.items.map(item => item.id)).toEqual(['thinking-2', 'answer']);
     expect((items[2] as ModelRoundVirtualItem).data.items[0]).toBe(thought);
   });
 

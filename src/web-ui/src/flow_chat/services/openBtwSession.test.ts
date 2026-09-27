@@ -266,7 +266,7 @@ describe('openBtwSessionInAuxPane', () => {
     expect(mocks.expandSessionAuxPane).toHaveBeenCalledOnce();
   });
 
-  it('hydrates incomplete live subagent history when explicitly opening the aux pane', () => {
+  it('hydrates incomplete live subagent history when explicitly opening the aux pane', async () => {
     sessions.set('parent-session', {
       sessionId: 'parent-session',
       workspaceId: 'parent-workspace-id',
@@ -300,7 +300,7 @@ describe('openBtwSessionInAuxPane', () => {
       expand: false,
     });
 
-    expect(mocks.hydrateSessionHistoryForDetail).toHaveBeenCalledTimes(1);
+    await vi.waitFor(() => expect(mocks.hydrateSessionHistoryForDetail).toHaveBeenCalledTimes(1));
     expect(mocks.hydrateSessionHistoryForDetail).toHaveBeenCalledWith('subagent-child');
   });
 
@@ -373,7 +373,7 @@ describe('openBtwSessionInAuxPane', () => {
     expect(sessions.get('subagent-child').workspaceId).toBe('child-worktree-id');
   });
 
-  it('hydrates an existing metadata-only hidden child session without creating a duplicate shell', () => {
+  it('hydrates an existing metadata-only hidden child session without creating a duplicate shell', async () => {
     sessions.set('parent-session', {
       sessionId: 'parent-session',
       workspaceId: 'parent-workspace-id',
@@ -411,7 +411,7 @@ describe('openBtwSessionInAuxPane', () => {
         parentToolCallId: 'call-1',
       }),
     );
-    expect(mocks.hydrateSessionHistoryForDetail).toHaveBeenCalledWith('subagent-child');
+    await vi.waitFor(() => expect(mocks.hydrateSessionHistoryForDetail).toHaveBeenCalledWith('subagent-child'));
   });
 
   it('reads a legacy child binding through the parent project ID without inheriting its execution ID', async () => {
@@ -443,7 +443,7 @@ describe('openBtwSessionInAuxPane', () => {
     expect(sessions.get('subagent-child').workspaceId).toBe('child-worktree-id');
   });
 
-  it('hydrates an existing subagent shell when its model selection is missing', () => {
+  it('hydrates an existing subagent shell when its model selection is missing', async () => {
     sessions.set('parent-session', {
       sessionId: 'parent-session',
       workspaceId: 'parent-workspace-id',
@@ -474,7 +474,7 @@ describe('openBtwSessionInAuxPane', () => {
     });
 
     expect(mocks.addExternalSession).not.toHaveBeenCalled();
-    expect(mocks.hydrateSessionHistoryForDetail).toHaveBeenCalledWith('subagent-child');
+    await vi.waitFor(() => expect(mocks.hydrateSessionHistoryForDetail).toHaveBeenCalledWith('subagent-child'));
   });
 
   it('does not hydrate an existing live subagent with in-memory turns just to fill missing model selection', () => {

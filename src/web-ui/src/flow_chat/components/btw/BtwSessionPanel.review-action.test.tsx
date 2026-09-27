@@ -15,6 +15,7 @@ const panelMocks = vi.hoisted(() => ({
   cancelSession: vi.fn(),
   cancelSessionTask: vi.fn(),
   hydrateSessionHistoryForDetail: vi.fn(),
+  ensurePersistedSessionMetadata: vi.fn(() => Promise.resolve(true)),
   notificationError: vi.fn(),
   permissionRequests: [] as PermissionRequest[],
   ownedPermissionRequests: [] as PermissionRequest[],
@@ -175,6 +176,8 @@ vi.mock('../../store/FlowChatStore', () => ({
   },
   flowChatStore: {
     clearSessionUnreadCompletion: vi.fn(),
+    ensurePersistedSessionMetadata: (...args: unknown[]) =>
+      panelMocks.ensurePersistedSessionMetadata(...args),
     getState: () => flowChatState,
     subscribeSelector: <T,>(select: (state: FlowChatState) => T, notify: (selected: T) => void) => {
       let previous = select(flowChatState);
@@ -542,6 +545,7 @@ describe('BtwSessionPanel review action bar integration', () => {
     panelMocks.cancelSessionTask.mockResolvedValue(true);
     panelMocks.hydrateSessionHistoryForDetail.mockReset();
     panelMocks.hydrateSessionHistoryForDetail.mockResolvedValue(undefined);
+    panelMocks.ensurePersistedSessionMetadata.mockClear();
     panelMocks.notificationError.mockReset();
     panelMocks.permissionRequests = [];
     panelMocks.ownedPermissionRequests = [];

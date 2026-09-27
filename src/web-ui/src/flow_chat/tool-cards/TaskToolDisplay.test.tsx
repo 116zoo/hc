@@ -1250,11 +1250,11 @@ describeWithJsdom('TaskToolDisplay', () => {
     });
 
     const summary = container.querySelector<HTMLElement>('[data-openbitfun-tool-card="session-message"]')!;
-    expect(summary.querySelector('[data-openbitfun-part="interaction"]')?.getAttribute('data-operation')).toBe('send');
+    expect(summary.getAttribute('data-operation')).toBe('send');
     expect(summary.querySelector('[data-openbitfun-part="target"] [data-overflow-content]')?.textContent).toBe('Bubble Bandit');
     expect(summary.textContent).not.toContain('Continue investigation');
-    await act(async () => summary.querySelector<HTMLElement>('[data-openbitfun-part="surface"]')!.click());
-    expect(summary.textContent).toContain('Continue investigation');
+    await act(async () => summary.querySelector<HTMLButtonElement>('[data-openbitfun-part="result"]')!.click());
+    expect(document.querySelector('[role="dialog"]')?.textContent).toContain('Continue investigation');
   });
 
   it('renders cancelled foreground subagent results as cancelled instead of failed', async () => {
@@ -1323,12 +1323,12 @@ describeWithJsdom('TaskToolDisplay', () => {
     });
 
     expect(container.querySelector('[data-agent-capsule-trigger]')).toBeNull();
-    expect(container.querySelector('[data-openbitfun-part="surface"][data-openbitfun-attention="ambient"]')).toBeTruthy();
-    expect(container.querySelector('[data-openbitfun-part="interaction"]')?.getAttribute('data-operation')).toBe('interrupt');
-    expect(container.querySelector('[data-openbitfun-part="source"]')).toBeNull();
-    await act(async () => container.querySelector<HTMLElement>('[data-openbitfun-part="surface"]')!.click());
-    expect(container.textContent).toContain('toolCards.interaction.interruptedRuns');
-    expect(container.querySelector('[data-openbitfun-part="surface"][data-openbitfun-attention="prominent"][data-openbitfun-state~="expanded"]')).toBeNull();
+    const summary = container.querySelector<HTMLElement>('[data-openbitfun-tool-card="session-message"]')!;
+    expect(summary.getAttribute('data-operation')).toBe('interrupt');
+    expect(summary.getAttribute('data-openbitfun-status')).toBe('completed');
+    expect(summary.querySelector('[data-openbitfun-part="result"]')?.textContent).toContain('toolCards.interaction.interruptedRuns');
+    await act(async () => summary.querySelector<HTMLButtonElement>('[data-openbitfun-part="result"]')!.click());
+    expect(document.querySelector('[role="dialog"]')?.textContent).toContain('toolCards.interaction.interruptedRuns');
 
   });
 });

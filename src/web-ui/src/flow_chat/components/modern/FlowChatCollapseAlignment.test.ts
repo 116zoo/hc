@@ -62,7 +62,7 @@ describe('FlowChat collapse spacing', () => {
     );
     expect(renderer).toContain('aria-expanded={onExpandedChange ? expanded : undefined}');
     expect(renderer).not.toContain('data-motion="none"');
-    expect(preset).toContain("name={variant === 'context' ? 'layers-plus' : 'search'} size=\"sm\"");
+    expect(preset).toContain("name={variant === 'context' ? 'layers-plus' : 'route'} size=\"sm\"");
     expect(renderer).toContain('className="explore-region__leading-icon--default"');
     expect(renderer).toContain('name="chevron-right" size="sm" className="explore-region__leading-icon--collapsed-hover"');
     expect(renderer).toContain('name="chevron-down" size="sm" className="explore-region__leading-icon--expanded"');
@@ -77,7 +77,7 @@ describe('FlowChat collapse spacing', () => {
     const subagentProjectionStyles = readSource('../subagent/SubagentProjectionView.scss');
 
     expect(publicToolCardStyles).toMatch(
-      /\.expanded,\s*\.error\s*\{[\s\S]*?padding:\s*var\(--openbitfun-space-3\);/,
+      /\.expanded,\s*\.error\s*\{[\s\S]*?padding:\s*var\(--openbitfun-space-3\) var\(--openbitfun-control-flow-chat-card-padding-inline\);/,
     );
     expect(extractBlock(flowToolCardStyles, '.flow-tool-card-note')).toContain(
       'margin-inline-start: 0;',
@@ -89,8 +89,6 @@ describe('FlowChat collapse spacing', () => {
 
   it('lets product-owned full-bleed footer surfaces consume the shared body inset', () => {
     const miniAppStyles = readSource('../../tool-cards/MiniAppToolDisplay.scss');
-    expect(miniAppStyles).toContain(
-      ".miniapp-tool-display[data-openbitfun-attention='prominent'] .miniapp-result-footer {\n  margin-left: calc(-1 * var(--openbitfun-control-flow-chat-card-expanded-padding-inline));",
-    );
+    expect(miniAppStyles).not.toContain('margin-left: calc(-1 * var(--openbitfun-control-flow-chat-card-expanded-padding-inline))');
   });
 });

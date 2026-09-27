@@ -148,11 +148,12 @@ describe('FlowChat transcript rhythm', () => {
     expect(isAmbientToolRunContinuationAfter(first, next)).toBe(true);
   });
 
-  it('keeps permissions, capsules, significant cards, controls and completed Turn footers as boundaries', () => {
+  it('keeps permissions, significant cards, controls and completed Turn footers as boundaries', () => {
     const first = modelRound('turn', 'first', [{ toolName: 'ExecCommand' }]);
-    for (const toolName of ['Write', 'Edit', 'Task', 'AgentWait']) {
+    for (const toolName of ['Write', 'Edit', 'Task']) {
       expect(isAmbientToolRunContinuationAfter(first, modelRound('turn', toolName, [{ toolName }]))).toBe(false);
     }
+    expect(isAmbientToolRunContinuationAfter(first, modelRound('turn', 'AgentWait', [{ toolName: 'AgentWait' }]))).toBe(true);
     const next = modelRound('turn', 'next', [{ toolName: 'ExecCommand' }]);
     expect(isAmbientToolRunContinuationAfter(first, next, new Set(['next-call-0']))).toBe(false);
     expect(isAmbientToolRunContinuationAfter(first, next, new Set(['first-call-0']))).toBe(false);

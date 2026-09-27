@@ -548,7 +548,6 @@ describe('startup performance contract', () => {
     expect(flowToolCardSource).toContain("from '../tool-cards'");
     expect(modelRoundItemSource).toContain("from '../../tool-cards/toolCardMetadata'");
     expect(modelRoundItemSource).not.toMatch(/from\s+['"]\.\.\/\.\.\/tool-cards['"]/);
-    expect(flowStoreSource).toContain("from '../tool-cards/toolCardMetadata'");
     expect(flowStoreSource).not.toMatch(/from\s+['"]\.\.\/tool-cards['"]/);
     expect(keyboardShortcutsSource).not.toMatch(/from\s+['"]@\/infrastructure\/config['"]/);
     expect(keyboardShortcutsSource).toContain(

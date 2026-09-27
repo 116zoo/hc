@@ -11,6 +11,7 @@ let animations: { target: Element; cancelled: boolean; finish: () => void }[];
 let reduce: boolean;
 let listeners: Set<EventListener>;
 const originalAnimate = Object.getOwnPropertyDescriptor(Element.prototype, 'animate');
+const originalGetTotalLength = Object.getOwnPropertyDescriptor(SVGElement.prototype, 'getTotalLength');
 
 beforeEach(() => {
   globalThis.IS_REACT_ACT_ENVIRONMENT = true;
@@ -36,10 +37,14 @@ beforeEach(() => {
   Object.defineProperty(Element.prototype, 'animate', { configurable: true, value: function (this: Element) {
     let resolve!: () => void;
     const finished = new Promise<void>(done => { resolve = done; });
+    if (this.closest('[data-openbitfun-component="openbitfun-brand-motion"]')) {
+      return { finished, cancel: resolve, startTime: null };
+    }
     const record = { target: this, cancelled: false, finish: resolve };
     animations.push(record);
     return { finished, cancel() { record.cancelled = true; resolve(); }, startTime: null };
   } });
+  Object.defineProperty(SVGElement.prototype, 'getTotalLength', { configurable: true, value: () => 100 });
   container = document.createElement('div');
   document.body.append(container);
   root = createRoot(container);
@@ -50,6 +55,8 @@ afterEach(() => {
   container.remove();
   if (originalAnimate) Object.defineProperty(Element.prototype, 'animate', originalAnimate);
   else Reflect.deleteProperty(Element.prototype, 'animate');
+  if (originalGetTotalLength) Object.defineProperty(SVGElement.prototype, 'getTotalLength', originalGetTotalLength);
+  else Reflect.deleteProperty(SVGElement.prototype, 'getTotalLength');
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
   vi.clearAllTimers();

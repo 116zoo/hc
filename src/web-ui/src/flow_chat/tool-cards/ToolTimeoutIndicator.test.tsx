@@ -11,7 +11,7 @@ import { ToolTimeoutIndicator } from './ToolTimeoutIndicator';
 
 const setSubagentTimeoutMock = vi.hoisted(() => vi.fn());
 const timeoutIndicatorStyles = readFileSync(
-  new URL('./ToolTimeoutIndicator.scss', import.meta.url),
+  new URL('../../../../../design-system/packages/ui/src/flow-chat/conversation/ToolDuration.css', import.meta.url),
   'utf8',
 );
 const taskToolStyles = readFileSync(

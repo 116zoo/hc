@@ -20,12 +20,12 @@ it('keeps thinking beside its continuation and existing segment identities stabl
   ]);
 });
 
-it('does not cut a capsule run when execution timing later proves concurrency', () => {
+it('keeps native AgentWait segment boundaries stable as calls complete', () => {
   const items = Array.from({ length: 20 }, (_, index) => read(index));
   items[15] = { ...items[15], toolName: 'AgentWait', status: 'running' };
   items[16] = { ...items[16], toolName: 'AgentWait', status: 'running' };
   const before = buildFlowGroupRenderSegments(items);
   const after = buildFlowGroupRenderSegments(items.map(item => ({ ...item, status: 'completed' })));
-  expect(before[0].items.at(-1)?.id).toBe('call-16');
+  expect(before[0].items.at(-1)?.id).toBe('call-15');
   expect(after.map(segment => segment.key)).toEqual(before.map(segment => segment.key));
 });

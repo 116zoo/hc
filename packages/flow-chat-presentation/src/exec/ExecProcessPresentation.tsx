@@ -197,10 +197,6 @@ function ExecCommandPresentation({
     return '';
   }, [isRunning, liveOutput, model.resultOutput, status]);
 
-  const getVisibleOutputText = useCallback(() => {
-    return outputRendererRef.current?.getVisibleText() ?? getOutputText();
-  }, [getOutputText]);
-
   const outputText = getOutputText();
   const waitingText = (() => {
     if (outputText || rejectedOrCancelled) {
@@ -255,8 +251,15 @@ function ExecCommandPresentation({
         value: exitCodeLabel,
       }
     : undefined;
-  if (exitCodeFooterItem) {
-    footerMetadataItems.push(exitCodeFooterItem);
+  const wallTimeFooterItem: CommandToolCardFooterItem | undefined = model.wallTimeSeconds != null
+    ? { value: t('toolCards.execProcess.wallTime', { seconds: model.wallTimeSeconds.toFixed(3) }) }
+    : undefined;
+  if (model.kind === 'stdin') {
+    if (wallTimeFooterItem) footerMetadataItems.push(wallTimeFooterItem);
+    if (exitCodeFooterItem) footerMetadataItems.push(exitCodeFooterItem);
+  } else {
+    if (exitCodeFooterItem) footerMetadataItems.push(exitCodeFooterItem);
+    if (wallTimeFooterItem) footerMetadataItems.push(wallTimeFooterItem);
   }
   footerItems.push(...footerMetadataItems.map((item, index) => (
     index === 0
@@ -288,7 +291,7 @@ function ExecCommandPresentation({
         isExpanded={isExpanded}
         onToggle={toggleExpanded}
         output={outputText ? renderOutput({ ref: outputRendererRef, content: outputText, maxRows, surface: 'embedded' }) : undefined}
-        outputAction={outputText ? renderOutputAction(getVisibleOutputText) : undefined}
+        outputAction={outputText ? renderOutputAction(getOutputText) : undefined}
         outputLabel={t('toolCards.common.executionResult')}
         outputDensity={keepCompactCompletionPreview || isRunning ? 'compact' : 'expanded'}
         outputSizing={isRunning || isParamsStreaming ? 'fixed' : 'content'}

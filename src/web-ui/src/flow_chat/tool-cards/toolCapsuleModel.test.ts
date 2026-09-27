@@ -22,8 +22,8 @@ describe('capsule and exploration policy', () => {
     expect(isToolCapsule(name)).toBe(false);
     expect(isCollapsibleTool(name)).toBe(false);
   });
-  it('preserves the subagent wait capsule outside exploration', () => {
-    expect(isToolCapsule('AgentWait')).toBe(true);
+  it('preserves the subagent wait card outside exploration', () => {
+    expect(isToolCapsule('AgentWait')).toBe(false);
     expect(isCollapsibleTool('AgentWait')).toBe(false);
   });
   it.each(['Read', 'Grep', 'Glob', 'LS', 'WebSearch', 'WebFetch', 'view_image'])('%s keeps its native card while successful settled calls still fold', name => {

@@ -1,10 +1,15 @@
-import { describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { FlowItem, FlowToolItem } from '../types/flow-chat';
+import { CAPSULE_TOOL_NAMES } from './toolCardMetadata';
 import { getConcurrentCapsuleRows } from './toolCapsuleLayout';
+
+const fixtureCapsule = 'TestCapsule';
+beforeAll(() => CAPSULE_TOOL_NAMES.add(fixtureCapsule));
+afterAll(() => CAPSULE_TOOL_NAMES.delete(fixtureCapsule));
 
 function tool(id: string, start: number, end: number, overrides: Partial<FlowToolItem> = {}): FlowToolItem {
   return {
-    id, type: 'tool', toolName: 'AgentWait', status: 'completed', timestamp: start,
+    id, type: 'tool', toolName: fixtureCapsule, status: 'completed', timestamp: start,
     toolCall: { id, input: { agent_ids: [id] } },
     startTime: start, endTime: end, executionMs: end - start,
     ...overrides,
@@ -16,7 +21,7 @@ describe('concurrent capsule rows', () => {
     expect(getConcurrentCapsuleRows([tool('a', 0, 100), tool('b', 100, 200), tool('c', 250, 350)])).toHaveProperty('size', 0);
   });
 
-  it('preserves shared rows for adjacent subagent wait capsules with a common execution interval', () => {
+  it('preserves shared rows for adjacent eligible capsules with a common execution interval', () => {
     const items = [tool('a', 0, 100), tool('b', 20, 120), tool('c', 40, 150)];
     const snapshot = JSON.stringify(items);
     expect([...getConcurrentCapsuleRows(items)]).toEqual([['a', 'member'], ['b', 'member'], ['c', 'end']]);
@@ -81,7 +86,7 @@ describe('concurrent capsule rows', () => {
 
   it('resolves deferred identity before deciding whether a tool can share a row', () => {
     const deferred = tool('b', 0, 100, {
-      toolName: 'CallDeferredTool', toolCall: { id: 'b', input: { tool_name: 'AgentWait', args: { agent_ids: ['agent'] } } },
+      toolName: 'CallDeferredTool', toolCall: { id: 'b', input: { tool_name: fixtureCapsule, args: { agent_ids: ['agent'] } } },
     });
     expect([...getConcurrentCapsuleRows([tool('a', 0, 100), deferred])]).toEqual([['a', 'member'], ['b', 'end']]);
     expect(getConcurrentCapsuleRows([

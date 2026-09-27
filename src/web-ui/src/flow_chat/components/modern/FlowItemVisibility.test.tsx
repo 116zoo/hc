@@ -138,13 +138,12 @@ describe('visible FlowChat item composition', () => {
     const button = container.querySelector<HTMLButtonElement>('[data-testid="chat-thinking-toggle"]')!;
     const editNode = container.querySelector('[data-flow-item-id="edit"]');
     const textNode = container.querySelector('.flow-text-block');
-    if (panel.getAttribute('data-expanded') !== 'true') act(() => button.click());
-    expect(panel.getAttribute('data-expanded')).toBe('true');
+    expect(panel.getAttribute('data-expanded')).toBe('false');
 
     act(() => root.render(renderHost(host, [thinking, blank, hidden, edit, text], true)));
     expect(container.querySelector('[data-testid="chat-thinking-panel"]')).toBe(panel);
     expect(container.querySelector('[data-testid="chat-thinking-toggle"]')).toBe(button);
-    expect(panel.getAttribute('data-expanded')).toBe('true');
+    expect(panel.getAttribute('data-expanded')).toBe('false');
     expect(panel.nextElementSibling).toBe(editNode);
     expect(container.querySelector('[data-flow-item-id="read"]')).toBeNull();
     expect(container.querySelector('[data-flow-item-id="edit"]')).toBe(editNode);
@@ -239,7 +238,7 @@ describe('visible FlowChat item composition', () => {
     expect(container.querySelectorAll('.flowchat-capsule-row-break')).toHaveLength(0);
   });
 
-  it('preserves independent parallel batches for subagent wait capsules', () => {
+  it('keeps AgentWait calls as independent native rows', () => {
     const timed = (id: string, start: number, end: number) => ({
       ...read, id, toolName: 'AgentWait', toolCall: { id, input: { agent_ids: [id] } },
       startTime: start, endTime: end, executionMs: end - start,
@@ -250,9 +249,9 @@ describe('visible FlowChat item composition', () => {
     ], true)));
     expect(container.querySelector('[data-test-tool-id="serial"]')?.getAttribute('data-test-parallel')).toBe('false');
     for (const id of ['a', 'b', 'c', 'd']) {
-      expect(container.querySelector(`[data-test-tool-id="${id}"]`)?.getAttribute('data-test-parallel')).toBe('true');
+      expect(container.querySelector(`[data-test-tool-id="${id}"]`)?.getAttribute('data-test-parallel')).toBe('false');
     }
-    expect(container.querySelectorAll('.flowchat-capsule-row-break')).toHaveLength(2);
+    expect(container.querySelectorAll('.flowchat-capsule-row-break')).toHaveLength(0);
   });
 
   it('ignores stale capsule expansion for native tools and still honors explicit group expansion', () => {

@@ -158,8 +158,7 @@ describe('FlowChat semantic typography roles', () => {
     // The context track is a quiet meta line above the composer surface: one
     // step for every label on it, facts and controls alike.
     expectRole(workspaceStrip, '&__permission-trigger {', 'meta');
-    expectRole(modelRound, '.model-round-item__retry-toggle {', 'control');
-    expectRole(modelRound, '.model-round-item__attempt-diagnostic-section pre {', 'support');
+    expect(modelRound).not.toContain('.model-round-item__retry-toggle {');
     expect(extractBlock(modelRound, '.model-round-item__meta {')).toContain(
       'font-size: var(--openbitfun-type-flow-meta-font-size);',
     );

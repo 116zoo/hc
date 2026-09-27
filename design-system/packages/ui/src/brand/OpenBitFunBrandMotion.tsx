@@ -134,7 +134,7 @@ function createConstructionAnimations(svg: SVGSVGElement): Animation[] {
       frame(timing.cycleEnd, { opacity: 0 }),
     ]),
   ];
-  const startTime = svg.ownerDocument.timeline.currentTime;
+  const startTime = svg.ownerDocument.timeline?.currentTime;
   if (typeof startTime === "number") {
     animations.forEach(animation => { animation.startTime = startTime; });
   }
