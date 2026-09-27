@@ -1,0 +1,341 @@
+{
+  "defaultDesc": "Un partenaire IA focalisé pour la programmation, compétent en analyse de code et gestion de projet",
+  "modelSlots": {
+    "primary": {
+      "label": "Principal",
+      "desc": "Conversation et raisonnement généraux"
+    },
+    "fast": {
+      "label": "Rapide",
+      "desc": "Réponses légères et rapides"
+    },
+    "compression": {
+      "label": "Compresser",
+      "desc": "Compression de la longueur du contexte"
+    },
+    "image": {
+      "label": "Image",
+      "desc": "Génération et compréhension d'images"
+    },
+    "voice": {
+      "label": "Voix",
+      "desc": "Synthèse et reconnaissance vocales"
+    },
+    "retrieval": {
+      "label": "Récupération",
+      "desc": "Récupération vectorielle et embedding"
+    }
+  },
+  "slotDefault": {
+    "primary": "Modèle principal",
+    "fast": "Modèle rapide",
+    "unconfigured": "Non configuré"
+  },
+  "modelGroups": {
+    "presets": "Préréglages système",
+    "models": "Modèles disponibles"
+  },
+  "hero": {
+    "editNameTitle": "Cliquer pour modifier le nom",
+    "editDescTitle": "Cliquer pour modifier la description",
+    "descPlaceholder": "Ajouter une description...",
+    "radarTitle": "Cliquer pour développer · Cliquer sur les étiquettes de dimension pour naviguer"
+  },
+  "identity": {
+    "emoji": "Marqueur Emoji",
+    "emojiPlaceholder": "Définir le marqueur emoji",
+    "avatarChange": "Changer l'avatar de l'assistant",
+    "avatarPickerTitle": "Choisir un avatar",
+    "avatarPickerHint": "Choisir un marqueur ou entrer votre propre symbole",
+    "avatarPickerClose": "Fermer le sélecteur d'avatar",
+    "avatarPresets": "Choix d'avatar",
+    "avatarOfficialPresets": "Avatars Claw",
+    "avatarEmojiPresets": "Emoji",
+    "avatarUseOfficialPreset": "Utiliser l'avatar {{name}}",
+    "avatarFamilies": {
+      "claw": "portrait principal",
+      "clawOrbit": "portrait orbite"
+    },
+    "avatarUsePreset": "Utiliser {{emoji}} comme avatar",
+    "avatarCustom": "Symbole d'avatar personnalisé",
+    "avatarCustomPlaceholder": "Entrez un symbole",
+    "avatarApply": "Appliquer",
+    "avatarAutosave": "Les modifications sont sauvegardées automatiquement",
+    "avatarSaving": "Sauvegarde...",
+    "avatarSaved": "Sauvegardé",
+    "avatarSaveFailed": "Impossible de sauvegarder",
+    "creature": "Type de rôle",
+    "creaturePlaceholderShort": "Définir le type de rôle",
+    "vibe": "Style",
+    "vibePlaceholderShort": "Définir le style",
+    "resetTooltip": "Réinitialiser la persona de l'assistant",
+    "resetConfirmTitle": "Réinitialiser la persona de l'assistant",
+    "resetConfirmMessage": "Cela restaurera BOOTSTRAP.md, SOUL.md, USER.md et IDENTITY.md à leurs modèles par défaut et écrasera le contenu actuel. Continuer ?",
+    "resetConfirmAction": "Réinitialiser",
+    "resetCancel": "Annuler",
+    "resetSuccess": "Persona de l'assistant réinitialisée",
+    "resetFailed": "Échec de la réinitialisation de la persona de l'assistant"
+  },
+  "home": {
+    "descHint": "Cliquer pour éditer le corps de IDENTITY.md."
+  },
+  "sections": {
+    "brain": "Cerveau",
+    "capabilities": "Capacités",
+    "interaction": "Interaction"
+  },
+  "cards": {
+    "model": "Modèles",
+    "rules": "Règles de comportement",
+    "memory": "Mémoire",
+    "toolsMcp": "Outils et MCP",
+    "skills": "Compétences",
+    "preferences": "Préférences"
+  },
+  "actions": {
+    "globalManage": "Gestion globale",
+    "manage": "Gérer",
+    "selectAll": "Tout sélectionner",
+    "clearAll": "Tout effacer",
+    "reset": "Réinitialiser",
+    "collapse": "Réduire"
+  },
+  "kpi": {
+    "rules": "Utilisateur {{user}} · Projet {{project}} · {{enabled}} actif(s)",
+    "memory": "{{count}} actif(s)",
+    "skills": "{{count}} actif(s)",
+    "toolStats": "{{enabled}}/{{total}} intégrés",
+    "toolStatsMcp": "{{enabled}}/{{total}} intégrés · MCP {{mcpHealthy}}/{{mcpTotal}}"
+  },
+  "empty": {
+    "rules": "Aucune règle configurée",
+    "memory": "Aucune mémoire",
+    "tools": "Aucun outil disponible",
+    "toolsUnsupported": "L'hôte pair connecté n'expose pas de catalogue d'outils.",
+    "toolsFailed": "Impossible de charger le catalogue d'outils. Essayez d'actualiser.",
+    "skills": "Aucune compétence"
+  },
+  "notifications": {
+    "modelUpdated": "Modèle mis à jour",
+    "updateFailed": "Échec de la mise à jour",
+    "toggleFailed": "Échec du basculement",
+    "resetSuccess": "Réinitialisation terminée",
+    "resetFailed": "Échec de la réinitialisation",
+    "resetConfirm": "Réinitialiser la configuration des outils ?"
+  },
+  "radar": {
+    "title": "Radar Persona",
+    "subtitle": "Cliquer sur les étiquettes de dimension pour naviguer vers les paramètres correspondants",
+    "dims": {
+      "creativity": "Créativité",
+      "rigor": "Rigueur",
+      "autonomy": "Autonomie",
+      "memory": "Mémoire",
+      "expression": "Expression",
+      "adaptability": "Adaptabilité"
+    }
+  },
+  "prefs": {
+    "visualMode": "Mode Visuel",
+    "visualModeDesc": "Afficher le retour visuel pendant l'exécution",
+    "sessionTitle": "Nommer les sessions automatiquement",
+    "sessionTitleDesc": "Générer automatiquement les titres des nouvelles sessions"
+  },
+  "nursery": {
+    "backToGallery": "$t(shared:agents.Claw)",
+    "gallery": {
+      "title": "$t(shared:agents.Claw)",
+      "subtitle": "Créez, configurez et démarrez des conversations avec vos assistants",
+      "newAssistant": "Créer un assistant",
+      "creating": "Création...",
+      "createFailed": "L'assistant n'a pas pu être créé.",
+      "loadFailed": "Les assistants n'ont pas pu être chargés.",
+      "emptyTitle": "Aucun assistant pour l'instant",
+      "emptySubtitle": "Créez un assistant pour lui donner un rôle, des outils et une personnalité.",
+      "assistantsTitle": "Vos assistants",
+      "assistantsSubtitle": "Configurez un assistant ou démarrez une nouvelle conversation"
+    },
+    "template": {
+      "title": "Défauts d'assistant",
+      "subtitle": "Les nouveaux assistants héritent de ces outils et compétences",
+      "pageDescription": "Choisissez les compétences et outils que les assistants utilisent par défaut. Les modifications sont sauvegardées automatiquement et s'appliquent au tour suivant.",
+      "scopeLabel": "Appareil actuel · Configuration niveau utilisateur",
+      "defaultBadge": "Défaut",
+      "configure": "Configurer les défauts",
+      "restoreProductDefaults": "Restaurer les défauts produit",
+      "saveState": {
+        "saved": "Sauvegardé",
+        "saving": "Sauvegarde...",
+        "error": "Non sauvegardé"
+      },
+      "summaryLabel": "Résumé des défauts d'assistant",
+      "summary": {
+        "enabled": "Activé",
+        "changed": "Différent du défaut",
+        "unavailable": "Actuellement indisponible"
+      },
+      "categoryLabel": "Type de capacité",
+      "filterLabel": "Filtres de capacité",
+      "filters": {
+        "all": "Tout",
+        "enabled": "Activé",
+        "disabled": "Désactivé",
+        "changed": "Différent du défaut",
+        "unavailable": "Indisponible"
+      },
+      "searchPlaceholder": "Rechercher nom, description ou ID",
+      "clearSearch": "Effacer la recherche",
+      "clearFilters": "Effacer les filtres",
+      "columns": {
+        "name": "Nom et description",
+        "source": "Source",
+        "availability": "Disponibilité",
+        "state": "État",
+        "changed": "Différent du défaut",
+        "access": "Accès",
+        "actions": "Actions"
+      },
+      "availability": {
+        "available": "Disponible",
+        "unavailable": "Indisponible"
+      },
+      "state": {
+        "enabled": "Activé",
+        "disabled": "Désactivé"
+      },
+      "valueYes": "Oui",
+      "valueNo": "Non",
+      "officialSource": "OpenBitFun officiel",
+      "executableTool": "Peut exécuter",
+      "readonlyToolHint": "Cet outil lit des informations sans modifier l'état du projet ou du système.",
+      "executableToolHint": "Cet outil peut effectuer des actions. Les exigences d'approbation réelles suivent les règles de permission actuelles.",
+      "permissionInherited": "Dépendant de l'outil",
+      "permissionInheritedHint": "L'accès réel d'une skill est déterminé par les outils qu'elle invoque et leurs règles d'approbation.",
+      "noDescription": "Aucune description fournie",
+      "openCapabilityDetail": "Ouvrir les détails pour {{name}}",
+      "toggleCapability": "Basculer {{name}}",
+      "toggleServerGroup": "Étendre ou réduire {{name}}",
+      "toggleServerTools": "Basculer tous les outils de {{name}}",
+      "enabledCount": "{{enabled}} / {{total}} activés",
+      "noFilterResults": "Aucune capacité ne correspond à la recherche et aux filtres actuels.",
+      "resultCount": "{{count}} éléments",
+      "loading": "Chargement des défauts d'assistant",
+      "configurationUnavailable": "La configuration par défaut n'a pas pu être chargée. Les contrôles sont temporairement indisponibles.",
+      "retry": "Réessayer",
+      "statsUnavailable": "Détails indisponibles",
+      "tokenTitle": "Estimation de l'utilisation du contexte",
+      "tokenSystemPrompt": "Prompt Système",
+      "tokenToolInjection": "Injection d'outils",
+      "tokenRules": "Règles",
+      "tokenMemories": "Mémoires",
+      "tokenTotal": "Total par défaut",
+      "stats": {
+        "tools": "{{count}} outils",
+        "skills": "{{count}} compétences"
+      },
+      "groupCountEmpty": "Aucun",
+      "builtinToolsSection": "Outils intégrés",
+      "colEnabled": "Activé",
+      "colDisabled": "Désactivé",
+      "colEmpty": "Aucun",
+      "mcpToolsSection": "Outils MCP",
+      "mcpEmptyTitle": "Aucun serveur MCP connecté",
+      "mcpEmptyHint": "Ajoutez des serveurs MCP dans les Paramètres pour voir leurs outils ici.",
+      "mcpServerNoTools": "Aucun outil disponible depuis ce serveur",
+      "closeDetail": "Fermer les détails",
+      "detailPanel": "Panneau de détails",
+      "detailEmptyTitle": "Sélectionner une capacité",
+      "detailEmptyHint": "Détails, état d'exécution et contrôles par défaut apparaîtront ici.",
+      "openServerDetail": "Détails du serveur MCP",
+      "toolTypeBuiltin": "Outil intégré",
+      "toolTypeMcp": "Outil MCP",
+      "readonlyTool": "Lecture seule",
+      "mcpStatus": {
+        "uninitialized": "Non initialisé",
+        "starting": "Démarrage",
+        "connected": "Connecté",
+        "healthy": "Sain",
+        "needsAuth": "Authentification requise",
+        "reconnecting": "Reconnexion",
+        "failed": "Échec de la connexion",
+        "stopping": "Arrêt",
+        "stopped": "Arrêté",
+        "unknown": "Statut inconnu"
+      },
+      "detailSections": {
+        "basic": "Informations de base",
+        "status": "Statut",
+        "permissions": "Permissions et fonctionnement",
+        "management": "Gestion"
+      },
+      "detailFields": {
+        "fullName": "Nom complet",
+        "originalId": "ID original",
+        "source": "Source",
+        "scope": "Périmètre de configuration",
+        "productDefault": "Défaut produit",
+        "currentState": "État actuel",
+        "changed": "Différent du défaut",
+        "availability": "Disponibilité",
+        "runtimeState": "Utilisé à l'exécution",
+        "transport": "Transport",
+        "autoStart": "Démarrer automatiquement",
+        "toolCount": "Nombre d'outils"
+      },
+      "enableAllServerTools": "Utiliser tous les outils de ce serveur",
+      "enableAllServerToolsHint": "Contrôle les outils découverts de ce serveur pour les défauts d'assistant seulement.",
+      "useByDefault": "Utiliser par défaut",
+      "useByDefaultHint": "S'applique aux assistants utilisant cette configuration par défaut au tour suivant.",
+      "serverToolsHeading": "Outils sur ce serveur",
+      "skillEnabledCandidates": "Candidats activés",
+      "unknownSkillSource": "Autre source",
+      "skillScopeUser": "Utilisateur",
+      "skillScopeProject": "Projet",
+      "skillRuntimeSelected": "Utilisé à l'exécution",
+      "skillRuntimeCovered": "Activé, couvert par {{source}}",
+      "skillRuntimeEnabled": "Activé, pas actuellement sélectionné",
+      "skillOrigin": "Source et périmètre : {{origin}}"
+    },
+    "tabs": {
+      "identity": "Identité",
+      "personality": "Personnalité",
+      "ability": "Capacité",
+      "memory": "Mémoire"
+    },
+    "card": {
+      "unnamed": "Assistant sans nom",
+      "noVibe": "Un assistant en attente de définition",
+      "configure": "Configurer l'assistant",
+      "newSession": "Nouvelle session",
+      "startingSession": "Démarrage...",
+      "newSessionFailed": "Impossible de démarrer une nouvelle session.",
+      "tokenTitle": "Estimation de l'utilisation du contexte",
+      "primaryBadge": "Principal",
+      "setPrimary": "Définir comme principal",
+      "setPrimarySuccess": "Assistant principal mis à jour.",
+      "setPrimaryFailed": "Impossible de définir l'assistant principal.",
+      "delete": "Supprimer l'assistant",
+      "deleteFailed": "L'assistant n'a pas pu être supprimé.",
+      "deleteConfirmTitle": "Supprimer l'assistant",
+      "deleteConfirmMessage": "Supprimer l'assistant « {{name }} » ? Cette action est irréversible.",
+      "deleteConfirm": "Supprimer",
+      "deleteCancel": "Annuler"
+    },
+    "assistant": {
+      "inheritGroup": "Hériter du modèle",
+      "inheritPrimary": "Hériter du modèle (principal)",
+      "inheritFast": "Hériter du modèle (rapide)",
+      "personaDocsTitle": "Documents clés",
+      "sessionsSectionTitle": "Sessions",
+      "scheduledSessionsTitle": "Sessions planifiées",
+      "scheduledSessionsNoWorkspace": "Sélectionnez un espace de travail d'assistant pour gérer les sessions planifiées.",
+      "personaDocs": {
+        "IDENTITY": "Identité",
+        "SOUL": "Persona centrale",
+        "USER": "Profil utilisateur"
+      },
+      "personaDocSaveFailed": "Échec de la sauvegarde du document",
+      "personaDocLoadFailed": "Échec du chargement du document"
+    }
+  }
+}

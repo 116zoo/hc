@@ -1,0 +1,20 @@
+{
+  "title": "Terminal",
+  "emptyState": "Aucun terminal n'est ouvert",
+  "actions": { "closeView": "Fermer la vue du terminal", "stopTerminal": "Arrêter le terminal" },
+  "dialog": {
+    "editTerminal": {
+      "title": "Éditer le terminal",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Nom du terminal",
+      "workingDirectoryLabel": "Chemin de démarrage",
+      "workingDirectoryPlaceholder": "Chemin à ouvrir au démarrage du terminal",
+      "workingDirectoryHint": "Utilisé lors de la réouverture d'un terminal sauvegardé",
+      "startupCommandLabel": "Commande de démarrage (Optionnel)",
+      "startupCommandPlaceholder": "Commande à exécuter après le démarrage du terminal",
+      "startupCommandHint": "Cette commande s'exécute automatiquement après le démarrage du terminal",
+      "cancel": "Annuler",
+      "save": "Sauvegarder"
+    }
+  }
+}

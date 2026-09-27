@@ -1,0 +1,270 @@
+{
+  "errors": {
+    "install": {
+      "failed": "L'installation a échoué"
+    },
+    "installPath": {
+      "notAbsolute": "Le chemin d'installation doit être un chemin absolu (par exemple un dossier sur un lecteur local).",
+      "filesystemRoot": "Impossible d'installer à la racine d'un lecteur. Choisissez un dossier à l'intérieur du lecteur.",
+      "pathNotDirectory": "Le chemin sélectionné existe mais n'est pas un dossier.",
+      "directoryMustBeEmptyOrOpenBitFun": "Le dossier d'installation doit être vide, ou déjà contenir une installation OpenBitFun.",
+      "inspectDirectoryFailed": "Impossible de lire le dossier d'installation. Vérifiez les permissions et réessayez.",
+      "directoryNotWritable": "Le dossier d'installation n'est pas accessible en écriture. Choisissez un autre emplacement ou exécutez l'installateur en tant qu'administrateur (voir ci-dessous).",
+      "parentNotWritable": "Le dossier parent n'est pas accessible en écriture. Les dossiers système comme Program Files nécessitent souvent des droits d'administrateur (voir ci-dessous).",
+      "adminHint": "Pour installer dans des emplacements protégés (par exemple Program Files), fermez cet installateur, faites un clic droit sur l'exécutable de l'installateur, choisissez \"Exécuter en tant qu'administrateur\", puis réessayez. Vous pouvez aussi installer sous votre profil utilisateur, par exemple %LOCALAPPDATA%\\Programs, ce qui ne nécessite pas d'élévation de privilèges."
+    }
+  },
+  "options": {
+    "title": "Installer OpenBitFun",
+    "subtitle": "Vérifiez l'emplacement d'installation et les préférences",
+    "theme": "Thème",
+    "changeLanguage": "Changer la langue",
+    "pathLabel": "Chemin d'installation",
+    "pathPlaceholder": "Sélectionnez un répertoire...",
+    "browse": "Parcourir",
+    "required": "Requis",
+    "available": "Disponible",
+    "insufficientSpace": "Espace insuffisant",
+    "optionsLabel": "Options",
+    "desktopShortcut": "Créer un raccourci sur le bureau",
+    "startMenu": "Ajouter au menu Démarrer",
+    "launchAfterInstall": "Lancer OpenBitFun après l'installation",
+    "back": "Retour",
+    "install": "Installer",
+    "installing": "Préparation…",
+    "existingInstallTitle": "OpenBitFun est déjà installé. Vous pouvez le mettre à jour ou le réparer sur place.",
+    "existingInstallVersion": "Version installée : {{version}}",
+    "existingInstallLocation": "Emplacement d'installation : {{path}}",
+    "existingInstallBinaryMissing": "L'application installée est manquante. Réinstallez pour la réparer.",
+    "existingInstallRunUninstaller": "Exécuter le désinstallateur"
+  },
+  "model": {
+    "title": "Connecter un modèle",
+    "subtitle": "Installation terminée. Continuez avec la configuration du modèle et du thème",
+    "provider": "Fournisseur",
+    "config": "Connexion",
+    "modelName": "Nom du modèle (ex. deepseek-v4-flash)",
+    "skip": "Ignorer pour l'instant",
+    "nextTheme": "Suivant : Thème",
+    "description": "Gérez les modèles par défaut, fournisseurs, abonnements, données du catalogue et connexions réseau.",
+    "providerLabel": "Sélectionner le fournisseur de modèle",
+    "selectProvider": "ou sélectionner un fournisseur prédéfini",
+    "customProvider": "Configuration personnalisée",
+    "modelNamePlaceholder": "Entrez le nom du modèle...",
+    "baseUrlPlaceholder": "ex. https://open.bigmodel.cn/api/paas/v4/chat/completions",
+    "providers": {
+      "openbitfun": {
+        "name": "OpenBitFun Service",
+        "description": "Plateforme de modèles OpenBitFun",
+        "urlOptions": {
+          "default": "Format Anthropic - Défaut",
+          "openai": "Format OpenAI Compatible"
+        }
+      },
+      "gemini": {
+        "name": "Google Gemini",
+        "description": "Série de modèles Google Gemini"
+      },
+      "anthropic": {
+        "name": "Anthropic Claude",
+        "description": "Série de modèles Anthropic Claude"
+      },
+      "minimax": {
+        "name": "MiniMax",
+        "description": "Série de modèles MiniMax",
+        "urlOptions": {
+          "default": "Chine - Format Anthropic - Défaut",
+          "openai": "Chine - OpenAI Compatible",
+          "intl": "International - Format Anthropic",
+          "intlOpenai": "International - OpenAI Compatible"
+        }
+      },
+      "moonshot": {
+        "name": "Moonshot AI",
+        "description": "Série de modèles Kimi de Moonshot",
+        "urlOptions": {
+          "default": "Chine - Format OpenAI - Défaut",
+          "anthropic": "Chine - Format Anthropic",
+          "intl": "International - Format OpenAI",
+          "intlAnthropic": "International - Format Anthropic",
+          "kimiForCoding": "Plan Kimi For Coding (modèles : k3 / kimi-for-coding)"
+        }
+      },
+      "deepseek": {
+        "name": "DeepSeek",
+        "description": "Série de modèles DeepSeek",
+        "urlOptions": {
+          "default": "Format OpenAI - Défaut",
+          "anthropic": "Format Anthropic"
+        }
+      },
+      "zhipu": {
+        "name": "Zhipu AI",
+        "description": "Série de modèles GLM de Zhipu AI",
+        "urlOptions": {
+          "default": "Chine - Format OpenAI - Défaut",
+          "anthropic": "Chine - Format Anthropic",
+          "codingPlan": "Chine - Plan Coding",
+          "intl": "International (Z.AI) - Format OpenAI",
+          "intlAnthropic": "International (Z.AI) - Format Anthropic",
+          "intlCodingPlan": "International (Z.AI) - Plan Coding"
+        }
+      },
+      "qwen": {
+        "name": "Qwen",
+        "description": "Plateforme de modèles Alibaba Cloud Bailian",
+        "urlOptions": {
+          "default": "Chine - Format OpenAI - Défaut",
+          "codingPlan": "Chine - Plan Coding",
+          "codingPlanAnthropic": "Chine - Plan Coding - Format Anthropic",
+          "intl": "International - Format OpenAI",
+          "intlCodingPlan": "International - Plan Coding"
+        }
+      },
+      "volcengine": {
+        "name": "Volcano Engine",
+        "description": "Plateforme de modèles Volcano Engine de ByteDance",
+        "urlOptions": {
+          "default": "Chine - Défaut",
+          "codingPlan": "Chine - Plan Coding",
+          "intl": "International (BytePlus)"
+        }
+      },
+      "siliconflow": {
+        "name": "SiliconFlow",
+        "description": "Plateforme de modèles SiliconFlow",
+        "urlOptions": {
+          "default": "Chine - Format OpenAI - Défaut",
+          "anthropic": "Chine - Format Anthropic",
+          "intl": "International - Format OpenAI"
+        }
+      },
+      "nvidia": {
+        "name": "NVIDIA",
+        "description": "Plateforme de modèles NVIDIA NIM"
+      },
+      "openrouter": {
+        "name": "OpenRouter",
+        "description": "Plateforme de modèles OpenRouter"
+      },
+      "tokendance": {
+        "name": "TokenDance",
+        "description": "Passerelle unifiée de modèles IA"
+      }
+    },
+    "modelNameSelectPlaceholder": "Sélectionner le modèle",
+    "testConnection": "Tester la connexion",
+    "testing": "Test en cours...",
+    "testSuccess": "Test réussi",
+    "testFailed": "Test échoué",
+    "fillApiKeyBeforeFetch": "Entrez la clé API avant de récupérer les modèles",
+    "fetchingModels": "Récupération de la liste des modèles...",
+    "fetchFailedFallback": "Échec de la récupération des modèles, utilisation des modèles prédéfinis courants",
+    "fetchEmptyFallback": "Le fournisseur n'a retourné aucun modèle, utilisation des modèles prédéfinis courants",
+    "usingPresetModels": "Affichage des modèles prédéfinis courants",
+    "addCustomModel": "Ajouter un modèle personnalisé",
+    "form": {
+      "baseUrl": "URL de l'API",
+      "apiKey": "Clé API",
+      "apiKeyPlaceholder": "Entrez votre clé API",
+      "provider": "Format de requête",
+      "providerPlaceholder": "Sélectionnez le format de requête",
+      "modelSelection": "Sélectionner les modèles",
+      "resolvedUrlLabel": "URL de requête : ",
+      "modelName": "Nom du modèle"
+    },
+    "formats": {
+      "openaiCompatible": "OpenAI Compatible",
+      "responsesApi": "OpenAI Responses API",
+      "claudeApi": "Claude API",
+      "geminiApi": "Gemini GenerateContent API"
+    },
+    "showSecret": "Afficher",
+    "hideSecret": "Masquer",
+    "getApiKey": "Obtenir la clé API",
+    "modelNoResults": "Aucun modèle correspondant",
+    "customRequestBodyPlaceholder": "Exemple :\n{\n  \"temperature\": 0.8,\n  \"top_p\": 0.9\n}",
+    "jsonValid": "Format JSON valide",
+    "jsonInvalid": "Format JSON invalide, vérifiez la syntaxe",
+    "skipSslVerify": "Ignorer la vérification du certificat SSL",
+    "customHeadersModeMerge": "Fusionner",
+    "customHeadersModeReplace": "Remplacer",
+    "addHeader": "Ajouter un champ",
+    "headerKey": "clé",
+    "headerValue": "valeur",
+    "advancedShow": "Afficher les paramètres avancés",
+    "advancedHide": "Masquer les paramètres avancés",
+    "setupDescription": "Ajoutez votre fournisseur et votre clé API, ou configurez un modèle plus tard dans l'application.",
+    "advancedSettings": "Paramètres avancés",
+    "endpointPreset": "Point de terminaison API"
+  },
+  "progress": {
+    "title": "Installation",
+    "prepare": "Préparation",
+    "extract": "Extraction des fichiers",
+    "registry": "Enregistrement de l'application",
+    "shortcuts": "Création des raccourcis",
+    "path": "Mise à jour du PATH",
+    "config": "Application des préférences de démarrage",
+    "complete": "Finalisation",
+    "starting": "Démarrage...",
+    "failed": "Installation échouée",
+    "confirmContinue": "Continuer la configuration",
+    "completed": "Installation terminée",
+    "completedDescription": "OpenBitFun est prêt. Personnalisez-le avec un modèle et un thème.",
+    "description": "Configuration de votre espace de travail pour la suite.",
+    "retry": "Réessayer"
+  },
+  "themeSetup": {
+    "title": "Personnalisez-le",
+    "subtitle": "Sélectionnez un thème pour l'apercevoir. Vous pourrez le changer à tout moment.",
+    "followSystem": "Suivre le système",
+    "themeNames": {
+      "openbitfun-dark": "Sombre",
+      "openbitfun-light": "Clair",
+      "openbitfun-midnight": "Minuit",
+      "openbitfun-china-style": "Charme d'encre",
+      "openbitfun-china-night": "Nuit d'encre",
+      "openbitfun-cyber": "Cyber",
+      "openbitfun-slate": "Ardoise",
+      "openbitfun-tokyo-night": "Tokyo Night"
+    }
+  },
+  "complete": {
+    "finish": "Terminer",
+    "migrateLegacyData": "Migrer les données héritées après l'installation",
+    "migrateLegacyDataDescription": "Lance le Migrateur de données installé. Il conserve les anciennes données inchangées, vous demande de confirmer l'étendue, et rouvre OpenBitFun à la fin de la migration."
+  },
+  "uninstall": {
+    "title": "Désinstaller OpenBitFun",
+    "subtitle": "Cela supprime OpenBitFun et les intégrations associées (raccourcis, menu contextuel, PATH).",
+    "installPath": "Chemin d'installation",
+    "pathUnknown": "Chemin d'installation non détecté",
+    "confirm": "Démarrer la désinstallation",
+    "uninstalling": "Désinstallation en cours...",
+    "completed": "Désinstallation terminée. Vous pouvez fermer cette fenêtre.",
+    "cancel": "Annuler",
+    "close": "Fermer"
+  },
+  "welcome": {
+    "title": "Choisissez votre langue",
+    "description": "Utilisez cette langue pour la configuration et votre premier lancement.",
+    "version": "Version {{version}}"
+  },
+  "steps": {
+    "label": "Progression de la configuration",
+    "language": "Langue",
+    "install": "Installation",
+    "model": "Modèle",
+    "theme": "Apparence"
+  },
+  "window": {
+    "minimize": "Réduire",
+    "close": "Fermer"
+  },
+  "preview": {
+    "badge": "Aperçu UI · pas d'installation",
+    "page": "Page d'aperçu",
+    "progress": "Progression de l'installation"
+  }
+}

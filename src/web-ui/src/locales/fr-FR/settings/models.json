@@ -1,0 +1,612 @@
+{
+  "title": "Modèles",
+  "subtitle": "Gérer les modèles par défaut, fournisseurs, abonnements, données du catalogue et connexions réseau.",
+  "editProvider": "Éditer la Configuration du Fournisseur",
+  "newProvider": "Nouvelle Configuration du Fournisseur",
+  "editModel": "Éditer la Configuration du Modèle",
+  "newModel": "Nouvelle Configuration du Modèle",
+  "editProviderSubtitle": "Paramètres de Base du Fournisseur",
+  "editSubtitle": "Paramètres de Base du Modèle",
+  "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette configuration ?",
+  "sessionTitle": {
+    "title": "Titre de Session Auto",
+    "subtitle": "L'IA génère automatiquement des titres concis pour les nouvelles conversations",
+    "enable": "Activer",
+    "loadFailed": "Échec du chargement des paramètres de titre de session",
+    "loadFailedLocked": "Les paramètres de titre de session n'ont pas pu être lus. Le commutateur et le sélecteur de modèle sont verrouillés.",
+    "retry": "Recharger",
+    "model": {
+      "label": "Modèle de Génération de Titre de Session",
+      "inherit": "Modèle de la session actuelle",
+      "primary": "Modèle Principal",
+      "fast": "Modèle Rapide"
+    },
+    "models": {
+      "empty": "Aucun modèle disponible. Veuillez ajouter des modèles dans \"Modèles\" d'abord.",
+      "unavailable": "{{id}} (désactivé ou manquant)",
+      "updateSuccess": "{{agentName}} utilisera {{modelName}}"
+    },
+    "messages": {
+      "saveSuccess": "Paramètres sauvegardés",
+      "saveFailed": "Échec de la sauvegarde",
+      "updateFailed": "Échec de la mise à jour"
+    }
+  },
+  "subscriptionAuth": {
+    "sectionTitle": "Comptes d'abonnement",
+    "sectionDescription": "Connecter les comptes Codex, Antigravity, OpenCode Console (Zen), xAI, ou Hermes",
+    "rescan": "Actualiser le statut",
+    "import": "Utiliser comme modèle",
+    "login": "Se connecter",
+    "browserLogin": "Connexion navigateur",
+    "deviceLogin": "Connexion par code appareil",
+    "cancel": "Annuler",
+    "loginCancelled": "Connexion annulée",
+    "logout": "Se déconnecter",
+    "refresh": "Actualiser le token",
+    "refreshSuccess": "Token actualisé",
+    "refreshFailed": "Échec de l'actualisation : {{error}}",
+    "loginSuccess": "Connecté",
+    "loginFailed": "Échec de la connexion : {{error}}",
+    "peerLoginRequiresLocalDevice": "La connexion Antigravity doit être complétée sur l'appareil exécutant OpenBitFun. Basculez sur cet appareil et connectez-vous là-bas.",
+    "logoutSuccess": "Déconnecté",
+    "logoutCleanupPending": "Déconnecté. Le nettoyage des identifiants est en attente et réessaiera automatiquement.",
+    "logoutFailed": "Échec de la déconnexion : {{error}}",
+    "userCodeHint": "Entrez ce code dans le navigateur : {{code}}",
+    "openUrlManually": "Impossible d'ouvrir le navigateur automatiquement. Ouvrez cette URL manuellement : {{url}}",
+    "expiresAt": "Token valide jusqu'à {{time}}",
+    "tokenValid": "Token prêt",
+    "notSignedIn": "Non connecté",
+    "label": "Authentification",
+    "options": {
+      "opencode": "OpenCode Console (Zen)",
+      "apiKey": "Clé API",
+      "codex": "Codex (abonnement ChatGPT)",
+      "antigravity": "Antigravity (abonnement Google)",
+      "grok": "xAI (abonnement SuperGrok)",
+      "hermes": "Hermes (abonnement Nous Portal)"
+    },
+    "useFormat": "Utiliser {{format}}",
+    "useFormatWithCount": "Utiliser {{format}} ({{modelCount}})",
+    "detected": "Utilisera {{label}} ({{account}})",
+    "notConnected": "{{kind}} n'est pas connecté ; connectez-vous ci-dessus d'abord",
+    "unknownAccount": "compte actuel",
+    "reauthenticationRequired": "Aucun identifiant utilisable n'a été trouvé dans le stockage d'identifiants. Connectez-vous à nouveau une fois.",
+    "vaultUnavailable": "Le stockage d'identifiants est temporairement indisponible. Réessayez ; votre connexion n'a pas été supprimée.",
+    "retryVault": "Réessayer le coffre",
+    "loginPending": "L'autorisation de connexion est en cours",
+    "browserInstructions": "Terminez la connexion dans le navigateur qu'OpenBitFun a ouvert. Gardez cette page ouverte ; OpenBitFun terminera automatiquement.",
+    "deviceInstructions": "Ouvrez la page d'autorisation sur n'importe quel appareil, entrez le code de vérification, puis revenez ici.",
+    "loginCancelling": "Annulation de la connexion et fermeture de la session d'autorisation",
+    "loginCompletedBeforeCancel": "L'autorisation était déjà terminée, donc ce compte reste connecté.",
+    "timeRemaining": "{{time}} restant",
+    "verificationCode": "Code de vérification",
+    "copyCode": "Copier le code",
+    "codeCopied": "Code de vérification copié",
+    "copyCodeFailed": "Impossible de copier le code de vérification",
+    "openAuthorization": "Ouvrir la page d'autorisation",
+    "retryLogin": "Réessayer",
+    "loginNeedsRetry": "Cette connexion n'a pas été complétée",
+    "loginFailedInline": "{{error}}",
+    "logoutConfirmTitle": "Se déconnecter du compte d'abonnement ?",
+    "logoutAffectedModels": "Après la déconnexion, {{count}} configurations de modèle utilisant ce compte ne pourront pas faire de requêtes :",
+    "logoutNoAffectedModels": "Aucune configuration de modèle n'utilise actuellement ce compte d'abonnement.",
+    "logoutConsequence": "Les configurations de modèle ne seront pas supprimées. Reconnectez-vous au même compte d'abonnement pour les réutiliser.",
+    "confirmLogout": "Se déconnecter",
+    "openCodeRemoved": "L'OAuth d'OpenCode Console supporte Zen uniquement. Sélectionnez Clé API et entrez une clé Go. Votre configuration de modèle existante est préservée."
+  },
+  "providerSelection": {
+    "modelRoutingPending": "Actualisez la liste des modèles pour afficher les protocoles et endpoints. Les modèles hors catalogue peuvent être configurés manuellement.",
+    "modelRoutingUnavailable": "L'hôte n'a pas retourné de route valide pour ce modèle. Mettez à jour l'hôte et actualisez la liste des modèles.",
+    "title": "Sélectionner le Fournisseur de Modèle",
+    "subtitle": "Choisissez un fournisseur prédéfini pour une configuration rapide, ou sélectionnez personnalisé pour une configuration manuelle complète",
+    "or": "ou",
+    "orSelectProvider": "ou sélectionner un fournisseur prédéfini",
+    "customTitle": "Configuration Personnalisée",
+    "customDescription": "Configurer manuellement tous les paramètres, adapté aux déploiements privés ou autres fournisseurs non listés",
+    "getApiKey": "Obtenir la Clé API",
+    "searchProviders": "Rechercher fournisseurs ou noms de modèles...",
+    "showAllProviders": "Afficher tous les {{count}} fournisseurs",
+    "collapseProviders": "Réduire la liste des fournisseurs",
+    "noProviderMatches": "Aucun fournisseur correspondant. Utilisez la configuration personnalisée ci-dessus.",
+    "fetchModels": "Récupérer les Modèles",
+    "fetchHint": "Récupérer la liste des modèles depuis le fournisseur actuel ; si cela échoue, revenir aux modèles prédéfinis courants",
+    "fetchingModels": "Récupération de la liste des modèles...",
+    "fetchSuccessCount": "{{count}} modèles récupérés du fournisseur",
+    "fetchFailedFallback": "Échec de la récupération de la liste des modèles, retour aux modèles prédéfinis courants",
+    "fetchEmptyFallback": "Le fournisseur n'a retourné aucun modèle, retour aux modèles prédéfinis courants",
+    "refreshModels": "Actualiser les modèles",
+    "subscriptionFetchFailed": "Impossible de charger les modèles pour cet abonnement. Actualisez pour réessayer, ou entrez un ID de modèle supporté par votre compte.",
+    "subscriptionFetchEmpty": "Ce compte n'a retourné aucun modèle pour l'interface sélectionnée. Actualisez pour réessayer, ou entrez un ID de modèle supporté.",
+    "fillApiKeyBeforeFetch": "Entrez la clé API avant de récupérer les modèles",
+    "usingPresetModels": "Affichage des modèles prédéfinis courants actuellement",
+    "noPresetModels": "Aucun modèle disponible. Récupérez la liste des modèles ou entrez un nom de modèle manuellement",
+    "backToSelection": "Retour à la sélection du fournisseur",
+    "selectModel": "Sélectionner le modèle",
+    "multiSelectHint": "Supporte la multi-sélection. Après la sélection, configurez la fenêtre de contexte, les tokens de sortie max, et le raisonnement par modèle.",
+    "searchOrInputModel": "Rechercher ou entrer le nom du modèle...",
+    "inputModelName": "Entrer le nom du modèle...",
+    "useCustomModel": "Appuyez sur Entrée pour utiliser",
+    "addCustomModel": "Ajouter un Modèle Personnalisé",
+    "addSearchedModel": "Ajouter ce modèle",
+    "modelAlreadyInList": "Ce modèle est déjà dans la liste",
+    "noModelsSelected": "Sélectionnez d'abord un modèle",
+    "removeModel": "Supprimer le modèle",
+    "expandModelSettings": "Étendre les paramètres pour {{name}}",
+    "collapseModelSettings": "Réduire les paramètres pour {{name}}",
+    "unsavedModel": "Non sauvegardé",
+    "unsavedModelHint": "Ce modèle a des modifications non sauvegardées. Utilisez Sauvegarder en bas de l'éditeur de modèle pour les conserver.",
+    "urlHint": "URL d'API officielle pré-remplie, modifiez si vous utilisez un proxy ou un déploiement privé",
+    "formatHint": "Sélectionné automatiquement selon le fournisseur, généralement pas besoin de changer"
+  },
+  "providers": {
+    "opencode-go": {
+      "name": "OpenCode Go",
+      "description": "Un plan d'abonnement de modèle d'OpenCode."
+    },
+    "openbitfun": {
+      "name": "OpenBitFun Service",
+      "description": "Plateforme de modèles OpenBitFun",
+      "urlOptions": {
+        "default": "Format Anthropic - Défaut",
+        "openai": "Format OpenAI Compatible"
+      }
+    },
+    "gemini": {
+      "name": "Google Gemini",
+      "description": "Série de modèles Google Gemini"
+    },
+    "anthropic": {
+      "name": "Anthropic Claude",
+      "description": "Série de modèles Anthropic Claude"
+    },
+    "minimax": {
+      "name": "MiniMax",
+      "description": "Série de modèles MiniMax",
+      "urlOptions": {
+        "default": "Chine - Format Anthropic - Défaut",
+        "openai": "Chine - OpenAI Compatible",
+        "intl": "International - Format Anthropic",
+        "intlOpenai": "International - OpenAI Compatible"
+      }
+    },
+    "xiaomi": {
+      "name": "Xiaomi MiMo",
+      "description": "Modèles Xiaomi MiMo. Les clés API et Token Plan sont séparées.",
+      "urlOptions": {
+        "default": "API - OpenAI Chat Completions - Défaut",
+        "responses": "API - OpenAI Responses",
+        "anthropic": "API - Anthropic Messages",
+        "tokenPlan": "Chine - Token Plan - OpenAI",
+        "tokenPlanAnthropic": "Chine - Token Plan - Anthropic"
+      }
+    },
+    "moonshot": {
+      "name": "Moonshot AI",
+      "description": "Série de modèles Kimi de Moonshot",
+      "urlOptions": {
+        "default": "Chine - Format OpenAI - Défaut",
+        "anthropic": "Chine - Format Anthropic",
+        "intl": "International - Format OpenAI",
+        "intlAnthropic": "International - Format Anthropic",
+        "kimiForCoding": "Plan Kimi For Coding (modèles: k3 / kimi-for-coding)"
+      }
+    },
+    "deepseek": {
+      "name": "DeepSeek",
+      "description": "Série de modèles DeepSeek",
+      "urlOptions": {
+        "default": "Format OpenAI - Défaut",
+        "anthropic": "Format Anthropic"
+      }
+    },
+    "zhipu": {
+      "name": "Zhipu AI",
+      "description": "Série de modèles GLM de Zhipu AI",
+      "urlOptions": {
+        "default": "Chine - Format OpenAI - Défaut",
+        "anthropic": "Chine - Format Anthropic",
+        "codingPlan": "Chine - Plan Coding",
+        "intl": "International (Z.AI) - Format OpenAI",
+        "intlAnthropic": "International (Z.AI) - Format Anthropic",
+        "intlCodingPlan": "International (Z.AI) - Plan Coding"
+      }
+    },
+    "qwen": {
+      "name": "Qwen",
+      "description": "Plateforme de modèles Alibaba Cloud Bailian",
+      "urlOptions": {
+        "default": "Chine - Format OpenAI - Défaut",
+        "intl": "International - Format OpenAI",
+        "codingPlan": "Chine - Plan Coding",
+        "codingPlanAnthropic": "Chine - Plan Coding - Format Anthropic",
+        "intlCodingPlan": "International - Plan Coding"
+      }
+    },
+    "volcengine": {
+      "name": "Volcano Engine",
+      "description": "Plateforme de modèles Volcano Engine de ByteDance",
+      "urlOptions": {
+        "default": "Chine - Défaut",
+        "codingPlan": "Chine - Plan Coding",
+        "intl": "International (BytePlus)"
+      }
+    },
+    "siliconflow": {
+      "name": "SiliconFlow",
+      "description": "Plateforme de modèles SiliconFlow",
+      "urlOptions": {
+        "default": "Chine - Format OpenAI - Défaut",
+        "anthropic": "Chine - Format Anthropic",
+        "intl": "International - Format OpenAI"
+      }
+    },
+    "nvidia": {
+      "name": "NVIDIA",
+      "description": "Plateforme de modèles NVIDIA NIM"
+    },
+    "openrouter": {
+      "name": "OpenRouter",
+      "description": "Plateforme de modèles OpenRouter"
+    },
+    "tokendance": {
+      "name": "TokenDance",
+      "description": "Passerelle unifiée de modèles IA"
+    }
+  },
+  "tabs": {
+    "api": "Configuration API",
+    "proxy": "Configuration Proxy"
+  },
+  "categories": {
+    "all": "Tout",
+    "text": "Texte",
+    "multimodal": "Image",
+    "other": "Utilitaire"
+  },
+  "category": {
+    "label": "Catégorie de Modèle",
+    "placeholder": "Sélectionner la catégorie de modèle",
+    "general_chat": "Génération de Texte",
+    "multimodal": "Compréhension d'Image",
+    "image_generation": "Génération d'Image",
+    "speech_recognition": "Reconnaissance Vocale"
+  },
+  "categoryIcons": {
+    "general_chat": "Texte",
+    "multimodal": "Vision",
+    "image_generation": "Image",
+    "speech_recognition": "Voix"
+  },
+  "categoryHints": {
+    "general_chat": "Génération de Texte : Générer des réponses textuelles, du code, etc. pour la plupart des scénarios de conversation",
+    "multimodal": "Compréhension d'Image : Comprendre le contenu d'image et avoir des conversations mixtes texte-image",
+    "image_generation": "Génération d'Image : Générer des images à partir de descriptions textuelles",
+    "speech_recognition": "Reconnaissance Vocale : Convertir la parole en texte (ex. GLM-ASR)"
+  },
+  "form": {
+    "configName": "Nom du Fournisseur",
+    "configNamePlaceholder": "Entrez le nom du fournisseur",
+    "modelName": "Nom du Modèle",
+    "modelSelection": "Sélectionner les Modèles",
+    "modelNameHint": "GLM-ASR utilise glm-asr, les autres modèles vocaux utilisent leurs noms de modèles correspondants",
+    "baseUrl": "URL de l'API",
+    "resolvedUrlLabel": "URL de requête : ",
+    "forceUrlHint": "Ajoutez # pour forcer l'utilisation de l'URL exacte que vous avez entrée",
+    "apiKey": "Clé API",
+    "apiKeyPlaceholder": "Entrez votre Clé API",
+    "provider": "Format de Requête",
+    "providerPlaceholder": "Sélectionner le format de requête",
+    "contextWindow": "Taille de la Fenêtre de Contexte",
+    "contextWindowHint": "Utilisée principalement pour déterminer quand la compression de contexte doit se déclencher. Elle peut être inférieure à la fenêtre de contexte maximale du modèle annoncée par le fournisseur.",
+    "contextWindowLongWarning": "La fenêtre de contexte configurée de ce modèle dépasse 400K. Un contexte très long peut réduire la qualité du modèle ; envisagez de la régler autour de 300K.",
+    "maxTokens": "Max Tokens de Sortie",
+    "maxTokensHint": "Tokens maximum pour la sortie du modèle par requête (affecte la longueur de la réponse)",
+    "description": "Description",
+    "descriptionPlaceholder": "Description de la configuration (optionnel)"
+  },
+  "thinking": {
+    "enable": "Activer la Réflexion",
+    "mode": "Mode de Raisonnement",
+    "enableHint": "Nécessite que le modèle supporte le mode réflexion",
+    "summaryOn": "réflexion activée",
+    "summaryOff": "réflexion désactivée",
+    "summaryDefault": "défaut API",
+    "summaryEnabled": "activation explicite",
+    "summaryDisabled": "désactivation explicite",
+    "summaryAdaptive": "adaptatif",
+    "budgetTokens": "Budget de Réflexion Claude",
+    "optionDefault": "Défaut API",
+    "optionEnabled": "Activé",
+    "optionDisabled": "Désactivé",
+    "optionAdaptive": "Adaptatif"
+  },
+  "reasoningEffort": {
+    "label": "Effort de Raisonnement",
+    "hint": "Contrôle la profondeur de raisonnement spécifique au fournisseur pour DeepSeek, l'API Responses, et les modèles Claude adaptatifs supportés",
+    "placeholder": "Utiliser le défaut API"
+  },
+  "reasoningPresets": {
+    "configTitle": "Paramètres de raisonnement",
+    "dialogTitle": "Paramètres de raisonnement · {{provider}} · {{model}}",
+    "catalogSource": "Source des préréglages de raisonnement",
+    "catalogAuto": "Détection auto",
+    "catalogModelsDev": "Utiliser le modèle models.dev explicite",
+    "catalogDisabled": "Préréglages personnalisés seulement",
+    "catalogAutoTooltip": "Utilise des préréglages précis pour les modèles reconnus, puis offre des contrôles manuels génériques on, off, et low/medium/high quand aucune projection ne correspond. Les préréglages personnalisés sont aussi inclus.",
+    "catalogModelsDevTooltip": "Utilise les préréglages de raisonnement d'un fournisseur et modèle models.dev spécifique. Choisissez ceci quand le nom du modèle configuré est un alias ou qu'une passerelle compatible nécessite une liaison explicite.",
+    "catalogDisabledTooltip": "Désactive les préréglages générés de models.dev et les fallbacks d'adaptateur. Seuls vos préréglages personnalisés restent disponibles.",
+    "catalogSummary": {
+      "auto": "Détection auto",
+      "modelsDev": "models.dev explicite",
+      "disabled": "Personnalisé seulement"
+    },
+    "catalogProvider": "Fournisseur",
+    "catalogModel": "Modèle",
+    "catalogSearch": "Recherche rapide",
+    "catalogSearchPlaceholder": "Entrer mots-clés fournisseur ou modèle",
+    "catalogSearchHint": "Sélectionner un résultat pour remplir le fournisseur et le modèle ci-dessous.",
+    "catalogSearchResults": "Résultats de recherche de modèles de raisonnement models.dev",
+    "catalogSearchEmpty": "Aucun modèle de raisonnement models.dev correspondant",
+    "catalogSearchLimit": "Beaucoup de résultats trouvés ; continuez à taper pour affiner la liste",
+    "catalogUnbound": "Non lié",
+    "catalogProviderCustomValueHint": "Utiliser un ID de fournisseur personnalisé",
+    "catalogModelCustomValueHint": "Utiliser un ID de modèle personnalisé",
+    "defaultBehavior": "Raisonnement par défaut",
+    "defaultPreset": "Préréglage par défaut",
+    "auto": "Auto (défaut du modèle)",
+    "autoShort": "Auto",
+    "generatedTitle": "Préréglages générés",
+    "unavailableTitle": "Certains préréglages models.dev sont indisponibles",
+    "unavailableDescription": "Le format d'API actuel, {{format}}, ne peut pas appliquer fiablement ces préréglages : {{presets}}. Reportez-vous à la documentation officielle de votre fournisseur et configurez les champs requis avec Request body patch (JSON Merge Patch) dans un préréglage personnalisé.",
+    "unknownRequestFormat": "Inconnu",
+    "customTitle": "Préréglages personnalisés",
+    "customTooltip": "Les préréglages personnalisés sauvegardent un request body patch comme option sélectionnable dans la saisie de chat. Donnez un nom à chaque préréglage et entrez un JSON Merge Patch qui correspond au corps de requête API du modèle actuel.",
+    "add": "Ajouter un préréglage",
+    "empty": "Aucun préréglage personnalisé",
+    "label": "Étiquette",
+    "labelPlaceholder": "Étiquette d'affichage",
+    "default": "Défaut",
+    "enabled": "Préréglage activé",
+    "moveUp": "Monter le préréglage",
+    "moveDown": "Descendre le préréglage",
+    "remove": "Supprimer le préréglage",
+    "settingEffort": "Effort de raisonnement",
+    "settingToggle": "Basculer on / off",
+    "settingBudget": "Budget de tokens",
+    "settingPatch": "Request body patch (JSON Merge Patch)",
+    "patchPlaceholder": "Les champs de raisonnement varient selon le fournisseur et le format d'API. Reportez-vous à la documentation officielle de votre fournisseur pour le format {{format}}.\nExemple :\n{\n  \"thinking\": {\n    \"type\": \"enabled\"\n  },\n  \"output_config\": {\n    \"effort\": \"high\"\n  }\n}",
+    "legacyTitle": "Configuration d'action héritée",
+    "legacyDescription": "Ce préréglage contient des actions typées héritées ou plusieurs patches. Ils restent dans leur ordre original à moins que vous ne les remplaciez explicitement par un seul request body patch.",
+    "convertToSinglePatch": "Utiliser un seul request body patch",
+    "actionSummaryEffort": "Effort : {{value}}",
+    "actionSummaryEnabled": "Raisonnement activé",
+    "actionSummaryDisabled": "Raisonnement désactivé",
+    "actionSummaryBudget": "Budget de tokens : {{value}}",
+    "actionSummaryPatches": "{{count}} patches de requête",
+    "noActions": "Aucune action configurée",
+    "invalidJson": "Entrez un objet JSON pour le patch de requête.",
+    "summary": "{{source}} · Défaut : {{default}}",
+    "summaryWithCustom": "{{source}} · Défaut : {{default}} · {{count}} préréglages personnalisés",
+    "apply": "Appliquer",
+    "validationError": "Corrigez la source de préréglage invalide, le défaut, les actions, ou le JSON avant d'appliquer."
+  },
+  "details": {
+    "basicInfo": "Informations de Base",
+    "modelName": "Nom du Modèle",
+    "provider": "Format de Requête",
+    "apiUrl": "URL de l'API",
+    "contextWindow": "Fenêtre de Contexte",
+    "maxOutput": "Sortie Max",
+    "description": "Description",
+    "capabilities": "Capacités",
+    "tokens": "tokens"
+  },
+  "proxy": {
+    "enable": "Activer le Proxy",
+    "enableHint": "Quand activé, toutes les requêtes IA sont envoyées via le proxy (nécessite un redémarrage d'OpenBitFun)",
+    "url": "URL du Proxy",
+    "urlPlaceholder": "http://127.0.0.1:7890 ou socks5://127.0.0.1:1080",
+    "urlHint": "Supporte les proxies HTTP/HTTPS/SOCKS5, format : protocol://adresse:port",
+    "username": "Nom d'utilisateur (optionnel)",
+    "usernamePlaceholder": "Nom d'utilisateur d'authentification proxy",
+    "password": "Mot de passe (optionnel)",
+    "passwordPlaceholder": "Mot de passe d'authentification proxy",
+    "save": "Sauvegarder la Configuration Proxy",
+    "saveSuccess": "Configuration proxy sauvegardée. Redémarrez OpenBitFun pour l'appliquer"
+  },
+  "streamIdleTimeout": {
+    "title": "Délai d'attente du Streaming",
+    "effectiveNextRound": "Les changements prennent effet au tour suivant.",
+    "label": "Délai d'inactivité (secondes)",
+    "hint": "Délai d'inactivité global entre les chunks streamés après le début du stream. Laissez vide pour attendre indéfiniment.",
+    "placeholder": "Laissez vide pour pas de délai",
+    "invalid": "Entrez un entier positif en secondes, ou laissez ce champ vide.",
+    "save": "Sauvegarder le Délai de Streaming",
+    "saveSuccess": "Délai de streaming sauvegardé"
+  },
+  "streamTtftTimeout": {
+    "title": "Délai du Premier Token",
+    "label": "Délai TTFT (secondes)",
+    "hint": "Temps d'attente maximum après l'envoi d'une requête pour la première sortie streamée effective. Laissez vide pour attendre indéfiniment.",
+    "placeholder": "Laissez vide pour pas de délai",
+    "invalid": "Entrez un entier positif en secondes, ou laissez ce champ vide.",
+    "save": "Sauvegarder le Délai du Premier Token",
+    "saveSuccess": "Délai du premier token sauvegardé"
+  },
+  "toolArgumentJsonRepair": {
+    "title": "Réparation JSON des Arguments d'Outil",
+    "description": "S'applique au prochain tour de modèle.",
+    "label": "Réparer les arguments d'outil malformés",
+    "hint": "Uniquement après que le fournisseur confirme une complétion d'utilisation d'outil normale. Cela peut changer du JSON malformé avant la validation normale d'outil.",
+    "saveSuccess": "Paramètre de réparation JSON des arguments d'outil sauvegardé"
+  },
+  "capabilities": {
+    "text_chat": "Chat",
+    "image_understanding": "Vision",
+    "image_generation": "Image",
+    "function_calling": "Outils",
+    "speech_recognition": "Voix"
+  },
+  "formats": {
+    "openaiCompatible": "OpenAI Compatible",
+    "responsesApi": "OpenAI Responses API",
+    "claudeApi": "Claude API",
+    "geminiApi": "Gemini GenerateContent API"
+  },
+  "actions": {
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "edit": "Éditer",
+    "delete": "Supprimer",
+    "deleteProvider": "Supprimer le fournisseur",
+    "test": "Tester la Connexion",
+    "newConfig": "Nouvelle Configuration",
+    "addModel": "Ajouter un Modèle",
+    "addProvider": "Ajouter un Fournisseur",
+    "createFirst": "Créer la Première Configuration"
+  },
+  "deleteConfirm": {
+    "title": "Supprimer la configuration de modèle ?",
+    "message": "Cela supprime le modèle « {{name }} ». Il est explicitement référencé par {{count }} paramètre(s). Ces références ne basculeront pas automatiquement vers un autre modèle, donc les fonctionnalités associées peuvent revenir à un fallback ou devenir indisponibles.",
+    "confirm": "Supprimer le modèle"
+  },
+  "providerDeleteConfirm": {
+    "title": "Supprimer le fournisseur ?",
+    "message": "Cela supprime le fournisseur « {{name }} » et ses {{modelCount }} configuration(s) de modèle. Ces modèles sont explicitement référencés par {{referenceCount }} paramètre(s). Les références ne basculeront pas automatiquement vers un autre modèle, donc les fonctionnalités associées peuvent revenir à un fallback ou devenir indisponibles. Tout compte d'abonnement lié restera connecté.",
+    "messageWithDraft": "Cela supprime le fournisseur « {{name }} », ses {{modelCount }} configuration(s) de modèle, et le brouillon d'édition non sauvegardé du fournisseur. Ces modèles sont explicitement référencés par {{referenceCount }} paramètre(s). Les références ne basculeront pas automatiquement vers un autre modèle, donc les fonctionnalités associées peuvent revenir à un fallback ou devenir indisponibles. Tout compte d'abonnement lié restera connecté.",
+    "confirm": "Supprimer le fournisseur"
+  },
+  "draftClose": {
+    "title": "Conserver ce brouillon d'édition ?",
+    "message": "Ces modifications n'ont pas été écrites dans la configuration du modèle. Conserver le brouillon ne lancera pas de test de connexion, et vous pourrez le reprendre quand vous rouvrirez cet éditeur.",
+    "keepAndClose": "Conserver le brouillon et fermer",
+    "discard": "Ignorer les modifications",
+    "continueEditing": "Continuer l'édition",
+    "discardDraft": "Ignorer le brouillon",
+    "retainedHint": "Le brouillon d'édition du modèle est conservé et n'a pas été écrit dans la configuration active."
+  },
+  "draftConflict": {
+    "title": "Résoudre le brouillon de modèle inachevé",
+    "message": "Avant d'ouvrir un autre modèle ou fournisseur, continuez le brouillon actuel ou ignorez-le et ouvrez la configuration sélectionnée.",
+    "continueDraft": "Continuer le brouillon actuel",
+    "discardAndContinue": "Ignorer et continuer",
+    "cancel": "Annuler"
+  },
+  "empty": {
+    "noModels": "Aucune configuration de modèle",
+    "noMatchingModels": "Aucun modèle correspondant trouvé"
+  },
+  "search": {
+    "placeholder": "Rechercher nom de modèle, fournisseur..."
+  },
+  "messages": {
+    "loading": "Chargement des paramètres de modèle…",
+    "loadFailedLocked": "Les paramètres de modèle n'ont pas pu être lus. Cette page est verrouillée pour éviter d'écraser la configuration actuelle.",
+    "retry": "Recharger",
+    "unsaved": "Non sauvegardé",
+    "fillRequired": "Veuillez remplir les champs requis",
+    "missingFields": "Veuillez compléter les éléments suivants : {{fields}}.",
+    "fieldSeparator": ", ",
+    "lastFieldSeparator": " et ",
+    "fillModelName": "Veuillez remplir le nom du modèle",
+    "duplicateModelNameUnderProvider": "Ce fournisseur a déjà un modèle avec ce nom. Utilisez un nom différent ou éditez l'entrée existante.",
+    "invalidBaseUrlScheme": "L'URL de l'API doit commencer par http:// ou https://",
+    "contextWindowTooSmall": "La fenêtre de contexte doit être d'au moins 32K tokens",
+    "invalidReasoningPresets": "Corrigez les IDs de préréglages de raisonnement, les paramètres, la sélection par défaut, ou le JSON avant de sauvegarder.",
+    "saveFailed": "Échec de la sauvegarde",
+    "deleteFailed": "Échec de la suppression de la configuration",
+    "deleteSuccess": "Configuration de modèle supprimée",
+    "providerDeleteFailed": "Échec de la suppression du fournisseur",
+    "providerDeleteSuccess": "Fournisseur et ses configurations de modèle supprimés",
+    "referenceCheckFailed": "OpenBitFun n'a pas pu vérifier si d'autres paramètres référencent encore ce modèle, donc la suppression a été annulée",
+    "providerReferenceCheckFailed": "OpenBitFun n'a pas pu vérifier si d'autres paramètres référencent encore les modèles de ce fournisseur, donc la suppression a été annulée",
+    "loadFailed": "Échec du chargement de la configuration IA",
+    "testing": "Test en cours…",
+    "testSuccess": "Test réussi",
+    "testFailed": "Test échoué",
+    "testUnsupportedOnHost": "Configuration sauvegardée ; l'appareil CLI actuel ne supporte pas les tests de connexion de modèle",
+    "errorDetails": "Détails de l'erreur",
+    "connectionTestMessages": {
+      "toolCallsNotDetected": "Ce test n'a pas détecté d'appels d'outil, donc l'appel d'outil n'a pas pu être vérifié cette fois.",
+      "imageInputCheckFailed": "La connexion a réussi, mais la vérification d'entrée d'image a échoué.",
+      "tlsOrCertificateIssue": "L'échec de la connexion peut être lié à la vérification du certificat SSL/TLS. Vérifiez les proxies d'entreprise, les certificats auto-signés, les certificats racine système, ou l'interception réseau. Si vous faites confiance à cet environnement réseau, vous pouvez activer \"Ignorer la vérification du certificat SSL\" dans les Paramètres Avancés de ce modèle, mais cela réduit la sécurité HTTPS.",
+      "proxyIssue": "L'échec de la connexion peut être lié à la configuration du proxy ou du tunnel. Vérifiez les paramètres de proxy globaux, l'authentification proxy, le support HTTPS CONNECT, et si le réseau actuel peut atteindre cet endpoint d'API de modèle.",
+      "networkIssue": "La requête a échoué pendant son envoi, avant toute réponse HTTP reçue. Vérifiez la connectivité réseau, DNS, proxy, pare-feu, et paramètres de certificat. Dans les environnements de proxy d'entreprise ou certificats auto-signés, vous devrez peut-être aussi revoir \"Ignorer la vérification du certificat SSL\" dans les Paramètres Avancés."
+    },
+    "autoSetPrimary": "Définir automatiquement comme modèle principal",
+    "defaultDescription": "Configuration du modèle {{name}}",
+    "cloneName": "{{name }} - Copie",
+    "templateName": "{{provider}} - {{modelName}}",
+    "templateDescription": "{{description}} - {{modelName}}"
+  },
+  "modelsDevCatalog": {
+    "title": "Catalogue de modèles models.dev",
+    "detailsTitle": "Détails du catalogue models.dev",
+    "viewDetails": "Voir les détails du catalogue models.dev",
+    "description": "Statut du catalogue utilisé pour les liaisons de fournisseur et modèle de préréglages de raisonnement. Il est vérifié automatiquement à l'ouverture des paramètres de modèle.",
+    "activeSource": "Source active",
+    "source": {
+      "cache": "Cache",
+      "bundle": "Snapshot intégré",
+      "empty": "Indisponible"
+    },
+    "catalogSize": "Taille du catalogue",
+    "catalogSizeValue": "{{providers}} fournisseurs · {{models}} modèles de raisonnement",
+    "cacheUpdatedAt": "Heure d'écriture du cache",
+    "cachePath": "Chemin du cache",
+    "revision": "Révision",
+    "loading": "Chargement…",
+    "noCache": "Aucun cache créé",
+    "refreshNow": "Mettre à jour maintenant",
+    "refreshing": "Mise à jour…",
+    "refreshSuccess": "Catalogue models.dev mis à jour",
+    "alreadyCurrent": "Le catalogue models.dev est déjà à jour",
+    "refreshThrottled": "Le catalogue models.dev a été actualisé récemment ; veuillez réessayer plus tard",
+    "refreshFailed": "Échec de la mise à jour du catalogue models.dev ; continuation avec le catalogue actuel",
+    "reveal": "Afficher dans le dossier",
+    "revealFailed": "Impossible d'ouvrir le dossier de cache",
+    "offlineTitle": "Mise à jour sans accès réseau",
+    "offlineDescription": "Sur un appareil avec accès internet, téléchargez le fichier models.dev original, nommez-le catalog.json, et placez-le dans le répertoire de cache ci-dessus. Redémarrez OpenBitFun pour l'appliquer ; Mettre à jour maintenant peut écraser ce fichier.",
+    "downloadOriginal": "Télécharger le catalogue original",
+    "openCacheDirectory": "Ouvrir le répertoire de cache"
+  },
+  "advancedSettings": {
+    "title": "Paramètres Avancés",
+    "inlineThinkInText": {
+      "label": "Analyser les Tags Dans le Texte",
+      "hint": "Diviser les flux de texte contenant  en contenu de raisonnement en direct."
+    },
+    "skipSslVerify": {
+      "label": "Ignorer la Vérification du Certificat SSL",
+      "warning": "Ignorer la vérification SSL est un risque de sécurité, à utiliser uniquement dans les environnements de test ou réseau interne !"
+    },
+    "customHeaders": {
+      "label": "En-têtes Personnalisés",
+      "hint": "Ajouter ou modifier les en-têtes de requête HTTP",
+      "modeLabel": "Mode d'Application",
+      "modeReplace": "Remplacer",
+      "modeMerge": "Fusionner",
+      "modeReplaceHint": "Les en-têtes personnalisés remplaceront complètement les en-têtes par défaut (vous devez ajouter Content-Type, Authorization, etc.)",
+      "modeMergeHint": "Appliquer d'abord les en-têtes par défaut, puis appliquer les en-têtes personnalisés (peut remplacer les valeurs existantes, ajouter de nouvelles valeurs)",
+      "addHeader": "Ajouter un Champ",
+      "keyPlaceholder": "clé",
+      "valuePlaceholder": "valeur"
+    },
+    "customRequestBody": {
+      "label": "Corps de Requête Personnalisé",
+      "hint": "Entrez les champs du corps de requête au format JSON pour remplacer les paramètres de requête par défaut",
+      "modeMerge": "Fusionner",
+      "modeTrim": "Élager",
+      "modeMergeHint": "Fusionner les champs personnalisés dans le corps de requête par défaut et permettre le remplacement des champs existants.",
+      "trimHintOpenAI": "Conserver seulement model, messages, max_tokens, et les champs stream / tool critiques à l'exécution avant d'appliquer le corps de requête personnalisé.",
+      "trimHintResponses": "Conserver seulement model, input, instructions, max_output_tokens, et les champs stream / tool critiques à l'exécution avant d'appliquer le corps de requête personnalisé.",
+      "trimHintAnthropic": "Conserver seulement model, messages, system, max_tokens, et les champs stream / tool critiques à l'exécution avant d'appliquer le corps de requête personnalisé.",
+      "trimHintGemini": "Conserver seulement contents, systemInstruction, generationConfig.maxOutputTokens, et tools / toolConfig avant d'appliquer le corps de requête personnalisé. La sélection du modèle Gemini vient de l'URL de requête.",
+      "placeholder": "Exemple :\n{\n  \"temperature\": 0.8,\n  \"top_p\": 0.9\n}",
+      "invalidJson": "Format JSON invalide, veuillez vérifier la syntaxe",
+      "validJson": "Format JSON valide",
+      "mergeHint": "Les champs personnalisés remplaceront les champs correspondants dans le corps de requête par défaut"
+    }
+  }
+}

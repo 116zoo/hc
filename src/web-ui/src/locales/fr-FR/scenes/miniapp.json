@@ -1,0 +1,355 @@
+{
+  "title": "Mini Apps",
+  "subtitle": "Parcourez, installez, mettez à jour et ouvrez toutes les mini apps en un seul endroit.",
+  "searchPlaceholder": "Rechercher des mini apps...",
+  "importFromFolder": "Importer depuis un dossier",
+  "importAction": "Importer la mini app",
+  "importMenuLabel": "Choisir une source d'importation",
+  "creationMode": {
+    "action": "Créer avec le Mode Création",
+    "started": "Le Mode Création est prêt pour votre demande de MiniApp.",
+    "startFailed": "Impossible de démarrer le Mode Création.",
+    "noWorkspace": "Ouvrez un espace de travail local avant de démarrer le Mode Création.",
+    "remoteUnsupported": "La création de MiniApp est locale uniquement et n'est pas disponible dans un espace de travail distant."
+  },
+  "running": "En cours d'exécution",
+  "allApps": "Toutes les Apps",
+  "noRunningApps": "Aucune app en cours d'exécution",
+  "stopFailed": "Impossible d'arrêter {{name}}. Son processus en arrière-plan peut encore tourner : {{error}}",
+  "all": "Tout",
+  "count": "{{count}}",
+  "empty": {
+    "generate": "Générez en discutant, prêt instantanément. Démarrez une conversation avec l'IA pour créer votre première mini app.",
+    "noMatch": "Aucune app correspondante."
+  },
+  "selectFolderTitle": "Sélectionner le répertoire de la mini app (doit contenir meta.json et source/)",
+  "card": {
+    "start": "Démarrer",
+    "stop": "Arrêter",
+    "delete": "Supprimer"
+  },
+  "detail": {
+    "source": {
+      "builtin": "App intégrée",
+      "market": "App du marketplace",
+      "installed": "App installée"
+    },
+    "highlights": "Points forts",
+    "activity": {
+      "running": "L'app est en cours d'exécution"
+    },
+    "status": {
+      "installed": "Installée et prête à ouvrir",
+      "running": "En cours d'exécution — revenez pour continuer",
+      "customizing": "Personnalisation en cours ; la version actuelle reste disponible"
+    },
+    "capabilities": {
+      "ai": {
+        "title": "Collaboration IA",
+        "description": "Peut appeler l'IA ou un Agent quand la tâche le nécessite"
+      },
+      "workspace": {
+        "title": "Accès à l'espace de travail",
+        "description": "Peut lire ou mettre à jour l'espace de travail dans ses permissions"
+      },
+      "export": {
+        "title": "Rendu de présentation",
+        "description": "Peut rendre du contenu de présentation via l'hôte de bureau"
+      },
+      "shell": {
+        "title": "Accès aux commandes",
+        "description": "Peut exécuter les commandes approuvées : {{commands}}"
+      },
+      "network": {
+        "title": "Réseau contrôlé",
+        "description": "Peut atteindre {{count}} domaines approuvés"
+      },
+      "worker": {
+        "title": "Tâches en arrière-plan",
+        "description": "Peut exécuter sa propre logique en arrière-plan"
+      },
+      "storage": {
+        "title": "Sauvegardes locales",
+        "description": "Conserve les données dans son stockage spécifique à l'app"
+      },
+      "desktop": {
+        "title": "Actions de bureau",
+        "description": "Peut utiliser {{count}} capacités de bureau approuvées"
+      },
+      "surface": {
+        "title": "Interface dédiée",
+        "description": "Complétez ce travail dans sa propre surface focalisée"
+      },
+      "controlled": {
+        "title": "Permissions contrôlées",
+        "description": "Utilise seulement les capacités d'hôte déclarées dans son manifeste"
+      },
+      "instant": {
+        "title": "Prêt à l'emploi",
+        "description": "Démarre sans configuration supplémentaire"
+      }
+    },
+    "start": "Démarrer",
+    "stop": "Arrêter",
+    "delete": "Supprimer",
+    "open": "Ouvrir"
+  },
+  "confirmDelete": {
+    "title": "Supprimer « {{name }} » ?",
+    "message": "Cette action est irréversible. L'app et toutes ses données seront définitivement supprimées.",
+    "confirm": "Supprimer",
+    "cancel": "Annuler"
+  },
+  "scene": {
+    "conversation": "Conversation",
+    "loading": "Chargement...",
+    "loadFailed": "Échec du chargement : {{error}}",
+    "retry": "Réessayer",
+    "reload": "Recharger"
+  },
+  "market": {
+    "title": "Marché MiniApp",
+    "subtitle": "Parcourez les mini apps revues par des humains qui s'exécutent dans le sandbox strict d'OpenBitFun.",
+    "catalog": "Catalogue",
+    "sortLabel": "Trier par",
+    "search": "Rechercher sur le marché…",
+    "signIn": "Se connecter avec GitHub",
+    "signOut": "Se déconnecter",
+    "account": {
+      "menuLabel": "Compte GitHub @{{login}}",
+      "githubAccount": "Compte marché GitHub",
+      "dialogTitle": "Se connecter avec GitHub",
+      "dialogHeading": "Continuer avec GitHub",
+      "dialogDescription": "Le Marché MiniApp et le Marché Skins partagent ce compte. L'autorisation s'ouvre dans votre navigateur, tandis que les identifiants restent dans le coffre-fort système du bureau.",
+      "waiting": "Terminez l'autorisation dans le navigateur. OpenBitFun se mettra à jour automatiquement.",
+      "cancel": "Annuler",
+      "continue": "Ouvrir GitHub",
+      "reopen": "Rouvrir la page de connexion",
+      "authorizing": "En attente de GitHub…"
+    },
+    "empty": "Aucune MiniApp revue n'a encore été publiée.",
+    "loadMore": "Charger plus",
+    "tabs": {
+      "label": "Pages MiniApp",
+      "apps": "Toutes les apps",
+      "installed": "Installées",
+      "market": "Marché",
+      "submissions": "Mes soumissions"
+    },
+    "library": {
+      "get": "Obtenir",
+      "update": "Mettre à jour",
+      "open": "Ouvrir",
+      "manage": "Gérer",
+      "installed": "Installée",
+      "updateAvailable": "Mise à jour disponible",
+      "customizing": "Personnalisation en cours",
+      "local": "Local",
+      "version": "v{{version}}",
+      "marketMeta": "Par {{owner}} · note {{rating}} · {{downloads}} téléchargements",
+      "localMeta": "Sur cet appareil",
+      "viewDetails": "Voir les détails pour {{name}}",
+      "showcaseAlt": "Image de présentation {{name}}",
+      "showcaseFallback": "Aucune image de présentation pour {{name}}",
+      "remoteUnsupported": "Cette app a besoin d'un espace de travail local.",
+      "marketUnavailable": "Le marketplace est indisponible. Les apps installées sont toujours prêtes à l'emploi.",
+      "empty": "Aucune mini app n'est disponible pour l'instant."
+    },
+    "sort": {
+      "newest": "Plus récentes",
+      "downloads": "Plus téléchargées",
+      "rating": "Mieux notées"
+    },
+    "categories": {
+      "all": "Tout",
+      "developer": "Développeur",
+      "productivity": "Productivité",
+      "data": "Données",
+      "creative": "$t(shared:agents.Creative)",
+      "education": "Éducation",
+      "utilities": "Utilitaires",
+      "entertainment": "Divertissement",
+      "other": "Autre"
+    },
+    "detail": {
+      "loading": "Chargement des détails…",
+      "reviewed": "Revues par des humains",
+      "by": "Par {{owner}}",
+      "install": "Installer",
+      "update": "Mettre à jour",
+      "installed": "Installée",
+      "open": "Ouvrir",
+      "permissions": "Permissions d'installation",
+      "noPermissions": "Aucune permission d'hôte supplémentaire",
+      "rating": "Note",
+      "changelog": "Nouveautés",
+      "releases": "Historique des versions",
+      "releasesExpand": "Afficher les versions plus anciennes ({{count}})",
+      "releasesCollapse": "Afficher seulement la dernière version",
+      "yanked": "Retirée définitivement",
+      "repository": "Voir le dépôt public",
+      "remoteWorkspaceUnsupported": "Cette app nécessite {workspace} ; son installation et son exécution sont indisponibles dans les espaces de travail distants.",
+      "localOverride": "Cette copie a des modifications locales. La mise à jour crée un instantané de version et préserve storage.json.",
+      "installedYanked": "Votre version installée a été retirée définitivement. Elle reste installée, mais doit être traitée comme un risque de sécurité."
+    },
+    "permissions": {
+      "fsRead": "Lire les fichiers : {{value}}",
+      "fsWrite": "Écrire les fichiers : {{value}}",
+      "shell": "Exécuter des commandes : {{value}}",
+      "net": "Domaines réseau : {{value}}",
+      "ai": "Utiliser l'IA",
+      "agent": "Exécuter un Agent dans une session visible",
+      "notifications": "Notifications système",
+      "dialog": "Ouvrir les boîtes de dialogue système",
+      "clipboardRead": "Lire le presse-papiers",
+      "clipboardWrite": "Écrire dans le presse-papiers",
+      "openExternal": "Ouvrir les liens externes",
+      "revealInFolder": "Révéler les fichiers",
+      "deckRender": "Rendre les présentations",
+      "chatComposer": "Écrire dans le compositeur de chat",
+      "systemInfo": "Lire les informations système"
+    },
+    "confirmInstall": {
+      "title": "Installer « {{name }} » ?",
+      "permissions": "Cela accorde : {{permissions}}",
+      "confirm": "Installer"
+    },
+    "confirmUpdate": {
+      "title": "Mettre à jour « {{name }} » ?",
+      "overwrite": "Les modifications locales seront remplacées après qu'OpenBitFun crée un instantané.",
+      "addedPermissions": "Permissions nouvelles ou étendues (confirmation requise) : {{permissions}}",
+      "removedPermissions": "Permissions supprimées : {{permissions}}",
+      "noAddedPermissions": "Cette mise à jour n'ajoute pas de permissions.",
+      "confirm": "Mettre à jour"
+    },
+    "messages": {
+      "detailFailed": "Impossible de charger les détails : {{error}}",
+      "signedIn": "Connecté avec GitHub.",
+      "signedOut": "Déconnecté.",
+      "authExpired": "L'autorisation de connexion a expiré. Réessayez.",
+      "authFailed": "Échec de la connexion : {{error}}",
+      "actionFailed": "Échec de l'action : {{error}}",
+      "installed": "MiniApp installée.",
+      "updated": "MiniApp mise à jour ; l'ancienne version a été sauvegardée.",
+      "installFailed": "Échec de l'installation ou de la mise à jour : {{error}}",
+      "deleteFailed": "Impossible de supprimer la MiniApp : {{error}}",
+      "catalogFailed": "Le marché est indisponible : {{error}}",
+      "submissionsFailed": "Impossible de charger les soumissions : {{error}}"
+    },
+    "import": {
+      "action": "Importer .bfminiapp",
+      "choose": "Choisir un fichier .bfminiapp",
+      "packageFile": "Package MiniApp OpenBitFun",
+      "invalid": "Validation du package échouée : {{error}}",
+      "confirmTitle": "Importer « {{name }} » ?",
+      "confirmMessage": "{{description}}\n\nPermissions : {{permissions}}\n\nSHA-256 : {{sha256}}",
+      "confirm": "Importer",
+      "imported": "« {{name }} » importée.",
+      "failed": "Échec de l'importation : {{error}}"
+    },
+    "submissions": {
+      "title": "Mes soumissions",
+      "subtitle": "Créez un package canonique à partir d'une app installée, ajoutez des images marketplace, et soumettez-la pour revue humaine.",
+      "signInRequired": "Connectez-vous avec GitHub pour créer et gérer les soumissions.",
+      "refresh": "Actualiser",
+      "remoteUnsupported": "L'empaquetage et le téléversement nécessitent un espace de travail local ; l'historique des soumissions reste disponible.",
+      "newTitle": "Soumettre une version",
+      "newHint": "La source et les permissions viennent de l'app installée sélectionnée ; le reste est pré-rempli — généralement vous confirmez juste le nom, la description et les images marketplace.",
+      "advanced": "Options avancées",
+      "app": "MiniApp installée",
+      "slug": "Slug permanent",
+      "slugHint": "3–63 lettres minuscules, chiffres ou tirets. Ne peut pas changer après la première publication.",
+      "release": "Numéro de version marché",
+      "name": "Nom public",
+      "description": "Description publique",
+      "category": "Catégorie",
+      "minVersion": "Version minimale OpenBitFun",
+      "tags": "Tags",
+      "tagsHint": "Séparés par des virgules ; 10 maximum.",
+      "changelog": "Notes de version",
+      "changelogPlaceholder": "Laisser vide pour remplir automatiquement.",
+      "changelogFallbackFirst": "Version initiale.",
+      "changelogFallbackUpdate": "Mises à jour et améliorations générales.",
+      "spdx": "Licence SPDX",
+      "licenseHint": "Déclarez une expression SPDX ou une URL personnalisée, pas les deux.",
+      "licenseUrl": "URL de licence personnalisée",
+      "repository": "URL de dépôt public (optionnel)",
+      "screenshots": "Images marketplace (requises)",
+      "screenshotHint": "Une image 16:9 est recommandée pour le marketplace ; la première image devient la couverture de la fiche. Gardez la composition claire, le sujet proéminent, et le contenu clé près du centre. Ajoutez 1–5 fichiers PNG, JPEG ou WebP, jusqu'à 5 Mio chacun ; 1920×1080 recommandé.",
+      "choose": "Choisir les images",
+      "capture": "Capturer la vue actuelle",
+      "captured": "Vue actuelle de la MiniApp ajoutée comme image marketplace.",
+      "captureFailed": "Impossible de capturer la vue actuelle : {{error}}",
+      "chooseScreenshots": "Choisir les images marketplace de la MiniApp",
+      "screenshotFiles": "Images marketplace",
+      "screenshotLimit": "Choisir au maximum 5 images marketplace.",
+      "removeScreenshot": "Supprimer l'image marketplace",
+      "missingFiles": "Sélectionnez une MiniApp et au moins une image marketplace.",
+      "submit": "Soumettre pour revue humaine",
+      "submitted": "Version soumise pour revue.",
+      "submitFailed": "Échec de la soumission : {{error}}",
+      "history": "Historique des soumissions",
+      "historyHint": "Les versions publiées restent disponibles pendant qu'une version plus récente est revue.",
+      "noSubmissions": "Aucune soumission pour l'instant.",
+      "withdraw": "Retirer",
+      "withdrawn": "Soumission retirée.",
+      "withdrawFailed": "Échec du retrait : {{error}}",
+      "rejection": "Raison du rejet : {{reason}}",
+      "progress": {
+        "validating": "Validation de l'app",
+        "package": "Téléversement du package canonique",
+        "screenshots": "Téléversement des images marketplace",
+        "submitted": "Soumission pour revue"
+      },
+      "status": {
+        "draft": "Brouillon",
+        "submitted": "En revue",
+        "approved": "Publiée",
+        "rejected": "Rejetée",
+        "withdrawn": "Retirée"
+      }
+    }
+  },
+  "customize": {
+    "trigger": "Personnaliser la mini app",
+    "title": "Personnaliser MiniApp",
+    "close": "Fermer le personnaliseur",
+    "riskTitle": "Les modifications sont prévisualisées avant de remplacer l'app",
+    "riskBody": "L'app active reste inchangée jusqu'à Appliquer. La version actuelle est sauvegardée avant le remplacement, et les nouvelles permissions nécessitent une confirmation séparée.",
+    "requestLabel": "Que doit changer ?",
+    "requestPlaceholder": "Exemple : rendre l'interface plus légère, ou améliorer le retour d'interaction et les détails de mise en page",
+    "start": "Commencer l'édition",
+    "retryEditor": "Renvoyer",
+    "refreshPreview": "Actualiser l'aperçu",
+    "openPreview": "Ouvrir l'aperçu",
+    "hidePreview": "Masquer l'aperçu",
+    "previewTitle": "Aperçu",
+    "previewHint": "Actualiser après les modifications",
+    "editorOpened": "L'éditeur MiniApp s'exécute ici",
+    "chatLoading": "Ouverture de l'éditeur...",
+    "sessionName": "Personnaliser MiniApp : {{name}}",
+    "workspaceRequired": "Un espace de travail est requis pour lancer l'éditeur MiniApp.",
+    "builtinUpdateTitle": "Mise à jour intégrée v{{version}} disponible",
+    "builtinUpdateBody": "Cette app a des modifications locales. La mise à jour vers la version intégrée peut écraser ces modifications, donc gardez la copie locale jusqu'à ce que vous choisissiez explicitement de mettre à jour.",
+    "dismissBuiltinUpdate": "Ne plus rappeler pour cette version",
+    "launchFailed": "La copie d'aperçu est prête, mais l'éditeur n'a pas pu démarrer : {{error}}",
+    "refreshFailed": "Échec de l'actualisation de l'aperçu : {{error}}",
+    "dismissBuiltinUpdateFailed": "Impossible d'ignorer cette mise à jour : {{error}}",
+    "permissionCheckFailed": "Vérification des permissions échouée : {{error}}",
+    "applyFailed": "Échec de l'application : {{error}}",
+    "discardFailed": "Échec de l'abandon : {{error}}",
+    "discard": "Annuler les modifications",
+    "apply": "Appliquer les modifications",
+    "applying": "Application des modifications...",
+    "applySaved": "Appliqué. Version précédente sauvegardée ; utilisez les versions MiniApp pour restaurer.",
+    "permissionDialog": {
+      "title": "Nouvelles permissions nécessitent une confirmation",
+      "body": "Ce changement ajoute ou étend des permissions. Examinez les changements avant de les appliquer à l'app active.",
+      "added": "Ajoutées",
+      "expanded": "Étendues",
+      "removed": "Supprimées",
+      "cancel": "Retour à l'aperçu",
+      "confirm": "Appliquer et accorder les permissions"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "loading": "Chargement de la capacité de revue...",
+  "desktopOnly": {
+    "title": "Bureau uniquement",
+    "description": "Les paramètres de capacité de revue sont disponibles dans l'application de bureau OpenBitFun. La revue n'est pas disponible sur cette surface."
+  },
+  "error": {
+    "title": "Capacité de revue indisponible",
+    "retry": "Réessayer"
+  },
+  "capacity": {
+    "title": "Capacité",
+    "description": "Choisissez si les travaux de revue supplémentaires s'exécutent un par un ou deux à la fois, et combien de temps ils peuvent attendre la capacité du fournisseur.",
+    "maxParallelReviewers": {
+      "label": "Parallélisme de la revue",
+      "description": "Contrôle si les travaux de revue supplémentaires s'exécutent un par un ou deux à la fois. Cela modifie la concurrence, pas la portée de la revue."
+    },
+    "maxQueueWaitSeconds": {
+      "label": "Fenêtre d'attente de capacité",
+      "description": "Durée pendant laquelle les travaux facultatifs peuvent attendre la capacité du fournisseur. Les vérifications déjà en cours peuvent rallonger la durée totale de la revue."
+    }
+  },
+  "messages": {
+    "loadFailed": "Échec du chargement de la capacité de revue.",
+    "saveFailed": "Échec de l'enregistrement de la capacité de revue.",
+    "saved": "Capacité de revue enregistrée."
+  }
+}

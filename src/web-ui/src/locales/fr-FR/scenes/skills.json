@@ -1,0 +1,259 @@
+{
+  "nav": {
+    "title": "Compétences",
+    "summary": "Parcourez les compétences installées localement et accédez à la section marketplace externe.",
+    "anchors": {
+      "installed": "Compétences installées",
+      "market": "Marketplace"
+    },
+    "anchorDescriptions": {
+      "installed": "Gérez les compétences déjà disponibles dans cet environnement.",
+      "market": "Recherchez et téléchargez plus de compétences depuis skills.sh."
+    },
+    "categories": {
+      "discover": "Découvrir",
+      "installed": "Bibliothèque"
+    },
+    "items": {
+      "market": "Marketplace",
+      "installedAll": "Tout",
+      "installedUser": "Utilisateur",
+      "installedProject": "Projet"
+    }
+  },
+  "page": {
+    "title": "Compétences",
+    "subtitle": "Gérez les compétences installées et découvrez des compétences réutilisables depuis le marketplace externe.",
+    "searchPlaceholder": "Rechercher les compétences installées et du marketplace..."
+  },
+  "installed": {
+    "titleAll": "Bibliothèque de Compétences",
+    "titleListAll": "Toutes les Compétences",
+    "subtitleAll": "Gérez toutes les compétences installées niveau utilisateur et niveau projet",
+    "titleBuiltin": "Compétences Intégrées",
+    "titleUser": "Compétences Utilisateur",
+    "titleSource": "Compétences {{source}}",
+    "subtitleUser": "Compétences niveau utilisateur installées globalement",
+    "titleProject": "Compétences Projet",
+    "subtitleProject": "Compétences niveau projet dans l'espace de travail actuel"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Rechercher des compétences...",
+    "addTooltip": "Ajouter une Compétence",
+    "hideDuplicates": "Masquer les doublons"
+  },
+  "filters": {
+    "source": "{{source}}",
+    "all": "Tout",
+    "builtin": "Intégré",
+    "user": "Utilisateur",
+    "project": "Projet",
+    "groups": "Groupes de Compétences"
+  },
+  "categories": {
+    "all": "Toutes les compétences découvertes, y compris intégrées, niveau utilisateur et niveau projet.",
+    "builtin": "Compétences de base livrées avec l'app. Elles ne peuvent pas être supprimées.",
+    "user": "Compétences niveau utilisateur de tous les répertoires source pour votre compte.",
+    "project": "Compétences niveau projet de tous les répertoires source dans l'espace de travail actuel.",
+    "source": "Compétences de {{source}}, y compris niveau utilisateur et niveau projet de l'espace de travail actuel.",
+    "groups": "Créer et organiser des groupes réutilisables de compétences."
+  },
+  "section": {
+    "user": {
+      "description": "Compétences installées globalement pour l'utilisateur actuel."
+    },
+    "project": {
+      "description": "Compétences niveau projet dans l'espace de travail actuel."
+    }
+  },
+  "market": {
+    "title": "Marketplace de Compétences",
+    "subtitle": "Recherchez et téléchargez des compétences réutilisables (périmètre par défaut : projet actuel)",
+    "subtitlePrefix": "Parcourez les compétences réutilisables depuis",
+    "subtitleSuffix": ".",
+    "searchPlaceholder": "Rechercher des compétences du marketplace...",
+    "loading": "Chargement des compétences du marketplace...",
+    "errorPrefix": "Échec du chargement du marketplace : ",
+    "empty": {
+      "noMatch": "Aucune compétence marketplace correspondante trouvée",
+      "noSkills": "Aucune compétence marketplace disponible"
+    },
+    "resultsInfo": "{{count}} résultats pour « {{query }} »",
+    "item": {
+      "sourceLabel": "Source : ",
+      "installs": "Installations : {{count}}",
+      "noDescription": "Aucune description disponible",
+      "downloadProject": "Télécharger dans le Projet",
+      "installed": "Installée",
+      "installedTooltip": "Cette compétence est déjà installée",
+      "downloading": "Téléchargement...",
+      "downloadUser": "Télécharger pour l'Utilisateur"
+    },
+    "pagination": {
+      "prev": "Page précédente",
+      "next": "Page suivante",
+      "info": "{{current}} / {{total}}",
+      "infoMore": "Page {{current}}",
+      "loading": "Chargement..."
+    },
+    "sourceNote": {
+      "prefix": "Source :",
+      "suffix": " · Jusqu'à {{max}} résultats"
+    },
+    "detail": {
+      "installsLabel": "Installations",
+      "linkLabel": "Lien"
+    }
+  },
+  "groups": {
+    "title": "Groupes de Compétences",
+    "subtitle": "Créer et organiser des groupes réutilisables de compétences.",
+    "create": "Nouveau groupe",
+    "edit": "Éditer le groupe",
+    "copy": "Copier le groupe",
+    "copyName": "{{name}} copie",
+    "copyNameNumbered": "{{name}} {{count}}",
+    "delete": "Supprimer le groupe",
+    "deleteTitle": "Supprimer le groupe de compétences",
+    "deleteMessage": "Supprimer « {{name }} » ? Les compétences et configurations d'agent existantes seront conservées.",
+    "moveUp": "Monter",
+    "moveDown": "Descendre",
+    "actions": "Actions pour {{name}}",
+    "refresh": "Actualiser les groupes et compétences",
+    "search": "Rechercher groupes ou compétences…",
+    "searchSkills": "Rechercher compétences…",
+    "name": "Nom du groupe",
+    "namePlaceholder": "Par exemple : Développement quotidien",
+    "save": "Sauvegarder le groupe",
+    "cancel": "Fermer",
+    "selectedOnly": "Sélectionnés seulement",
+    "memberCount": "{{count}} compétences",
+    "unavailableCount": "{{count}} indisponibles",
+    "myGroups": "Mes groupes",
+    "builtinGroups": "Groupes intégrés",
+    "emptyGroup": "Aucune compétence ajoutée",
+    "unresolvedMembers": "Membres indisponibles dans le catalogue actuel",
+    "noGroups": "Aucun groupe de compétences pour l'instant.",
+    "noMatch": "Aucun groupe correspondant.",
+    "noMatchingSkills": "Aucune compétence correspondante.",
+    "loading": "Chargement des groupes de compétences…",
+    "catalogUnavailable": "Le catalogue de compétences est incomplet ou indisponible. Les références de membres existantes sont conservées.",
+    "unavailableMember": "Indisponible dans cet environnement",
+    "unresolvedMember": "Détails de la compétence actuellement indisponibles",
+    "globalDisabled": "Désactivé globalement",
+    "discardTitle": "Ignorer les modifications du groupe ?",
+    "discardMessage": "Vos modifications non sauvegardées sur ce groupe seront ignorées.",
+    "discard": "Ignorer les modifications",
+    "keepEditing": "Continuer l'édition",
+    "errors": {
+      "invalidConfig": "Les données du groupe sauvegardé n'ont pas pu être lues. Elles ont été conservées inchangées.",
+      "unsupportedVersion": "Ces groupes utilisent un format plus récent. Mettez à jour OpenBitFun pour les éditer.",
+      "nameRequired": "Entrez un nom de groupe.",
+      "nameDuplicate": "Un groupe avec ce nom existe déjà.",
+      "conflict": "Ce groupe a changé ailleurs. Fermez l'éditeur et actualisez avant de l'éditer à nouveau.",
+      "notReady": "Attendez le chargement des groupes, ou actualisez et réessayez.",
+      "loadFailed": "Impossible de charger les groupes de compétences. Actualisez pour réessayer.",
+      "saveFailed": "Impossible de sauvegarder le groupe. Vos modifications ont été conservées ; réessayez."
+    },
+    "builtin": {
+      "office": "Bureau",
+      "computerUse": "$t(shared:agents.ComputerUse)",
+      "meta": "Meta",
+      "miniapp": "MiniApp",
+      "canvas": "Canvas",
+      "debugging": "Débogage",
+      "coordination": "Coordination",
+      "planning": "Planification",
+      "gstack": "gstack"
+    }
+  },
+  "form": {
+    "title": "Ajouter une Compétence",
+    "closeTooltip": "Fermer",
+    "level": {
+      "label": "Niveau",
+      "user": "Niveau Utilisateur (Global)",
+      "project": "Niveau Projet (Espace de travail actuel)",
+      "projectDisabled": " - Il faut d'abord ouvrir un espace de travail",
+      "currentWorkspace": "Espace de travail actuel : {{path}}",
+      "selectedProjectPath": "Chemin du projet sélectionné : {{path}}"
+    },
+    "path": {
+      "label": "Chemin du dossier de Compétence",
+      "placeholder": "Sélectionnez ou entrez le chemin du dossier de compétence",
+      "browseTooltip": "Parcourir",
+      "hint": "Le dossier doit contenir un fichier SKILL.md valide"
+    },
+    "validating": "Validation...",
+    "actions": {
+      "cancel": "Annuler",
+      "add": "Ajouter",
+      "adding": "Ajout en cours..."
+    }
+  },
+  "list": {
+    "loading": "Chargement...",
+    "errorPrefix": "Échec du chargement : ",
+    "loadFailed": "Impossible de charger les compétences",
+    "retry": "Réessayer",
+    "desktopUnavailable": "Gérez les compétences dans Desktop.",
+    "remoteUnavailable": "La gestion des compétences n'est pas disponible pendant une connexion à distance.",
+    "columns": {
+      "source": "Source",
+      "level": "Niveau",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "empty": {
+      "noMatch": "Aucune compétence correspondante trouvée",
+      "noSkills": "Aucune compétence configurée pour l'instant"
+    },
+    "item": {
+      "user": "Utilisateur",
+      "project": "Projet",
+      "localUser": "Cet appareil · Utilisateur",
+      "remoteProject": "Espace de travail distant · Projet",
+      "builtin": "Intégré",
+      "userInstalled": "Installée",
+      "detail": "Détails",
+      "deleteTooltip": "Supprimer",
+      "pathLabel": "Chemin :",
+      "sourceLabel": "Source :",
+      "openPathInExplorer": "Ouvrir ce dossier dans l'explorateur de fichiers",
+      "revealPathUnavailableRemote": "Les chemins d'espace de travail distant ne peuvent pas être ouverts dans le gestionnaire de fichiers local",
+      "shadowed": "Couverte",
+      "shadowedTooltip": "La compétence du même nom depuis {{source}} a normalement une priorité plus élevée.",
+      "shadowedLabel": "Source de priorité supérieure :",
+      "shadowedDetail": "La compétence du même nom depuis {{source}}",
+      "unknownSource": "une autre source",
+      "globalEnabled": "Disponible pour les agents",
+      "globalDisabled": "Désactivé globalement",
+      "globalToggleLabel": "Basculer la disponibilité globale pour {{name}}"
+    },
+    "scanIncomplete": "Certaines compétences n'ont pas pu être scannées. Les compétences disponibles sont quand même listées.",
+    "diagnosticsUnavailable": "Cet hôte ne rapporte pas les diagnostics de scan de compétences."
+  },
+  "deleteModal": {
+    "title": "Confirmer la suppression",
+    "message": "Êtes-vous sûr de vouloir supprimer la compétence « {{name }} » ?",
+    "warning": "Cela supprimera le dossier de compétence et ne peut pas être annulé.",
+    "cancel": "Annuler",
+    "delete": "Supprimer"
+  },
+  "messages": {
+    "invalidPath": "Veuillez sélectionner un dossier de compétence valide",
+    "noWorkspace": "Veuillez d'abord ouvrir un espace de travail pour ajouter des compétences niveau projet",
+    "addSuccess": "Compétence « {{name }} » ajoutée avec succès",
+    "addFailed": "Échec de l'ajout : {{error}}",
+    "deleteSuccess": "Compétence « {{name }} » supprimée",
+    "deleteFailed": "Échec de la suppression : {{error}}",
+    "toggleSuccess": "Compétence « {{name }} » {{status}}",
+    "toggleFailed": "Échec du basculement : {{error}}",
+    "marketDownloadSuccess": "Compétence « {{name }} » téléchargée avec succès",
+    "marketDownloadFailed": "Échec du téléchargement : {{error}}",
+    "enabled": "activée",
+    "disabled": "désactivée",
+    "revealPathFailed": "Impossible d'ouvrir dans l'explorateur de fichiers : {{error}}",
+    "copyPathFailed": "Échec de la copie du chemin : {{error}}"
+  }
+}
