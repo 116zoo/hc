@@ -890,8 +890,9 @@ function useLiveValueRef<T>(value: T): React.MutableRefObject<T> {
   return ref;
 }
 
-const MarkdownSurface = React.memo<MarkdownRendererProps & { thinking?: boolean }>(({
+const MarkdownSurface = React.memo<MarkdownRendererProps & { thinking?: boolean; singleLinePreview?: boolean }>(({
   thinking = false,
+  singleLinePreview = false,
   content, 
   sourceRange,
   workspaceId,
@@ -1777,6 +1778,7 @@ const MarkdownSurface = React.memo<MarkdownRendererProps & { thinking?: boolean 
               urlTransform={markdownUrlTransform}
               renderFragment={renderThinkingFragment}
               environment={thinkingEnvironment}
+              singleLinePreview={singleLinePreview}
             />
           </React.Suspense>
         ) : shouldUseMathRenderer ? (
@@ -1802,4 +1804,7 @@ const MarkdownSurface = React.memo<MarkdownRendererProps & { thinking?: boolean 
 export const MarkdownRenderer = React.memo<MarkdownRendererProps>(props => <MarkdownSurface {...props} />);
 
 /** Deliberately opt in only from the thinking surface, never from response bodies. */
-export const ThinkingMarkdownRenderer = React.memo<Omit<MarkdownRendererProps, 'sourceRange'>>(props => <MarkdownSurface {...props} thinking />);
+export const ThinkingMarkdownRenderer = React.memo<Omit<MarkdownRendererProps, 'sourceRange'> & {
+  /** Inline streaming preview; the full tree remains available for expansion. */
+  singleLinePreview?: boolean;
+}>(props => <MarkdownSurface {...props} thinking />);

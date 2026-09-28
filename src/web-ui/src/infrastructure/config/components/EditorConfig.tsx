@@ -566,7 +566,7 @@ const EditorConfig: React.FC<EditorConfigProps> = () => {
               size="sm"
             />
           </ConfigPageRow>
-          <ConfigPageRow label={t('behavior.smoothScrolling')} description={t('behavior.smoothScrollingDesc')} align="center">
+          <ConfigPageRow label={t('behavior.smoothScrolling')} align="center">
             <Switch
               checked={config.smoothScrolling}
               onChange={(e) => updateConfig('smoothScrolling', e.target.checked)}
@@ -644,13 +644,13 @@ const EditorConfig: React.FC<EditorConfigProps> = () => {
               onChange={(e) => updateConfig('bracketPairColorization', e.target.checked)}
             />
           </ConfigPageRow>
-          <ConfigPageRow label={t('advanced.formatOnSave')} description={t('advanced.formatOnSaveDesc')} align="center">
+          <ConfigPageRow label={t('advanced.formatOnSave')} align="center">
             <Switch
               checked={config.formatOnSave}
               onChange={(e) => updateConfig('formatOnSave', e.target.checked)}
             />
           </ConfigPageRow>
-          <ConfigPageRow label={t('advanced.formatOnPaste')} description={t('advanced.formatOnPasteDesc')} align="center">
+          <ConfigPageRow label={t('advanced.formatOnPaste')} align="center">
             <Switch
               checked={config.formatOnPaste}
               onChange={(e) => updateConfig('formatOnPaste', e.target.checked)}

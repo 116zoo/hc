@@ -4,6 +4,7 @@ import { brandAssetsEn, brandAssetsZhCN, brandAssetsZhTW } from "./brandMessages
 import { designEn, designZhCN, designZhTW } from "./designMessages";
 import { flowChatEn, flowChatZhCN, flowChatZhTW } from "./flowChatMessages";
 import { subagentMotionEn, subagentMotionZhCN, subagentMotionZhTW } from "./subagentMotionMessages";
+import { thinkingIndicatorEn, thinkingIndicatorZhCN, thinkingIndicatorZhTW } from "./thinkingIndicatorMessages";
 import type { DesignLabLocale } from "./core.mjs";
 
 export const enUSMessages = {
@@ -12,6 +13,7 @@ export const enUSMessages = {
   ...designEn,
   ...brandAssetsEn,
   ...subagentMotionEn,
+  ...thinkingIndicatorEn,
   ...flowChatEn,
   "component.OpenBitFunSolidMark.description": "The original silver solid mark on a transparent canvas, preserving its material and shading.",
   "component.OpenBitFunAppIcon.description": "The application icon used by the installed product: silver mark, black rounded-square tile, and assets for different display sizes.",
@@ -184,6 +186,7 @@ export const enUSMessages = {
   "component.Switch.description": "Toggles a single setting between on and off with native checkbox semantics.",
   "component.TabGroup.description": "A compact single-selection tab list with optional leading icons, end actions, and automatic keyboard activation.",
   "component.RollingText.description": "Vertical text replacement with coordinated width, interruption handling, and reduced-motion support. Try repeated clicks in the replacement specimen.",
+  "component.ShimmerText.description": "A soft fade moves slowly across activity text, keeping every glyph visible. Reduced motion, high contrast and print keep the text static and readable.",
   "components.preview.replaceText": "Replace title",
   "components.preview.rollingTextLong": "Review workspace navigation and session switching",
   "detail.option.replacing": "Replacement",
@@ -596,6 +599,9 @@ export const enUSMessages = {
   "detail.option.display": "Display",
   "detail.option.completed": "Completed",
   "detail.option.expanded": "Expanded",
+  "detail.option.file-collapsed": "File revisions, collapsed",
+  "detail.option.file-expanded": "File revisions, expanded",
+  "detail.option.file-error": "File revisions, failed edit",
   "detail.option.loading": "Loading",
   "detail.option.multiple": "Multiple selection",
   "detail.option.custom": "Custom value",
@@ -811,6 +817,7 @@ export const zhCNMessages = {
   ...designZhCN,
   ...brandAssetsZhCN,
   ...subagentMotionZhCN,
+  ...thinkingIndicatorZhCN,
   ...flowChatZhCN,
   "component.OpenBitFunSolidMark.description": "透明底的银色实体标志，保留原稿的材质、光泽与立体明暗。",
   "component.OpenBitFunAppIcon.description": "实际应用使用的图标：银色实体标志、黑色圆角底板，以及适配不同显示尺寸的资源。",
@@ -983,6 +990,7 @@ export const zhCNMessages = {
   "component.Switch.description": "通过原生复选框语义在开启与关闭之间切换单项设置。",
   "component.TabGroup.description": "紧凑的单选标签组，支持前置图标、尾部操作与方向键自动切换。",
   "component.RollingText.description": "垂直滚动替换文本，宽度同步过渡，支持连续切换与减少动态效果。可在替换示例中连续点击体验。",
+  "component.ShimmerText.description": "柔和的渐隐在运行文字间缓慢流动，始终保留完整字形；减少动态效果、高对比度和打印时保持静态可读。",
   "components.preview.replaceText": "替换标题",
   "components.preview.rollingTextLong": "检查工作区导航与会话切换时的交互行为",
   "detail.option.replacing": "替换",
@@ -1395,6 +1403,9 @@ export const zhCNMessages = {
   "detail.option.display": "展示",
   "detail.option.completed": "已完成",
   "detail.option.expanded": "展开",
+  "detail.option.file-collapsed": "文件修订 · 折叠",
+  "detail.option.file-expanded": "文件修订 · 展开",
+  "detail.option.file-error": "文件修订 · 编辑失败",
   "detail.option.loading": "加载中",
   "detail.option.multiple": "多选",
   "detail.option.custom": "自定义值",
@@ -1608,6 +1619,7 @@ export const zhTWMessages = {
   ...previewZhTW,
   ...brandAssetsZhTW,
   ...subagentMotionZhTW,
+  ...thinkingIndicatorZhTW,
   ...flowChatZhTW,
   "patterns.description": "查看元件在常見介面中的組合與互動。",
   "patterns.title": "組合範例",
@@ -1822,6 +1834,7 @@ export const zhTWMessages = {
   "component.Switch.description": "以原生核取方塊語意在開啟與關閉之間切換單一設定。",
   "component.TabGroup.description": "緊湊的單選標籤群組，支援前置圖示、尾端操作與方向鍵自動切換。",
   "component.RollingText.description": "垂直捲動替換文字，寬度同步過渡，支援連續切換與減少動態效果。可在替換範例中連續點擊體驗。",
+  "component.ShimmerText.description": "柔和的漸隱在執行文字間緩慢流動，始終保留完整字形；減少動態效果、高對比度和列印時保持靜態可讀。",
   "components.preview.replaceText": "替換標題",
   "components.preview.rollingTextLong": "檢查工作區導覽與工作階段切換時的互動行為",
   "detail.option.replacing": "替換",
@@ -2136,6 +2149,9 @@ export const zhTWMessages = {
   "detail.option.display": "展示",
   "detail.option.completed": "已完成",
   "detail.option.expanded": "展開",
+  "detail.option.file-collapsed": "檔案修訂 · 收合",
+  "detail.option.file-expanded": "檔案修訂 · 展開",
+  "detail.option.file-error": "檔案修訂 · 編輯失敗",
   "detail.option.loading": "載入中",
   "detail.option.multiple": "多選",
   "detail.option.custom": "自訂值",

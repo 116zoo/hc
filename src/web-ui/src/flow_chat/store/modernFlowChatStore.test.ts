@@ -668,7 +668,7 @@ describe('sessionToVirtualItems explore grouping', () => {
     expect(items.map(item => item.type)).toEqual(['user-message', 'model-round']);
   });
 
-  it('projects the thinking expansion state used by the renderer into layout hints', () => {
+  it.each(['completed', 'cancelled', 'error'] as const)('keeps trailing thinking hints live-only when it becomes %s', status => {
     const thinkingItem = {
       id: 'thinking-1',
       type: 'thinking' as const,
@@ -715,6 +715,18 @@ describe('sessionToVirtualItems explore grouping', () => {
       [],
       ['thinking-1'],
     ]);
+    const finished = sessionToVirtualItems({
+      ...session,
+      dialogTurns: session.dialogTurns.map(turn => ({
+        ...turn,
+        modelRounds: turn.modelRounds.map(round => ({
+          ...round,
+          items: round.items.map(item => item.id === thinkingItem.id ? { ...item, isStreaming: false, status } : item),
+        })),
+      })),
+    }).filter((item): item is ModelRoundVirtualItem => item.type === 'model-round');
+    // The turn is still processing and there is no successor yet.
+    expect(finished.map(item => item.layoutHints?.expandedThinkingItemIds)).toEqual([[], []]);
   });
 
   it('keeps a trailing reasoning summary collapsed in layout hints', () => {

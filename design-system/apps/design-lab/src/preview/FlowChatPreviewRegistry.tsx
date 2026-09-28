@@ -148,7 +148,7 @@ function RelationPreview({ state, interactive }: PreviewProps) {
     ? t('toolCards.interaction.sendingMessage') : t('toolCards.interaction.messageSent');
   return <ToolRelationRow status={resolveStatus(state)} result={result}
     interaction={{ operation: 'send', source: { kind: 'session', label: t('toolCards.interaction.currentSession') },
-      target: { kind: 'agent', label: 'Maintainer', details: interactive ? result : undefined } }}
+      target: { kind: 'agent', label: 'Maintainer' } }}
     details={interactive ? result : undefined} resultLabel={t('toolCards.interaction.inspectMessage')} />;
 }
 
@@ -768,7 +768,8 @@ function ConcreteProminentPreview({
         agentName="reviewer"
         onOpenAgent={interactive ? () => undefined : undefined}
         openAgentLabel="Open agent"
-        statusLabel={state === "error" ? t("components.preview.flowChat.failed") : undefined}
+        statusLabel={state === "error" ? t("components.preview.flowChat.failed")
+          : state === "loading" ? t("components.preview.flowChat.running") : undefined}
         statusTone={state === "error" ? "danger" : "neutral"}
         summary="Review the shared FlowChat card boundary"
       />

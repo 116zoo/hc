@@ -326,7 +326,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ className = '' }) => {
             currentWorkspace.workspaceKind === WorkspaceKind.Assistant
               ? 'Claw'
               : explicitPreferredMode;
-          sessionId = await flowChatManager.createChatSession(
+          sessionId = await flowChatManager.createChatDraft(
             flowChatSessionConfigForWorkspace(currentWorkspace),
             initialSessionMode,
           );
@@ -584,7 +584,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ className = '' }) => {
       }
       const flowChatManager = FlowChatManager.getInstance();
       const sessionConfig = flowChatSessionConfigForWorkspace(currentWorkspace);
-      const sessionId = await flowChatManager.createChatSession(sessionConfig);
+      const sessionId = await flowChatManager.createChatDraft(sessionConfig);
       await openMainSession(sessionId);
     } catch (error) {
       log.error('Failed to create FlowChat session', error);

@@ -4186,6 +4186,7 @@ export class FlowChatStore {
     remoteConnectionId?: string,
     remoteSshHost?: string,
     titleDescriptor?: SessionTitleDescriptor,
+    draft?: Session['draft'],
   ): void {
     import('../state-machine').then(({ stateMachineManager }) => {
       stateMachineManager.getOrCreate(sessionId);
@@ -4217,6 +4218,7 @@ export class FlowChatStore {
         mode: mode || 'Standard',
         lastUserDialogMode: undefined,
         lastSubmittedMode: undefined,
+        draft,
         workspacePath,
         projectWorkspacePath: config.projectWorkspacePath,
         workspaceId: config.workspaceId,
@@ -5229,6 +5231,7 @@ export class FlowChatStore {
       const deleteResults = await Promise.allSettled(
         sessionIdsToDelete.map(async id => {
           const sess = this.state.sessions.get(id);
+          if (sess?.draft?.phase === 'editing') return;
           const workspacePath = sess ? sessionProjectWorkspacePath(sess) : undefined;
           if (!workspacePath) {
             throw new Error(`Workspace path not found for session ${id}`);

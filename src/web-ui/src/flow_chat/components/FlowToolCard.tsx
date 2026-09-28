@@ -128,6 +128,8 @@ export const FlowToolCard: React.FC<FlowToolCardProps> = React.memo(({
       data-openbitfun-component="flow-tool-card"
       data-openbitfun-part="root"
       data-openbitfun-state={permissionPending ? 'permission-pending' : undefined}
+      data-thinking-handoff-priority={permissionPending || effectiveToolItem.status === 'error'
+        || effectiveToolItem.toolResult?.success === false ? 'immediate' : undefined}
       data-testid={toolCardTestId}
       data-tool-name={effectiveToolItem.toolName}
       data-tool-card-id={toolItem.id}

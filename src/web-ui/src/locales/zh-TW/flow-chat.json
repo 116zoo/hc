@@ -686,6 +686,8 @@
     }
   },
   "workspaceStrip": {
+    "unavailableLabel": "工作目錄無法使用",
+    "unavailable": "所選工作目錄無法使用，請重新開啟後再試。",
     "branchSwitchLabel": "切換分支。目前分支：{{branch}}",
     "branchTooltipUnavailable": "非 Git 存放庫或目前無分支",
     "branchTooltipUntrusted": "該目錄屬於其他使用者，Git 拒絕讀取此存放庫。信任該目錄後即可看到分支。",
@@ -1729,6 +1731,16 @@
       "tokensUnavailable": "不可用",
       "tokenBreakdown": "共 {{total}}，輸入 {{input}}，輸出 {{output}}"
     }
+  },
+  "fileEditGroup": {
+    "summary": "{{count}} 次編輯",
+    "label": "{{count}} 次編輯：",
+    "expanded": "檔案編輯：",
+    "description": "{{path}}，連續編輯 {{count}} 次",
+    "revision": "第 {{count}} 次編輯",
+    "failed": "{{count}} 次失敗",
+    "stopped": "{{count}} 次已停止",
+    "running": "正在編輯"
   },
   "contextLoadGroup": {
     "summary": "{{count}} 次上下文載入",

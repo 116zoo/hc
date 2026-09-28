@@ -2151,7 +2151,7 @@ const VirtualMessageListSession = forwardRef<VirtualMessageListRef, VirtualMessa
           return;
         }
         const expandable = findElementWithDataValue(wrapper, 'data-tool-card-id', expandableId);
-        if (expandable?.dataset.expanded === 'false') {
+        if (expandable?.dataset.expanded === 'false' || expandable?.dataset.streamingExpanded === 'false') {
           expandable.querySelector<HTMLElement>(
             expandable.hasAttribute('data-flow-group')
               ? '[data-openbitfun-part="header"][role="button"]'

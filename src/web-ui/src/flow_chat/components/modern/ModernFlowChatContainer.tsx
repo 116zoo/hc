@@ -2613,7 +2613,7 @@ export const ModernFlowChatContainer: React.FC<ModernFlowChatContainerProps> = (
     () => {
       void (async () => {
         try {
-          await FlowChatManager.getInstance().createChatSession(
+          await FlowChatManager.getInstance().createChatDraft(
             flowChatSessionConfigForCurrentWorkspace(activeWorkspace),
           );
         } catch (error) {
@@ -2742,10 +2742,9 @@ export const ModernFlowChatContainer: React.FC<ModernFlowChatContainerProps> = (
               showHistoryPlaceholder || showHistoryOpenIntentOverlay ? null : (
                 emptyState !== undefined ? emptyState : (
                   <WelcomePanel
-                    key={activeSession?.sessionId ?? 'welcome'}
-                    sessionMode={activeSession?.mode}
-                    workspaceId={activeSession?.workspaceId || activeSession?.config?.workspaceId}
-                    workspacePath={activeSession?.workspacePath}
+                    key={surfaceScope.key('welcome', surfaceScope.epoch,
+                      activeSession?.sessionId ?? '', activeSession?.draft?.workspaceId ?? '')}
+                    session={activeSession}
                     onQuickAction={(command) => {
                       window.dispatchEvent(new CustomEvent('fill-chat-input', {
                         detail: { message: command, sessionId: activeSession?.sessionId }

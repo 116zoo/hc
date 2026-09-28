@@ -1,4 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+const mockActivateMainSession = vi.hoisted(() => vi.fn());
+vi.mock('../sessionActivation', () => ({ activateMainSession: mockActivateMainSession }));
 import {
   cancelSessionTask,
   drainPendingQueue,
@@ -480,6 +482,76 @@ describe('MessageModule session writer conflict', () => {
     expect(mockPendingEnqueue).not.toHaveBeenCalled();
     expect(mockEnsureBackendSession).not.toHaveBeenCalled();
     expect(mockStartDialogTurn).not.toHaveBeenCalled();
+  });
+});
+
+describe('MessageModule first draft submission', () => {
+  function draftContext() {
+    let state: any = { activeSessionId: 'draft-first', sessions: new Map([['draft-first', {
+      sessionId: 'draft-first', mode: 'Standard', workspaceId: 'b', workspacePath: '/b',
+      dialogTurns: [], config: { modelName: 'primary' }, titleStatus: 'generated',
+      maxContextTokens: 32000, draft: { workspaceId: 'b', phase: 'ready', turnId: 'reserved-first-turn' },
+    }]]) };
+    const store = { getState: () => state, getSurfaceGeneration: () => 0,
+      setState: (update: any) => { state = update(state); },
+      updateSessionLastSubmittedMode: (id: string, mode: string) => {
+        state.sessions.set(id, { ...state.sessions.get(id), lastSubmittedMode: mode });
+      },
+      updateSessionModelName: vi.fn(), updateSessionMaxContextTokens: vi.fn(),
+      deleteDialogTurn: vi.fn(),
+    };
+    return { store, context: { flowChatStore: store, pendingHistoryLoads: new Map(),
+      processingManager: { registerStatus: vi.fn(), clearSessionStatus: vi.fn() },
+      contentBuffers: new Map(), activeTextItems: new Map(),
+    } as any };
+  }
+
+  beforeEach(() => {
+    vi.resetAllMocks();
+    activateSurface(LOCAL_SURFACE_ID);
+    mockGetCurrentState.mockReturnValue('idle');
+    mockPendingList.mockReturnValue([]);
+    mockEnsureBackendSession.mockResolvedValue(undefined);
+    mockHostQueueSupported.mockReturnValue(true);
+    mockHostQueueSubmit.mockResolvedValue({ receipt: { status: 'queued' } });
+    mockUpdateSessionModel.mockResolvedValue(undefined);
+    mockGetConfigs.mockResolvedValue({});
+  });
+
+  afterEach(() => {
+    mockHostQueueSupported.mockReturnValue(false);
+  });
+
+  it('commits the draft and selects the target session only after the host accepts its first message', async () => {
+    const { context, store } = draftContext();
+    mockHostQueueSubmit.mockImplementation(async () => {
+      expect(store.getState().sessions.get('draft-first').draft.phase).toBe('submitting');
+      expect(mockActivateMainSession).not.toHaveBeenCalled();
+      return { receipt: { status: 'queued' } };
+    });
+    await sendMessage(context, 'First message', 'draft-first');
+    expect(mockHostQueueSubmit.mock.calls[0][2]).toBe('reserved-first-turn');
+    expect(store.getState().sessions.get('draft-first').draft).toBeUndefined();
+    expect(store.getState().sessions.get('draft-first').lastSubmittedMode).toBe('Standard');
+    expect(mockActivateMainSession).toHaveBeenCalledWith('draft-first', expect.any(Object));
+  });
+
+  it('preserves the first turn identity and locked target across an ambiguous acknowledgement', async () => {
+    const { context, store } = draftContext();
+    mockHostQueueSubmit.mockRejectedValueOnce(new Error('Connection lost'));
+    await expect(sendMessage(context, 'First message', 'draft-first')).rejects.toThrow('Connection lost');
+    expect(store.getState().sessions.get('draft-first').draft.phase).toBe('submitting');
+    await sendMessage(context, 'First message', 'draft-first');
+    expect(mockHostQueueSubmit.mock.calls.map(call => call[2])).toEqual(['reserved-first-turn', 'reserved-first-turn']);
+    expect(mockActivateMainSession).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not fail an accepted submission when workspace navigation fails', async () => {
+    const { context, store } = draftContext();
+    mockActivateMainSession.mockRejectedValueOnce(new Error('Workspace activation failed'));
+    await expect(sendMessage(context, 'First message', 'draft-first')).resolves.toBeUndefined();
+    expect(store.getState().sessions.get('draft-first').draft).toBeUndefined();
+    expect(mockHostQueueSubmit).toHaveBeenCalledTimes(1);
   });
 });
 

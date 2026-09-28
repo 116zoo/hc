@@ -1,5 +1,5 @@
 export { ThinkingBlock, type ThinkingBlockProps } from './ThinkingBlock';
-export { FlowGroup, type FlowGroupProps, type FlowGroupReceiveFeedback, type FlowGroupBrowserProps, type FlowGroupFilter } from './FlowGroup';
+export { FlowGroup, type FlowGroupProps, type FlowGroupFileRevision, type FlowGroupReceiveFeedback, type FlowGroupBrowserProps, type FlowGroupFilter } from './FlowGroup';
 export { ExploreGroup, type ExploreGroupProps } from './ExploreGroup';
 export { ContextLoadGroup, type ContextLoadGroupProps } from './ContextLoadGroup';
 export { FlowChatRuntimeStatus, type FlowChatRuntimeStatusProps } from './FlowChatRuntimeStatus';

@@ -5,7 +5,7 @@
  */
 
 import { OverflowText, Icon } from '@openbitfun/ui';
-import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Loader2, AlertTriangle, AlertCircle, SearchCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getToolCardStatus } from './toolCardStatus';
@@ -238,8 +238,7 @@ export const CodeReviewToolCard: React.FC<ToolCardProps> = React.memo(({
   const status = getToolCardStatus(toolItem);
   const [isExpanded, setIsExpanded] = useState(false);
   const [expandedRemediationIds, setExpandedRemediationIds] = useState<Set<string>>(new Set());
-  const [expandedReportSectionIds, setExpandedReportSectionIds] = useState<Set<ReviewSectionId>>(new Set());
-  const autoExpandedResultRef = useRef<string | null>(null);
+  const [reportSectionChoices, setReportSectionChoices] = useState<Partial<Record<ReviewSectionId, boolean>>>({});
   const toolId = toolItem.id ?? toolItem.toolCall?.id;
   const { cardRootRef, applyExpandedState, dispatchToolCardToggle } = useToolCardHeightContract({
     toolId,
@@ -296,10 +295,14 @@ export const CodeReviewToolCard: React.FC<ToolCardProps> = React.memo(({
     }
   }, [toolResult?.result]);
 
-  useEffect(() => {
-    setExpandedRemediationIds(new Set());
-    setExpandedReportSectionIds(new Set(reviewData ? getDefaultExpandedCodeReviewSectionIds(reviewData) : []));
-  }, [reviewData, toolResult?.result]);
+  const expandedReportSectionIds = useMemo(() => {
+    const expanded = new Set(reviewData ? getDefaultExpandedCodeReviewSectionIds(reviewData) : []);
+    for (const [id, open] of Object.entries(reportSectionChoices)) {
+      if (open) expanded.add(id as ReviewSectionId);
+      else expanded.delete(id as ReviewSectionId);
+    }
+    return expanded;
+  }, [reportSectionChoices, reviewData]);
 
   const issueStats = useMemo(() => {
     if (!reviewData) return null;
@@ -361,22 +364,6 @@ export const CodeReviewToolCard: React.FC<ToolCardProps> = React.memo(({
     [reviewData],
   );
 
-  useEffect(() => {
-    const resultKey = typeof toolResult?.result === 'string'
-      ? toolResult.result
-      : JSON.stringify(toolResult?.result ?? null);
-    const shouldAutoExpand =
-      status === 'completed' &&
-      reviewData?.review_mode === 'deep' &&
-      buildReviewRemediationItems(reviewData).length > 0 &&
-      autoExpandedResultRef.current !== resultKey;
-
-    if (shouldAutoExpand) {
-      autoExpandedResultRef.current = resultKey;
-      setIsExpanded(true);
-    }
-  }, [reviewData, status, toolResult?.result]);
-
   const toggleExpanded = useCallback(() => {
     applyExpandedState(isExpanded, !isExpanded, setIsExpanded);
   }, [applyExpandedState, isExpanded]);
@@ -406,16 +393,8 @@ export const CodeReviewToolCard: React.FC<ToolCardProps> = React.memo(({
 
   const handleToggleReportSection = useCallback((sectionId: ReviewSectionId) => () => {
     dispatchToolCardToggle();
-    setExpandedReportSectionIds((current) => {
-      const next = new Set(current);
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
-      return next;
-    });
-  }, [dispatchToolCardToggle]);
+    setReportSectionChoices(current => ({ ...current, [sectionId]: !expandedReportSectionIds.has(sectionId) }));
+  }, [dispatchToolCardToggle, expandedReportSectionIds]);
 
   // Listen for scroll-to events from the review action bar
   useEffect(() => {
@@ -426,12 +405,7 @@ export const CodeReviewToolCard: React.FC<ToolCardProps> = React.memo(({
       }
 
       // Ensure both issues and remediation sections are expanded
-      setExpandedReportSectionIds((current) => {
-        const next = new Set(current);
-        next.add('remediation');
-        next.add('issues');
-        return next;
-      });
+      setReportSectionChoices(current => ({ ...current, remediation: true, issues: true }));
 
       // Double rAF: wait for React state update + DOM render before scrolling
       requestAnimationFrame(() => {

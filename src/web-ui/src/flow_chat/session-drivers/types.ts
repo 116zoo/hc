@@ -182,6 +182,8 @@ export type PermissionReplyKindLike = 'once' | 'always' | 'reject';
  * driver takes over: workspace identity, agent type, and the initial title.
  */
 export interface SessionCreationSeed {
+  /** Reserve the future session identity without creating a host session yet. */
+  draftId?: string;
   /** Device activation that owns the created session projection. */
   surfaceScope: SurfaceScope;
   config: SessionConfig;

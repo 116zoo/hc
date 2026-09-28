@@ -266,7 +266,8 @@ export function sessionToVirtualItems(session: Session | null): VirtualItem[] {
         const trailingItem = round.items.at(-1);
         const shouldExpandTrailingThinking = roundIndex === rounds.length - 1
           && trailingItem?.type === 'thinking'
-          && (trailingItem as FlowThinkingItem).reasoningKind !== 'summary';
+          && (trailingItem as FlowThinkingItem).reasoningKind !== 'summary'
+          && ((trailingItem as FlowThinkingItem).isStreaming || trailingItem.status === 'streaming');
         items.push({
           type: 'model-round',
           data: round,

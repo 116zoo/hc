@@ -7,6 +7,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ChatInputWorkspaceStrip } from './ChatInputWorkspaceStrip';
+import type { WorkspaceInfo } from '@/shared/types';
 
 const mocks = vi.hoisted(() => ({
   refreshBasic: vi.fn(async () => undefined),
@@ -242,9 +243,8 @@ describe('ChatInputWorkspaceStrip git refresh behavior', () => {
     ).toBe('main');
   });
 
-  it('switches the active workspace from the strip menu when several are open', async () => {
-    mocks.useOptionalWorkspaceContext.mockReturnValue({
-      openedWorkspacesList: [
+  it('selects the draft target without switching the global workspace', async () => {
+    const options = [
         {
           id: 'ws-1',
           name: 'OpenBitFun',
@@ -270,22 +270,15 @@ describe('ChatInputWorkspaceStrip git refresh behavior', () => {
           workspaceKind: 'assistant',
           assistantId: 'assistant-4',
         },
-      ],
-      activeWorkspace: {
-        id: 'ws-1',
-        name: 'OpenBitFun',
-        rootPath: 'D:/workspace/OpenBitFun',
-        workspaceKind: 'normal',
-      },
-      primaryAssistantWorkspaceId: 'ws-3',
-      setActiveWorkspace: mocks.setActiveWorkspace,
-    });
+      ] as WorkspaceInfo[];
+    const onSelect = vi.fn();
 
     await act(async () => {
       root.render(
         <ChatInputWorkspaceStrip workspaceId="workspace-1"
           repositoryPath="D:/workspace/OpenBitFun"
           workspaceLabel="OpenBitFun"
+          workspaceControl={{ selectedId: 'ws-1', options, locked: false, onSelect }}
         />
       );
     });
@@ -327,8 +320,41 @@ describe('ChatInputWorkspaceStrip git refresh behavior', () => {
       other?.click();
     });
 
-    expect(mocks.setActiveWorkspace).toHaveBeenCalledWith('ws-2');
+    expect(onSelect).toHaveBeenCalledWith('ws-2');
+    expect(mocks.setActiveWorkspace).not.toHaveBeenCalled();
     expect(document.querySelector('[data-testid="chat-input-workspace-menu"]')).toBeNull();
+  });
+
+  it('closes a stale directory menu when first submission locks its target', async () => {
+    const options = ['a', 'b'].map(id => ({ id, name: id, workspaceKind: 'normal' })) as WorkspaceInfo[];
+    const onSelect = vi.fn();
+    const render = (locked: boolean) => <ChatInputWorkspaceStrip workspaceId="a" repositoryPath="/a"
+      workspaceLabel="A" workspaceControl={{ selectedId: 'a', options, locked, onSelect }} />;
+    await act(async () => { root.render(render(false)); });
+    await act(async () => { container.querySelector<HTMLButtonElement>('[data-testid="chat-input-workspace-trigger"]')?.click(); });
+    expect(document.querySelector('[data-testid="chat-input-workspace-menu"]')).not.toBeNull();
+    await act(async () => { root.render(render(true)); });
+    expect(container.querySelector('[data-testid="chat-input-workspace-trigger"]')).toBeNull();
+    expect(document.querySelector('[data-testid="chat-input-workspace-menu"]')).toBeNull();
+    expect(onSelect).not.toHaveBeenCalled();
+    expect(mocks.setActiveWorkspace).not.toHaveBeenCalled();
+  });
+
+  it('can replace a closed target with the only remaining workspace', async () => {
+    const onSelect = vi.fn();
+    const options = [{ id: 'a', name: 'A', rootPath: '/a', workspaceKind: 'normal' }] as WorkspaceInfo[];
+    await act(async () => root.render(
+      <ChatInputWorkspaceStrip workspaceId="closed" repositoryPath="" workspaceLabel="Unavailable"
+        workspaceControl={{ selectedId: 'closed', options, locked: false, onSelect }} />,
+    ));
+    const trigger = container.querySelector<HTMLButtonElement>('[data-testid="chat-input-workspace-trigger"]');
+    expect(trigger).not.toBeNull();
+    await act(async () => trigger?.click());
+    await act(async () => {
+      document.querySelector<HTMLButtonElement>('[data-testid="chat-input-workspace-option-a"]')?.click();
+    });
+    expect(onSelect).toHaveBeenCalledWith('a');
+    expect(mocks.setActiveWorkspace).not.toHaveBeenCalled();
   });
 
   it('splits the situation from the contract for the next turn', async () => {

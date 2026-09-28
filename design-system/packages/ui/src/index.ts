@@ -138,6 +138,7 @@ export {
   type IconTone,
 } from "./components/Icon";
 export { IconButton, type IconButtonProps } from "./components/IconButton";
+export { ThinkingIndicator, type ThinkingIndicatorProps } from "./components/ThinkingIndicator";
 export { Input, type InputProps } from "./components/Input";
 export { KeyHint, type KeyHintProps } from "./components/KeyHint";
 export {
@@ -221,6 +222,7 @@ export {
 export { PageHeader, type PageHeaderProps } from "./components/PageHeader";
 export { Radio, type RadioProps, type RadioSize } from "./components/Radio";
 export { RollingText, type RollingTextProps } from "./components/RollingText";
+export { ShimmerText, type ShimmerTextProps } from "./components/ShimmerText";
 export {
   ScrollArea,
   type ScrollAreaEdgeFade,

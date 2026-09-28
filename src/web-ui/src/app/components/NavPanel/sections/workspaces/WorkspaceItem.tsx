@@ -692,7 +692,7 @@ const WorkspaceItem: React.FC<WorkspaceItemProps> = ({
         });
         return;
       }
-      const newSessionId = await flowChatManager.createChatSession(
+      const newSessionId = await flowChatManager.createChatDraft(
         flowChatSessionConfigForWorkspace(workspace),
         resolvedMode
       );

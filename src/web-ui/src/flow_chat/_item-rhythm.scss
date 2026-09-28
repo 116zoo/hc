@@ -7,6 +7,11 @@
     margin: 0 0 var(--openbitfun-control-flow-chat-flow-item-gap) 0;
   }
 
+  // Side-docked reasoning occupies the next item's gutter, not a transcript row.
+  > .flow-thinking-item[data-thinking-attachment='side'] {
+    margin-bottom: 0;
+  }
+
   // Defensive fallback for a card renderer that returns no content. Known
   // hidden items are removed before composition, including their wrappers.
   > .flowchat-flow-item:has(> .flow-tool-card-wrapper:empty) {
