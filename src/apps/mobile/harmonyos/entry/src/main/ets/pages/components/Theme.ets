@@ -24,7 +24,6 @@ export const CONNECT_HERO_BG: ResourceColor = $r('app.color.connect_hero_bg');
 export const CONNECT_HERO_ACCENT: ResourceColor = $r('app.color.connect_hero_accent');
 export const CONNECT_HERO_SECONDARY: ResourceColor = $r('app.color.connect_hero_secondary');
 export const CONNECT_HERO_SURFACE: ResourceColor = $r('app.color.connect_hero_surface');
-export const CONNECT_SCAN_ACCENT: ResourceColor = $r('app.color.connect_scan_accent');
 export const SCRIM: ResourceColor = $r('app.color.scrim');
 export const SHELL_SCRIM: ResourceColor = $r('app.color.shell_scrim');
 export const MEDIA_BACKGROUND: ResourceColor = $r('app.color.media_background');
