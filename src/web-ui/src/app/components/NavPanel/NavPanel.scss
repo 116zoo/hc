@@ -1391,10 +1391,14 @@ $_section-header-height: 22px;
   > svg {
     flex-shrink: 0;
     // A line box is split by the font's ascent and descent, not by the glyphs
-    // drawn in it, so centring the mark on that box leaves its ink about a pixel
-    // above the text's own ink centre. One pixel, measured in the browser, puts
-    // the two on one optical centre.
-    transform: translateY(1px);
+    // drawn in it, so the mark was once pushed down a pixel to follow the text.
+    // Measured against the face this row actually renders (HarmonyOS Sans:
+    // 92.8%/24.4% against a cap ink of 74.5%/1.5%), centring the mark on that box
+    // already leaves it 0.03em below a caps label's ink centre and 0.05em below a
+    // Chinese one, and a device name is one of those two. The nudge therefore read
+    // as the mark sitting low. A mark whose own mass is off-centre still states its
+    // correction in `deviceSystemMarks`, which moves the drawn mass rather than the
+    // box.
   }
 
   &:hover,
