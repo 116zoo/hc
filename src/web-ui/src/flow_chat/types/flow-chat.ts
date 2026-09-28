@@ -482,6 +482,9 @@ export interface Session {
    */
   lastSubmittedMode?: string;
 
+  /** Frontend-only new-conversation preparation; never serialized as session metadata. */
+  draft?: import('../utils/sessionDraft').SessionDraft;
+
   // Workspace this session belongs to. Used for sidebar display filtering.
   // Sessions are always kept in store for event processing; only display is filtered.
   workspacePath?: string;

@@ -67,7 +67,8 @@ export const SessionControlToolCard: React.FC<ToolCardProps> = React.memo(({
   const sessionName = session?.session_name ?? resultData?.session_name ?? inputData.session_name;
   const source = useCurrentToolSessionParticipant(sourceSessionId, t);
   const target = useToolSessionParticipant(sessionId, sessionName || sessionId || t('toolCards.sessionControl.unknownSession'), t,
-    'session', { parentSessionId: sourceSessionId, enabled: action !== 'delete' && action !== 'list' && sessionId !== sourceSessionId });
+    'session', { parentSessionId: sourceSessionId, enabled: action !== 'list'
+      && !(action === 'delete' && (status === 'completed' || status === 'confirmed')) });
   const agentType = session?.agent_type ?? inputData.agent_type;
   const sessions = Array.isArray(resultData?.sessions) ? resultData.sessions : [];
   const sessionCount = resultData?.count ?? sessions.length;

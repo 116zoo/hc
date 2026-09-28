@@ -16,6 +16,7 @@ import { createLogger } from '@/shared/utils/logger';
 import { isImeOwnedKeyboardEvent } from '@/shared/utils/ime';
 import { createTab } from '@/shared/utils/tabUtils';
 import { notificationService } from '@/shared/notification-system';
+import { useToolCardHeightContract } from './useToolCardHeightContract';
 import './GenerativeWidgetToolCard.scss';
 
 const log = createLogger('GenerativeWidgetToolCard');
@@ -59,8 +60,10 @@ export const GenerativeWidgetToolCard: React.FC<ToolCardProps> = ({ toolItem, se
   const [isExporting, setIsExporting] = useState(false);
   const [shouldRenderExportClone, setShouldRenderExportClone] = useState(false);
   const [exportWidth, setExportWidth] = useState<number | null>(null);
-  /** The failure body is toggled separately and starts collapsed on error. */
-  const [failedBodyExpanded, setFailedBodyExpanded] = useState(false);
+  const { cardRootRef, applyExpandedState } = useToolCardHeightContract({
+    toolId: toolItem.id ?? toolCall?.id,
+    toolName: toolItem.toolName,
+  });
 
   const liveParams = isParamsStreaming ? partialParams : toolCall?.input;
   const widgetCode = useMemo(() => {
@@ -100,18 +103,11 @@ export const GenerativeWidgetToolCard: React.FC<ToolCardProps> = ({ toolItem, se
   const isLoading =
     status === 'preparing' || status === 'streaming' || status === 'running' || status === 'pending';
   const isFailed = status === 'error' || (status === 'completed' && toolResult?.success === false);
+  // Keep a live preview open if the tool fails; historical errors start compact.
+  const [isCardExpanded, setIsCardExpanded] = useState(!isFailed);
   const widgetId = resultData?.widget_id || toolCall?.id || toolItem.id;
   const isClickable = status === 'completed' && !isFailed && widgetCode.trim().length > 0;
   const hasRenderableWidget = widgetCode.trim().length > 0 && !isFailed;
-
-  useEffect(() => {
-    if (isFailed) {
-      setFailedBodyExpanded(false);
-    }
-  }, [isFailed]);
-
-  const isCardExpanded = !isFailed || failedBodyExpanded;
-  const showFailedErrorPanel = isFailed && failedBodyExpanded;
 
   const handleOpenPanel = useCallback(() => {
     if (!isClickable) {
@@ -149,12 +145,12 @@ export const GenerativeWidgetToolCard: React.FC<ToolCardProps> = ({ toolItem, se
     (e: React.MouseEvent) => {
       if (isFailed) {
         e.preventDefault();
-        setFailedBodyExpanded((v) => !v);
+        applyExpandedState(isCardExpanded, !isCardExpanded, setIsCardExpanded);
         return;
       }
       handleOpenPanel();
     },
-    [handleOpenPanel, isFailed],
+    [applyExpandedState, handleOpenPanel, isCardExpanded, isFailed],
   );
 
   const handleWidgetEvent = useCallback((event: WidgetMessage) => {
@@ -311,7 +307,7 @@ export const GenerativeWidgetToolCard: React.FC<ToolCardProps> = ({ toolItem, se
 
   return (
     <>
-      <div data-openbitfun-component="generative-widget-tool-card" data-openbitfun-part="root" data-openbitfun-state={isFailed ? 'failed' : undefined}>
+      <div ref={cardRootRef} data-tool-card-id={toolItem.id ?? toolCall?.id ?? ''} data-openbitfun-component="generative-widget-tool-card" data-openbitfun-part="root" data-openbitfun-state={isFailed ? 'failed' : undefined}>
         <ProminentToolCard
         title={isClickable ? t('toolCards.generativeUI.openSource') : undefined}
         status={isFailed ? 'error' : status}
@@ -321,7 +317,7 @@ export const GenerativeWidgetToolCard: React.FC<ToolCardProps> = ({ toolItem, se
         summary={summary}
         expandedContent={expandedBody}
         expandedContentLayout="flush"
-        errorContent={showFailedErrorPanel ? expandedBody : undefined}
+        allowExpandedWhenFailed
         isFailed={isFailed}
         summaryExpandAffordance={isClickable || isFailed}
         summaryAffordanceKind={isFailed ? 'expand' : 'open-panel-right'}

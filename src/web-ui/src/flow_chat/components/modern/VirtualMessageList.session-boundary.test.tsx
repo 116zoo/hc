@@ -598,7 +598,9 @@ describe('VirtualMessageList natural scroll contract', () => {
     } finally { restoreRanges(); restoreLayout(); }
   });
 
-  it.each(['explore', 'context', 'interface'])('opens the %s group before its collected thinking when navigating to a search hit', async category => {
+  it.each(['explore', 'context', 'interface'].flatMap(category => [
+    { category, streaming: false }, { category, streaming: true },
+  ]))('opens collected thinking before a search hit: %j', async ({ category, streaming }) => {
     vi.stubGlobal('IntersectionObserver', class { observe() {} unobserve() {} disconnect() {} });
     const expanded: string[] = [];
     function CollectedThinking() {
@@ -612,7 +614,9 @@ describe('VirtualMessageList natural scroll contract', () => {
           segments={Array.from({ length: 10 }, (_, index) => ({
             key: String(index), memberIds: [index === 9 ? 'thinking-1' : `other-${index}`],
             estimatedHeightPx: 400, eager: index === 0,
-            render: () => index === 9 ? <ThinkingBlock data-tool-card-id="thinking-1" label="Thinking" expanded={thinkingOpen}
+            render: () => index === 9 ? <ThinkingBlock data-tool-card-id="thinking-1" label="Thinking" expanded={streaming || thinkingOpen}
+              streaming={streaming} streamingExpanded={thinkingOpen}
+              onStreamingExpandedChange={open => { expanded.push('thinking'); setThinkingOpen(open); }}
               onToggle={() => { expanded.push('thinking'); setThinkingOpen(open => !open); }}>
               <div className="thinking-markdown">needle</div>
             </ThinkingBlock> : <button>Other call</button>,

@@ -72,6 +72,7 @@ import {
   Select,
   Sheet,
   StatusPill,
+  ShimmerText,
   Spinner,
   Switch,
   TabGroup,
@@ -128,6 +129,7 @@ import type { ComponentMeta } from "@openbitfun/ui/registry";
 import previewImage from "../assets/design-system-hero.webp";
 import { IconCompositionPreview } from "../preview/IconCompositionPreview";
 import { RollingTextPreview } from "../preview/RollingTextPreview";
+import { ThinkingIndicatorPreview } from "../preview/ThinkingIndicatorPreview";
 import { NestedMenuPattern } from "./ReferencePatterns";
 import { useI18n, type MessageKey } from "../i18n";
 import {
@@ -180,6 +182,7 @@ const optionLabelKeys: Readonly<Record<string, MessageKey>> = {
   summary: "detail.option.summary",
   visible: "detail.option.visible",
   active: "detail.option.active",
+  static: "thinkingIndicator.static",
   "active-option": "detail.option.active-option",
   always: "detail.option.always",
   asking: "detail.option.asking",
@@ -440,6 +443,12 @@ export function ComponentDetailPage({
   const inspectorStates = states;
 
   const codeSample = useMemo(() => {
+    if (component.name === "ThinkingIndicator") {
+      return `import { ThinkingIndicator } from "@openbitfun/ui";\n\n<ThinkingIndicator active={thinking} size="sm" label="${t("thinkingIndicator.label")}" />\n`;
+    }
+    if (component.name === "ShimmerText") {
+      return `import { ShimmerText } from "@openbitfun/ui";\n\n<ShimmerText active={running}>${t("components.preview.flowChat.running")}</ShimmerText>\n`;
+    }
     if (component.name === "RollingText") {
       return 'import { RollingText, TabGroup } from "@openbitfun/ui";\n\n// Keep the identity stable for title edits; change it when replacing the resource.\n<RollingText transitionKey={record.id}>{record.title}</RollingText>\n\n// TabGroup owns the text slot and composes RollingText without nested clipping.\n<TabGroup\n  aria-label="Views"\n  items={[{ value: slotId, label: record.title, labelTransitionKey: record.id }]}\n/>\n';
     }
@@ -890,6 +899,9 @@ export function ComponentDetailPage({
 
     if (component.name === "Icon") {
       return <Icon name={iconName} size={iconSize} tone={iconTone} />;
+    }
+    if (component.name === "ThinkingIndicator") {
+      return <ThinkingIndicatorPreview key={state} state={state} />;
     }
 
     if (component.name === "MobileButton") {
@@ -1871,6 +1883,10 @@ export function ComponentDetailPage({
 
     if (component.name === "RollingText") {
       return <RollingTextPreview interactive={state === "replacing"} />;
+    }
+
+    if (component.name === "ShimmerText") {
+      return <ShimmerText active={state !== "static"}>{t("components.preview.flowChat.running")}</ShimmerText>;
     }
 
     if (component.name === "TabGroup") {

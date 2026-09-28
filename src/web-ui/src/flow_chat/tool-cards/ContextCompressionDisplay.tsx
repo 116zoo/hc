@@ -2,12 +2,13 @@
  * Context compression display for Flow Chat.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { FlowToolItem } from '../types/flow-chat';
 import { ContextCompressionToolCard } from '@openbitfun/ui/flow-chat';
 import { i18nService } from '@/infrastructure/i18n';
 import { getToolCardStatus } from './toolCardStatus';
+import { useToolCardHeightContract } from './useToolCardHeightContract';
 
 interface ContextCompressionDisplayProps {
   toolItem?: FlowToolItem;
@@ -35,6 +36,11 @@ export const ContextCompressionDisplay: React.FC<ContextCompressionDisplayProps>
   compressionData
 }) => {
   const { t } = useTranslation('flow-chat');
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { cardRootRef, applyExpandedState } = useToolCardHeightContract({
+    toolId: toolItem?.id,
+    toolName: 'ContextCompression',
+  });
   const data = toolItem ? {
     tokensBefore: toolItem.toolResult?.result?.tokens_before ?? toolItem.toolCall?.input?.tokens_before ?? compressionData?.tokens_before,
     tokensAfter: toolItem.toolResult?.result?.tokens_after ?? compressionData?.tokens_after,
@@ -72,17 +78,21 @@ export const ContextCompressionDisplay: React.FC<ContextCompressionDisplayProps>
         : active ? undefined : t('toolCards.default.completed');
 
   return (
-    <ContextCompressionToolCard
-      status={data.status}
-      title={headerAction}
-      summary={!isFailed ? summary : undefined}
-      processingText={!isFailed && active && !summary
-        ? t('toolCards.contextCompression.compressingContext')
-        : undefined}
-      error={isFailed
-        ? data.error || t('toolCards.contextCompression.contextCompressionFailed')
-        : undefined}
-      data-summary-source={usedLocalFallback ? 'local-fallback' : data.summarySource}
-    />
+    <div ref={cardRootRef} data-openbitfun-adapter="context-compression" data-tool-card-id={toolItem?.id ?? ''}>
+      <ContextCompressionToolCard
+        isExpanded={isExpanded}
+        onToggle={() => applyExpandedState(isExpanded, !isExpanded, setIsExpanded)}
+        status={data.status}
+        title={headerAction}
+        summary={!isFailed ? summary : undefined}
+        processingText={!isFailed && active && !summary
+          ? t('toolCards.contextCompression.compressingContext')
+          : undefined}
+        error={isFailed
+          ? data.error || t('toolCards.contextCompression.contextCompressionFailed')
+          : undefined}
+        data-summary-source={usedLocalFallback ? 'local-fallback' : data.summarySource}
+      />
+    </div>
   );
 };

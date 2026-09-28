@@ -15,6 +15,7 @@ import { fieldMeta } from "./components/Field/Field.meta";
 import { fieldGroupMeta } from "./components/FieldGroup/FieldGroup.meta";
 import { iconMeta } from "./components/Icon/Icon.meta";
 import { iconButtonMeta } from "./components/IconButton/IconButton.meta";
+import { thinkingIndicatorMeta } from "./components/ThinkingIndicator/ThinkingIndicator.meta";
 import { inputMeta } from "./components/Input/Input.meta";
 import { keyHintMeta } from "./components/KeyHint/KeyHint.meta";
 import { launcherButtonMeta } from "./components/LauncherButton/LauncherButton.meta";
@@ -28,6 +29,7 @@ import { numberBadgeMeta } from "./components/NumberBadge/NumberBadge.meta";
 import { pageHeaderMeta } from "./components/PageHeader/PageHeader.meta";
 import { radioMeta } from "./components/Radio/Radio.meta";
 import { rollingTextMeta } from "./components/RollingText/RollingText.meta";
+import { shimmerTextMeta } from "./components/ShimmerText/ShimmerText.meta";
 import { scrollAreaMeta } from "./components/ScrollArea/ScrollArea.meta";
 import { searchFieldMeta } from "./components/SearchField/SearchField.meta";
 import { segmentedControlMeta } from "./components/SegmentedControl/SegmentedControl.meta";
@@ -153,6 +155,7 @@ export const componentRegistry = [
   grepSearchToolCardMeta,
   iconMeta,
   iconButtonMeta,
+  thinkingIndicatorMeta,
   inputMeta,
   keyHintMeta,
   launcherButtonMeta,
@@ -196,6 +199,7 @@ export const componentRegistry = [
   readFileToolCardMeta,
   reviewSummaryToolCardMeta,
   rollingTextMeta,
+  shimmerTextMeta,
   runCodeToolCardMeta,
   scrollAreaMeta,
   searchFieldMeta,

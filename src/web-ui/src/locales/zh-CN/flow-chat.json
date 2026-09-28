@@ -686,6 +686,8 @@
     }
   },
   "workspaceStrip": {
+    "unavailableLabel": "工作目录不可用",
+    "unavailable": "所选工作目录不可用，请重新打开后重试。",
     "branchSwitchLabel": "切换分支。当前分支：{{branch}}",
     "branchTooltipUnavailable": "非 Git 仓库或当前无分支",
     "branchTooltipUntrusted": "该目录属于其他用户，Git 拒绝读取此仓库。信任该目录后即可看到分支。",
@@ -1729,6 +1731,16 @@
       "tokensUnavailable": "不可用",
       "tokenBreakdown": "共 {{total}}，输入 {{input}}，输出 {{output}}"
     }
+  },
+  "fileEditGroup": {
+    "summary": "{{count}} 次编辑",
+    "label": "{{count}} 次编辑：",
+    "expanded": "文件编辑：",
+    "description": "{{path}}，连续编辑 {{count}} 次",
+    "revision": "第 {{count}} 次编辑",
+    "failed": "{{count}} 次失败",
+    "stopped": "{{count}} 次已停止",
+    "running": "正在编辑"
   },
   "contextLoadGroup": {
     "summary": "{{count}} 次上下文加载",

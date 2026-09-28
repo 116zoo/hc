@@ -7,14 +7,12 @@
  */
 import type {
   AnyFlowItem,
-  FlowThinkingItem,
   FlowToolItem,
 } from '../../types/flow-chat';
 import type { ToolGroupData, VirtualItem } from '../../store/modernFlowChatStore';
 import { getEffectiveToolName } from '../../utils/toolInvocationIdentity';
 import { buildInlineFlowGroupData, getModelRoundActiveItems, getProjectedModelRoundGroups, hasModelRoundLeadingControls } from '../../grouping/roundGroups';
 import { isFlowGroupExpanded } from '../../grouping/types';
-import { isFlowGroupMemberActive } from '../../grouping/lifecycle';
 
 export interface VirtualItemHeightEstimateContext {
   /** Width available to the reading column, excluding the scrollbar. */
@@ -149,6 +147,11 @@ export function estimateFlowItemHeight(
   item: AnyFlowItem,
   context: VirtualItemHeightEstimateContext = {},
 ): VirtualItemHeightEstimate {
+  // A live thought starts as one line even when its parent keeps the body
+  // mounted. User expansion is measured after mount, not inferred from length.
+  if (item.type === 'thinking' && (item.isStreaming || item.status === 'streaming')) {
+    return { heightPx: 40, confidence: 'high', kind: 'thinking-streaming' };
+  }
   if (item.type === 'thinking' && !(context.expandedThinkingItemIds ?? []).includes(item.id)) {
     return { heightPx: 40, confidence: 'high', kind: 'thinking-collapsed' };
   }
@@ -257,20 +260,16 @@ export function estimateExploreGroupHeight(
 
 export function estimateFlowGroupHeight(data: ToolGroupData, context: VirtualItemHeightEstimateContext = {}): VirtualItemHeightEstimate {
   const isExpanded = isFlowGroupExpanded(data, context.groupStates ?? context.exploreGroupStates);
-  // Only live reasoning or an explicit search disclosure reserves expanded height.
-  const contentContext = { ...context, expandedThinkingItemIds: [
-    ...(context.expandedThinkingItemIds ?? []),
-    ...data.allItems.filter(item => item.type === 'thinking'
-      && (item as FlowThinkingItem).reasoningKind !== 'summary' && isFlowGroupMemberActive(item)).map(item => item.id),
-  ] };
+  // File identity, revision count and two exposed page edges share one header.
+  const fileRevisionHeader = 'category' in data && data.category === 'file-edit' ? 44 : undefined;
   const contentHeight = data.allItems.reduce<number>(
-    (total, flowItem) => total + estimateFlowItemHeight(flowItem as AnyFlowItem, contentContext).heightPx,
+    (total, flowItem) => total + estimateFlowItemHeight(flowItem as AnyFlowItem, context).heightPx,
     0,
   );
   return {
     heightPx: isExpanded
-      ? EXPLORE_GROUP_HEADER_HEIGHT_PX + contentHeight
-      : EXPLORE_GROUP_COLLAPSED_HEIGHT_PX,
+      ? (fileRevisionHeader ?? EXPLORE_GROUP_HEADER_HEIGHT_PX) + contentHeight
+      : (fileRevisionHeader ?? EXPLORE_GROUP_COLLAPSED_HEIGHT_PX),
     confidence: 'medium',
     kind: isExpanded ? 'explore-group-expanded' : 'explore-group-collapsed',
   };

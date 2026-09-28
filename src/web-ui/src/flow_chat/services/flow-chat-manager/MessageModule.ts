@@ -38,6 +38,7 @@ import { hasPendingVoiceExchanges, replayVoiceExchanges } from '../controlConver
 import { submitSteeringMessage } from '../steeringSubmission';
 import { promoteAcceptedHostMessage } from '../hostQueueSubmission';
 import { isAcpFlowSession } from '../../utils/acpSession';
+import { updateSessionDraft } from '../sessionDraftService';
 
 export { syncSessionModelSelection } from '../../utils/modelSync';
 export { markCurrentTurnItemsAsCancelled } from '../../utils/turnCancellation';
@@ -52,6 +53,7 @@ interface SessionConflictRetry {
 
 const sessionConflictRetries = new Map<string, SessionConflictRetry>();
 const latestSendBySession = new Map<string, symbol>();
+const draftSubmissions = new Set<string>();
 
 function clearSessionConflictRetry(sendKey: string): void {
   const current = sessionConflictRetries.get(sendKey);
@@ -378,6 +380,11 @@ export async function sendMessage(
   // Anything read back after an await belongs to the surface captured here.
   const surfaceGenerationAtSend = context.flowChatStore.getSurfaceGeneration();
   const surfaceIdAtSend = surfaceScopeAtSend.surfaceId;
+  const draftSubmissionKey = session.draft ? surfaceScopeAtSend.key('draft-submit', sessionId) : undefined;
+  if (draftSubmissionKey) {
+    if (draftSubmissions.has(draftSubmissionKey)) throw new Error('Draft submission is already in progress');
+    draftSubmissions.add(draftSubmissionKey);
+  }
   beginSubmission();
 
   try {
@@ -435,6 +442,11 @@ export async function sendMessage(
     const isFirstMessage = isProjectedSessionEmpty(readySession)
       && readySession.titleStatus !== 'generated';
 
+    if (readySession.draft) {
+      options = { ...options, turnId: readySession.draft.turnId };
+      updateSessionDraft(context, sessionId, { phase: 'submitting' });
+    }
+
     const outcome = await driver.startTurn(
       context,
       {
@@ -454,6 +466,25 @@ export async function sendMessage(
       // The message steered or continued target-owned work; the shared
       // post-submission bookkeeping does not apply.
       return;
+    }
+
+    if (readySession.draft && turnTracker.hostAcceptedTurn) {
+      context.flowChatStore.setState(state => {
+        const current = state.sessions.get(sessionId);
+        return current ? { ...state, sessions: new Map(state.sessions).set(sessionId, {
+          ...current, draft: undefined,
+        }) } : state;
+      });
+      // Navigation failure cannot undo an accepted message or cause it to be resent.
+      try {
+        const { activateMainSession } = await import('../sessionActivation');
+        if (surfaceScopeAtSend.isCurrent() && context.flowChatStore.getState().activeSessionId === sessionId) {
+          await activateMainSession(sessionId, { isCurrent: () => surfaceScopeAtSend.isCurrent()
+            && context.flowChatStore.getState().activeSessionId === sessionId });
+        }
+      } catch (error) {
+        log.warn('Accepted draft could not activate its workspace', { sessionId, error });
+      }
     }
 
     completeSessionSend(
@@ -487,6 +518,10 @@ export async function sendMessage(
 
     log.error('Failed to send message', { sessionId: sessionId, error });
 
+    if (!turnTracker.hostSubmitStarted) {
+      const draft = context.flowChatStore.getState().sessions.get(sessionId)?.draft;
+      if (draft?.phase === 'submitting') updateSessionDraft(context, sessionId, { phase: 'ready' });
+    }
     const errorMessage = error instanceof Error ? error.message : 'Failed to send message';
 
     const currentState = stateMachineManager.getCurrentState(sessionId);
@@ -567,6 +602,7 @@ export async function sendMessage(
 
     throw error;
   } finally {
+    if (draftSubmissionKey) draftSubmissions.delete(draftSubmissionKey);
     endSubmission();
   }
 }

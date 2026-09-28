@@ -2,7 +2,7 @@ import type { FlowItem, FlowTextItem, FlowToolItem, ModelRound, ModelRoundAttemp
 import type { VirtualItem } from '../types/flow-chat-projection';
 import { canvasArtifactReferenceFromToolItem } from '../utils/canvasArtifactPresentation';
 import { isFlowItemVisible } from '../utils/flowItemVisibility';
-import { classifyFlowGroupItem, flowGroupPolicies, joinedFlowGroupCategory, meetsFlowGroupThreshold, type FlowGroupPolicyOptions } from './policies';
+import { canContinueFlowGroup, classifyFlowGroupItem, flowGroupPolicies, joinedFlowGroupCategory, meetsFlowGroupThreshold, type FlowGroupPolicyOptions } from './policies';
 import { isFlowGroupMemberActive } from './lifecycle';
 import { isShellActivity } from './activityClassification';
 import { parseDeepResearchContent } from '../deep-research/deepResearchProtocol';
@@ -115,7 +115,8 @@ export function buildFlowItemGroups({ items, disabled = false, retainCandidates 
     const nextCategory = disabled ? undefined : classifyFlowGroupItem(item, policyOptions);
     if (nextCategory) {
       const joinedCategory = joinedFlowGroupCategory(category, nextCategory);
-      const continuing = category !== undefined && joinedCategory !== undefined;
+      const continuing = category !== undefined && joinedCategory !== undefined
+        && canContinueFlowGroup(nextCategory, buffer, [item]);
       const companionStart = flowGroupCompanionStart(pending, continuing);
       if (!continuing) {
         flush(false);

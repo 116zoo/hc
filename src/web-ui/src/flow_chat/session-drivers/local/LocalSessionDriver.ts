@@ -73,6 +73,19 @@ export const localSessionDriver: SessionDriver = {
       ?? await resolveReasoningPresetForSessionCreation(explicitModelName);
     surfaceScope.assertCurrent('resolve session creation reasoning preset');
 
+    if (seed.draftId && agentType !== 'Claw' && !config.executionTargetRequest) {
+      if (!workspaceId) throw new Error('Draft workspace ID is unavailable');
+      const maxContextTokens = await getModelMaxTokens(explicitModelName, agentType);
+      surfaceScope.assertCurrent('prepare conversation draft');
+      context.flowChatStore.createSession(seed.draftId, {
+        ...config, workspaceId, workspacePath, projectWorkspacePath, reasoningPreset,
+      }, undefined, sessionName, maxContextTokens, agentType, workspacePath,
+      remoteConnectionId, remoteSshHost, titleDescriptor, {
+        workspaceId, phase: 'editing', turnId: crypto.randomUUID(),
+      });
+      return seed.draftId;
+    }
+
     const response = await agentAPI.createSession({
       sessionName,
       agentType,
@@ -170,9 +183,9 @@ export const localSessionDriver: SessionDriver = {
       throw new Error(`Session does not exist: ${sessionId}`);
     }
 
-    await sessionAPI.archiveSession(
-      sessionId,
-      requireSessionOwningWorkspaceId(session));
+    if (session.draft?.phase !== 'editing') {
+      await sessionAPI.archiveSession(sessionId, requireSessionOwningWorkspaceId(session));
+    }
 
     context.flowChatStore.removeSession(
       sessionId,
@@ -196,6 +209,10 @@ export const localSessionDriver: SessionDriver = {
     const session = context.flowChatStore.getState().sessions.get(sessionId);
     if (!session) {
       throw new Error(`Session does not exist: ${sessionId}`);
+    }
+    if (session.draft?.phase === 'editing') {
+      await context.flowChatStore.updateSessionTitle(sessionId, title, 'generated');
+      return title;
     }
     const updatedTitle = await agentAPI.updateSessionTitle({
       sessionId,
