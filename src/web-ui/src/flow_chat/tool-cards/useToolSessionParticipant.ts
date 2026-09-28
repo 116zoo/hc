@@ -88,5 +88,5 @@ export function useToolSessionParticipant(
       };
     }
     return { ...link, id: sessionId, label, kind: 'session' };
-  }, [snapshot, sessionId, kind, fallback, t, hasNavigation, navigationEnabled, parentSessionId, parentToolCallId]);
+  }, [snapshot, sessionId, kind, fallback, t, hasNavigation, navigationEnabled, parentToolCallId]);
 }

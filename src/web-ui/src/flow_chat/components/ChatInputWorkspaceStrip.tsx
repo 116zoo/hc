@@ -392,10 +392,6 @@ export const ChatInputWorkspaceStrip: React.FC<ChatInputWorkspaceStripProps> = (
 
   const hasContextRail = !!label || showDispatchPicker;
   const hasNextRail = showPermission || showUsage || showDispatchResult;
-  if (!hasContextRail && !hasNextRail) {
-    return null;
-  }
-
   const branchLabel = dispatchBranch
     || (branchSwitchable ? currentBranch?.trim() : undefined)
     || executionTarget?.branch?.trim()
@@ -414,6 +410,10 @@ export const ChatInputWorkspaceStrip: React.FC<ChatInputWorkspaceStripProps> = (
   useEffect(() => {
     if (!workspaceSwitchable) setWorkspaceMenuOpen(false);
   }, [workspaceSwitchable]);
+  if (!hasContextRail && !hasNextRail) {
+    return null;
+  }
+
   const worktreeToggleDisabled = !!worktreeControl?.locked;
   let worktreeTooltip = tWorktrees('strip.toggleOffDescription');
   if (worktreeControl?.lockedReason === 'dispatch') {
