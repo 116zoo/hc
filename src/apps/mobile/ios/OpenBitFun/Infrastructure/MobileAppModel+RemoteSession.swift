@@ -44,8 +44,6 @@ extension MobileAppModel {
         remoteExpectedDeviceKey = targetKey
         remoteTargetEpoch = epoch
         guard transition.scopeChanged else { return }
-
-        pairingRetainedAccountAuthority = nil
         clearTargetScopedRemoteProjection(boundTargetKey: targetKey, epoch: epoch)
     }
 
@@ -55,7 +53,6 @@ extension MobileAppModel {
         remoteBoundTargetKey = nil
         remoteBoundTargetEpoch = nil
         remoteTargetEpoch = adapterEpoch
-        pairingRetainedAccountAuthority = nil
     }
 
     private func clearTargetScopedRemoteProjection(boundTargetKey targetKey: String, epoch: UInt64) {
@@ -1144,6 +1141,7 @@ extension MobileAppModel {
         setPublishedIfChanged(\.remoteHistoryFailed, to: ready.historyLoadState == .failed)
         setPublishedIfChanged(\.remotePermissionMode, to: ready.permissionMode?.name ?? remotePermissionMode)
         setPublishedIfChanged(\.remotePermissionFailure, to: ready.permissionModeFailure?.name)
+        setPublishedIfChanged(\.remotePermissionModeLoaded, to: ready.permissionMode != nil)
         let acceptsTimeline = remoteConversationOpeningSessionID.map {
             ready.timeline?.sessionId == $0
         } ?? true

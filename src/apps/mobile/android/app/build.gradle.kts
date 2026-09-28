@@ -77,11 +77,6 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation("androidx.camera:camera-camera2:1.4.2")
-    implementation("androidx.camera:camera-lifecycle:1.4.2")
-    implementation("androidx.camera:camera-view:1.4.2")
-    // Bundle QR recognition so pairing also works without Play Services downloads.
-    implementation("com.google.mlkit:barcode-scanning:17.3.0")
     implementation(libs.androidx.window)
 
     testImplementation("junit:junit:4.13.2")

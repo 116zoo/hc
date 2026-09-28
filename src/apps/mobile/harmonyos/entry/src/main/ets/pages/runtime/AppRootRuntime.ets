@@ -15,7 +15,6 @@ import {
 } from '../../services/RemoteSessionIdentity';
 import { RemoteUiState } from '../../services/RemoteUiState';
 import { AppRootHostPort } from '../host/AppRootHostAdapter';
-import { CONNECT_INTENT_SCAN } from '../state/AppShellState';
 import {
   AppNavigationBackAction,
   AppRoute,
@@ -464,25 +463,6 @@ export class AppRootRuntime extends AppRootRuntimeComposition {
     if (revealSidebar) {
       this.openAppSidebar();
     }
-  }
-
-  openRemoteControlSettings(): void {
-    setTimeout(() => {
-      this.appShellState.openSettings('remote');
-    }, 180);
-  }
-
-  /**
-   * From the settings row that says 「扫描二维码连接」, and so straight to the
-   * camera: this is the one entry that names what it opens, and it is also the
-   * only way a signed-in phone can reach the scanner at all — every other path
-   * stops at the account's device list.
-   */
-  openAddConnectionFromSettings(): void {
-    this.appShellState.setSettingsVisible(false);
-    setTimeout(() => {
-      this.openConnectSheet(CONNECT_INTENT_SCAN);
-    }, 220);
   }
 
   /**
