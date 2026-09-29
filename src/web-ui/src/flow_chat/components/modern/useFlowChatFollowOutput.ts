@@ -3,6 +3,7 @@ import { traceViewportRepeating } from '@/infrastructure/diagnostics/flowChatVie
 import { getActiveSurfaceScope } from '@/infrastructure/peer-device/deviceSurface';
 import {
   claimSubmittedMessageScrollIntent, finishSubmittedMessageScrollIntent,
+  isSubmittedMessageScrollIntentPending,
   subscribeSubmittedMessageScrollIntent, type SubmittedMessageScrollIntent,
 } from '../../services/submittedMessageScrollIntent';
 import { getMotionAwareScrollBehavior } from '../../utils/motionPreference';
@@ -156,7 +157,22 @@ export function useFlowChatFollowOutput(options: Options) {
   const trySubmission = useCallback(() => {
     const o = current.current;
     if (!o.activeSessionId || !available()) return false;
+    const wasCancelled = Boolean(pending.current && !isSubmittedMessageScrollIntentPending(pending.current));
+    if (wasCancelled) {
+      pending.current = null;
+      submittedTurn.current = null;
+      o.cancelPendingPlacement();
+    }
     const intent = claimSubmittedMessageScrollIntent(o.activeSessionId, o.viewportId ?? 0);
+    if (wasCancelled && !intent) {
+      // A failed or queued send no longer owns a placement. Do not let the
+      // former pending-send phase resume tail following on its next signal.
+      following.current = false;
+      phase.current = 'reading';
+      setIsFollowingOutput(false);
+      stop();
+      o.viewportOwner.release('follow-output');
+    }
     if (intent && intent !== pending.current) {
       if (pending.current) finishSubmittedMessageScrollIntent(pending.current);
       pending.current = intent;

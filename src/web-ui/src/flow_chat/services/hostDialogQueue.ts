@@ -7,7 +7,8 @@ import { FlowChatStore } from '../store/FlowChatStore';
 import { isAcpFlowSession } from '../utils/acpSession';
 import { resolveSessionDriverId } from '../session-drivers/resolve';
 import { translateAgentIdentityFields } from '../../../../shared/agent-harness/wire';
-import { registerSubmittedMessageScrollIntent, finishSubmittedMessageScrollIntent } from './submittedMessageScrollIntent';
+import { registerSubmittedMessageScrollIntent, finishSubmittedMessageScrollIntent, peekSubmittedMessageScrollIntent } from './submittedMessageScrollIntent';
+import { getSubmittedMessagePreviews } from './submittedMessagePresentation';
 
 const clients = new Map<string, HostDialogQueue>();
 function currentAccount(): string {
@@ -34,7 +35,11 @@ export function hostDialogQueue(sessionId: string): HostDialogQueue {
       // The queue has now selected the actual idempotent Turn id. Register
       // before invoking, since DialogTurnStarted can beat the RPC receipt.
       const intent = request.action === 'submit'
-        ? registerSubmittedMessageScrollIntent(scope, sessionId, request.message.turnId, null) : undefined;
+        ? peekSubmittedMessageScrollIntent(scope, sessionId, request.message.turnId)
+          ?? (getSubmittedMessagePreviews(scope, sessionId).length > 0
+            ? undefined
+            : registerSubmittedMessageScrollIntent(scope, sessionId, request.message.turnId, null))
+        : undefined;
       try {
         const result = await api.invoke<import('../../../../shared/dialog-queue/HostDialogQueue').QueueSnapshot>(
           'manage_dialog_queue', { request: translateAgentIdentityFields(request, 'legacy') });

@@ -3,7 +3,11 @@ import React, { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { activateSurface, getActiveSurfaceScope } from '@/infrastructure/peer-device/deviceSurface';
-import { registerSubmittedMessageScrollIntent } from '../../services/submittedMessageScrollIntent';
+import {
+  claimSubmittedMessageScrollIntent,
+  finishSubmittedMessageScrollIntent,
+  registerSubmittedMessageScrollIntent,
+} from '../../services/submittedMessageScrollIntent';
 import { FlowChatReaderState } from '../../timeline/readerState';
 import { useTimelineInteraction } from '../../timeline/useTimelineInteraction';
 import { useFlowChatFollowOutput } from './useFlowChatFollowOutput';
@@ -16,6 +20,7 @@ describe('desktop follow ownership and lifecycle (supplied geometry, not visual 
   let root: Root, host: HTMLDivElement, scroller: HTMLDivElement, controller: Controller, owner: FlowChatViewportOwnerApi;
   let frames: Map<number, FrameRequestCallback>, frameId: number, now: number;
   let normalTarget: number, floor: number | null, sentTop: number, output: boolean, renderable: boolean;
+  let cancelledPlacements: number;
   let props: { session: string; active: boolean; suspended: boolean; opening: boolean; count: number; startAtTail: boolean; streaming: boolean };
   let reader: FlowChatReaderState;
   const placements: string[] = [];
@@ -38,7 +43,7 @@ describe('desktop follow ownership and lifecycle (supplied geometry, not visual 
         return sentTop;
       },
       hasRenderedOutput: () => output,
-      cancelPendingPlacement: () => {}, cancelNavigation: () => {},
+      cancelPendingPlacement: () => { cancelledPlacements += 1; }, cancelNavigation: () => {},
     });
     useTimelineInteraction(ref, reader, controller.isFollowingOutputNow, undefined,
       () => controller.exitFollowOutput('reader-interaction'));
@@ -61,6 +66,7 @@ describe('desktop follow ownership and lifecycle (supplied geometry, not visual 
     host = document.createElement('div'); scroller = document.createElement('div');
     document.body.append(host, scroller); root = createRoot(host);
     normalTarget = 1000; floor = null; sentTop = 1400; output = false; renderable = true;
+    cancelledPlacements = 0;
     props = { session: 'session', active: true, suspended: false, opening: false, count: 2, startAtTail: true, streaming: true };
     reader = new FlowChatReaderState();
     frames = new Map(); frameId = 0; now = 0; placements.length = 0; readbacks.length = 0;
@@ -91,6 +97,12 @@ describe('desktop follow ownership and lifecycle (supplied geometry, not visual 
     let previous = scroller.scrollTop;
     while (frames.size) { tick(); expect(scroller.scrollTop).toBeGreaterThanOrEqual(previous); previous = scroller.scrollTop; }
     expect(scroller.scrollTop).toBeCloseTo(1500, 0); expect(floor).toBe(1400);
+  });
+  it('does not place the same message again when completion notifies in a microtask', async () => {
+    render(); submit();
+    await act(async () => { await Promise.resolve(); });
+    expect(placements).toEqual(['turn-2']);
+    expect(controller.isFollowingOutputNow()).toBe(true);
   });
   it('does not let a tall user message start following before assistant output exists', () => {
     render(); submit(); normalTarget = 2100; signal(); settle(); expect(scroller.scrollTop).toBe(1400);
@@ -133,6 +145,20 @@ describe('desktop follow ownership and lifecycle (supplied geometry, not visual 
   it('cancels a pending placement on manual input', () => {
     render(); renderable = false; submit(); depart(); renderable = true; signal(); settle();
     expect(placements).toEqual([]); expect(controller.isFollowingOutputNow()).toBe(false);
+  });
+  it('releases a cancelled submission before its row has rendered', async () => {
+    render(); renderable = false; submit();
+    cancelledPlacements = 0;
+    const intent = claimSubmittedMessageScrollIntent(props.session, 1, true)!;
+    await act(async () => {
+      finishSubmittedMessageScrollIntent(intent);
+      await Promise.resolve();
+    });
+    renderable = true; normalTarget = 1800; signal(); settle();
+    expect(cancelledPlacements).toBe(1);
+    expect(placements).toEqual([]);
+    expect(scroller.scrollTop).toBe(1000);
+    expect(controller.isFollowingOutputNow()).toBe(false);
   });
   it('a gesture interrupts animation immediately, and later output cannot regain control', () => {
     render(); normalTarget = 1400; signal(); tick(); depart();

@@ -477,7 +477,14 @@ const VirtualMessageListSession = forwardRef<VirtualMessageListRef, VirtualMessa
   const onViewportSnapshotRef = useRef(onViewportSnapshot);
   onViewportSnapshotRef.current = onViewportSnapshot;
   const [isAtBottom, setIsAtBottom] = useState(true);
-  const [isOpenViewportSettled, setIsOpenViewportSettled] = useState(false);
+  // A brand-new transcript with only the foreground send shell has no history
+  // geometry to settle. Reveal that first bubble in the submission frame.
+  const [isOpenViewportSettled, setIsOpenViewportSettled] = useState(() => (
+    activeSession?.dialogTurns.length === 0
+    && virtualItems.length === 1
+    && virtualItems[0].type === 'user-message'
+    && virtualItems[0].submissionPhase !== undefined
+  ));
   useSessionReadOnOpen(activeSessionId, isViewportActive);
   const shouldRestoreInitialSnapshot = Boolean(
     initialViewportSnapshot
@@ -679,7 +686,8 @@ const VirtualMessageListSession = forwardRef<VirtualMessageListRef, VirtualMessa
   const placeSubmittedMessage = useCallback((intent: SubmittedMessageScrollIntent): number | null => {
     const item = virtualItems.find(candidate => candidate.turnId === intent.turnId && candidate.type === 'user-message');
     const turn = activeSessionRef.current?.dialogTurns.find(candidate => candidate.id === intent.turnId);
-    if (!item || turn?.userMessage.id !== intent.messageId) return null;
+    if (!item || item.type !== 'user-message' || item.data.id !== intent.messageId
+      || (turn && turn.userMessage.id !== intent.messageId)) return null;
     const scroller = scrollerElementRef.current;
     if (!scroller || !extentElementRef.current) return null;
     if (!getRenderedUserMessageElement(intent.turnId)) {

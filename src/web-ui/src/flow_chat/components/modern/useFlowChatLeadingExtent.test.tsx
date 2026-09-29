@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { VirtualItem } from '../../store/modernFlowChatStore';
 import { useFlowChatLeadingExtent } from './useFlowChatLeadingExtent';
 import { getVirtualItemStableKey } from './virtualItemIdentity';
@@ -49,6 +49,76 @@ function setup() {
 }
 
 describe('desktop leading extent lifecycle', () => {
+  it.each([-2, -0.25, 0.25, 2])('does not turn a stable %s px cache/DOM difference into repeated travel', difference => {
+    const view = setup();
+    view.layout([item('header', 'group-header'), item('after')],
+      [{ startPx: 2000, endPx: 2040 }, { startPx: 2040, endPx: 2100 }], 2100);
+    const row = document.createElement('div');
+    row.className = 'virtual-item-wrapper'; row.dataset.virtualItemKey = 'block:header';
+    row.getBoundingClientRect = () => ({
+      top: 2000 + difference - view.scroller.scrollTop,
+      bottom: 2040 + difference - view.scroller.scrollTop,
+      height: 40,
+    }) as DOMRect;
+    view.extent.append(row);
+    view.scroller.scrollTop = 1980;
+    view.api.refresh(1000);
+    view.api.capture(1980);
+    // No output, resize, input, or row movement: just accepted follow
+    // readbacks followed by layout notifications after runtime completion.
+    for (let frame = 0; frame < 80; frame++) {
+      view.api.refresh(1000);
+      view.scroller.scrollTop = view.scroller.scrollHeight - view.scroller.clientHeight;
+      view.api.capture(view.scroller.scrollTop);
+    }
+    expect(view.scroller.scrollTop).toBe(1980);
+    expect(view.extent.style.minHeight).toBe('2780px');
+  });
+  it('bridges mount, cache catch-up, and recycling without moving a stationary anchor', () => {
+    const view = setup();
+    const entries = [item('header', 'group-header'), item('after')];
+    const bounds = [{ startPx: 2000, endPx: 2040 }, { startPx: 2040, endPx: 2100 }];
+    view.layout(entries, bounds, 2100);
+    view.scroller.scrollTop = 1980;
+    view.api.refresh(1000); view.api.capture(1980);
+    const row = document.createElement('div');
+    row.className = 'virtual-item-wrapper'; row.dataset.virtualItemKey = 'block:header';
+    let start = 1998.75;
+    row.getBoundingClientRect = () => ({ top: start - view.scroller.scrollTop,
+      bottom: start + 40 - view.scroller.scrollTop, height: 40 }) as DOMRect;
+    view.extent.append(row);
+    view.api.refresh(1000);
+    expect(view.extent.style.minHeight).toBe('2780px');
+    expect(view.api.snapshot()).toEqual({ key: 'block:header', offset: 18.75 });
+    // Delayed virtual measurements change; mounted content did not move.
+    view.layout(entries, bounds.map(b => ({ startPx: b.startPx + 3, endPx: b.endPx + 3 })), 2100);
+    view.api.refresh(1000);
+    expect(view.extent.style.minHeight).toBe('2780px');
+    row.remove(); view.api.refresh(1000); view.api.capture(1980);
+    expect(view.extent.style.minHeight).toBe('2780px');
+    view.extent.append(row); view.api.refresh(1000);
+    expect(view.extent.style.minHeight).toBe('2780px');
+    // A genuine displacement above the leading row still moves its floor.
+    start += 120;
+    view.api.refresh(1000);
+    expect(view.extent.style.minHeight).toBe('2900px');
+    for (let i = 0; i < 20; i++) view.api.refresh(1000);
+    expect(view.extent.style.minHeight).toBe('2900px');
+  });
+  it('reads DOM geometry only on layout or exact reader capture, never on follow frames', () => {
+    const view = setup();
+    const row = document.createElement('div');
+    row.className = 'virtual-item-wrapper'; row.dataset.virtualItemKey = 'block:member';
+    const read = vi.fn(() => ({ top: 2039.75 - view.scroller.scrollTop,
+      bottom: 3239.75 - view.scroller.scrollTop, height: 1200 }) as DOMRect);
+    row.getBoundingClientRect = read; view.extent.append(row);
+    view.api.refresh(1000); read.mockClear();
+    for (let offset = 2100; offset <= 2400; offset += 10) view.api.capture(offset);
+    expect(read).not.toHaveBeenCalled();
+    expect(view.api.snapshot()).toEqual({ key: 'block:member', offset: -360.25 });
+    view.api.capture(2500, true); expect(read).toHaveBeenCalledTimes(1);
+    expect(view.api.snapshot()).toEqual({ key: 'block:member', offset: -460.25 });
+  });
   it('reserves the reader position before shrink and lets regrowth consume it', () => {
     const view = setup();
     view.api.refresh(1000);
@@ -79,6 +149,25 @@ describe('desktop leading extent lifecycle', () => {
     expect(view.extent.style.minHeight).toBe('2792px');
     expect(view.rebases).toBe(1);
     view.api.refresh(1000);
+    expect(view.rebases).toBe(1);
+  });
+  it('aligns a newly mounted fallback header to its actual top despite rounded virtual bounds', () => {
+    const view = setup();
+    view.scroller.scrollTop = 2800;
+    view.api.refresh(1000); view.api.capture(2800);
+    const row = document.createElement('div');
+    row.className = 'virtual-item-wrapper'; row.dataset.virtualItemKey = 'block:header';
+    row.getBoundingClientRect = () => ({ top: 1998.75 - view.scroller.scrollTop,
+      bottom: 2038.75 - view.scroller.scrollTop, height: 40 }) as DOMRect;
+    view.extent.append(row);
+    view.layout([item('header', 'group-header'), item('after')],
+      [{ startPx: 2000, endPx: 2040 }, { startPx: 2040, endPx: 2100 }], 2100);
+    view.api.refresh(1000);
+    expect(view.extent.style.minHeight).toBe('2790.75px');
+    expect(view.api.snapshot()).toEqual({ key: 'block:header', offset: 8 });
+    expect(view.rebases).toBe(1);
+    view.api.refresh(1000);
+    expect(view.extent.style.minHeight).toBe('2790.75px');
     expect(view.rebases).toBe(1);
   });
   it('releases the prior position on reader travel and on new turn/session/history scope', () => {

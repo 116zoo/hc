@@ -27,6 +27,9 @@ type VirtualContent =
       turnId: string;
       absoluteTurnIndex?: number;
       turnStatus?: DialogTurn['status'];
+      /** Display-only state for a foreground send before its Turn is projected. */
+      submissionPhase?: 'forming' | 'failed';
+      submissionError?: string;
     }
   | {
       type: 'user-steering-message';

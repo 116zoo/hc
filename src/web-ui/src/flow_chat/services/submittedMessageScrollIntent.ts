@@ -49,11 +49,24 @@ export function bindSubmittedMessageScrollIntent(sessionId: string, turnId: stri
   listeners.forEach(listener => listener());
 }
 
+export function peekSubmittedMessageScrollIntent(scope: SurfaceScope, sessionId: string, turnId: string): SubmittedMessageScrollIntent | undefined {
+  const intent = pending.get(keyFor(scope, sessionId));
+  return intent?.turnId === turnId && intent.scope.isCurrent() ? intent : undefined;
+}
+
 export function finishSubmittedMessageScrollIntent(intent: SubmittedMessageScrollIntent): void {
   const key = keyFor(intent.scope, intent.sessionId);
-  if (pending.get(key) === intent) pending.delete(key);
+  const wasPending = pending.get(key) === intent;
+  if (wasPending) pending.delete(key);
   cleanups.get(intent)?.();
   cleanups.delete(intent);
+  // Notify after the caller releases its own pending reference. The follow
+  // hook finishes an intent inside its placement transaction.
+  if (wasPending) queueMicrotask(() => listeners.forEach(listener => listener()));
+}
+
+export function isSubmittedMessageScrollIntentPending(intent: SubmittedMessageScrollIntent): boolean {
+  return pending.get(keyFor(intent.scope, intent.sessionId)) === intent;
 }
 
 export function subscribeSubmittedMessageScrollIntent(listener: () => void): () => void {
