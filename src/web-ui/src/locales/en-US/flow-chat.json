@@ -1089,6 +1089,8 @@
       "unsupportedHost": "This host does not support MCP selection. Update the host to use it."
     },
     "skillsIncomplete": "Some skills could not be scanned. Available skills are still listed.",
+    "skillsUnsupported": "Some skills require unsupported capabilities and were not loaded.",
+    "skillsUnsupportedField": "This host does not support the skill's {{field}} declaration. The skill was not loaded.",
     "skillsDiagnosticsUnavailable": "This host does not report skill scan diagnostics.",
     "menuTitle": "Choose context",
     "searchResults": "Search Results",
