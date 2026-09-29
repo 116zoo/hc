@@ -62,6 +62,8 @@ export const VirtualItemRenderer = React.memo<VirtualItemRendererProps>(
               turnId={item.turnId}
               absoluteTurnIndex={item.absoluteTurnIndex}
               turnStatus={item.turnStatus}
+              submissionPhase={item.submissionPhase}
+              submissionError={item.submissionError}
             />
           );
 

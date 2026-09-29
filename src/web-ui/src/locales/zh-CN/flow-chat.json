@@ -565,6 +565,7 @@
     "clickToExpand": "点击展开",
     "clickToCollapse": "点击收起",
     "fillToInput": "填充到输入框",
+    "continueEditing": "继续编辑",
     "cannotRollback": "无法回滚",
     "rollbackDisabledBusy": "请等待会话空闲后再回滚。",
     "rollbackDisabledRemote": "远程工作区未记录文件快照，暂不支持文件与消息一致回滚；不会更改任何文件或消息。",

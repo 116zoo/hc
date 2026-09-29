@@ -565,6 +565,7 @@
     "clickToExpand": "Click to expand",
     "clickToCollapse": "Click to collapse",
     "fillToInput": "Fill to input",
+    "continueEditing": "Continue editing",
     "cannotRollback": "Cannot rollback",
     "rollbackDisabledBusy": "Wait until the session is idle before rolling back.",
     "rollbackDisabledRemote": "Remote workspaces do not support complete rollback because remote file snapshots are not recorded. No files or messages will be changed.",
