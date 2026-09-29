@@ -131,6 +131,7 @@ src/apps/mobile/android/.kotlin/
 
 # Local generated workspace output.
 /output/
+/graphify-out/
 
 # Retired implementation-process notes stay local; durable docs live with their owner.
 /docs/superpowers/
