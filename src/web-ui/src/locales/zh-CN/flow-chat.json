@@ -1089,6 +1089,8 @@
       "unsupportedHost": "当前主机不支持选择 MCP，请更新主机版本。"
     },
     "skillsIncomplete": "部分技能扫描失败，已成功读取的技能仍可使用。",
+    "skillsUnsupported": "部分技能依赖暂不支持的能力，未加载。",
+    "skillsUnsupportedField": "当前主机暂不支持技能内的 {{field}} 声明，该技能未加载。",
     "skillsDiagnosticsUnavailable": "当前主机不提供技能扫描诊断。",
     "menuTitle": "选择上下文",
     "searchResults": "搜索结果",
