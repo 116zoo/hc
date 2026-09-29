@@ -1,1 +1,0 @@
-{"nodes": [{"id": "pkg_openbitfun_tool_packs", "label": "openbitfun-tool-packs", "file_type": "code", "type": "package", "ecosystem": "cargo", "source_file": "src/crates/execution/tool-provider-groups/Cargo.toml", "source_location": "L1"}], "edges": []}
