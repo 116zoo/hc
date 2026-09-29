@@ -161,7 +161,13 @@ export class SettingsController {
     const generation = ++this.accountLoginVersion;
     const cloud = this.requireCloud();
     RemoteLogger.info('cloud account UI login requested');
-    const deviceSecret = await cloud.sessionStore.deviceSecret();
+    let deviceSecret: Uint8Array;
+    try {
+      deviceSecret = await cloud.sessionStore.deviceSecret();
+    } catch (err) {
+      RemoteLogger.error(`cloud account device identity failed: ${err instanceof Error ? err.message : String(err)}`);
+      throw err instanceof Error ? err : new Error(String(err));
+    }
     if (generation !== this.accountLoginVersion) { deviceSecret.fill(0); throw new Error('Account login cancelled'); }
     let session: CloudAccountSession;
     try {
