@@ -6,9 +6,10 @@ export function useRetainedEditorView(active: boolean): boolean {
   const key = useRef({});
   const [resident, setResident] = useState(active);
   useLayoutEffect(() => {
+    const viewKey = key.current;
     if (active) setResident(true);
-    editorViewResidency.update(key.current, active, () => setResident(false));
-    return () => editorViewResidency.delete(key.current);
+    editorViewResidency.update(viewKey, active, () => setResident(false));
+    return () => editorViewResidency.delete(viewKey);
   }, [active]);
   return active || resident;
 }

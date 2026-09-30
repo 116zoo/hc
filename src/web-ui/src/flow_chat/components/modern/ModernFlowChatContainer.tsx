@@ -850,7 +850,7 @@ export const ModernFlowChatContainer: React.FC<ModernFlowChatContainerProps> = (
       });
       return () => { cancelled = true; };
     }
-  }, [activeSession?.sessionId, activeSession?.historyState, rememberSessionViewportState, updateViewportIntent, restoreRevision, historyRestoreRetry]);
+  }, [activeSession?.sessionId, activeSession?.historyState, rememberSessionViewportState, updateViewportIntent, restoreRevision, historyRestoreRetry, surfaceScope]);
 
   useEffect(() => {
     const retainedSessionId = continuousProjectionSessionId;
