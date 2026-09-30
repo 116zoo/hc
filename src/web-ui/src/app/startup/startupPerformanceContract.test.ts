@@ -847,12 +847,17 @@ describe('startup performance contract', () => {
     expect(source).toContain("import('@/flow_chat/utils/agentCompanionActivity')");
     expect(source).toContain("import('@/flow_chat/services/AgentCompanionActivityBridge')");
     expect(source).toContain("import('./services/openAgentCompanionSession')");
-    expect(staticImportSpecifiers(mainSource)).toContain(
+    expect(staticImportSpecifiers(mainSource)).not.toContain(
       './app/components/AgentCompanionDesktopPet/AgentCompanionDesktopPet'
     );
-    expect(dynamicImportSpecifiers(mainSource)).not.toContain(
+    expect(dynamicImportSpecifiers(mainSource)).toContain(
       './app/components/AgentCompanionDesktopPet/AgentCompanionDesktopPet'
     );
+    expect(staticImportSpecifiers(mainSource)).not.toContain('./app/App');
+    expect(staticImportSpecifiers(mainSource)).not.toContain('./infrastructure/contexts/WorkspaceProvider');
+    expect(dynamicImportSpecifiers(mainSource)).toContain('./app/startup/MainApplicationRoot');
+    expect(mainSource).toContain('let windowModule;');
+    expect(mainSource.indexOf('let windowModule')).toBeLessThan(mainSource.indexOf('await initializeBeforeRender()'));
     expect(source).toContain("listen(\n        'agent-companion://ready'");
     expect(source).toContain("emit('agent-companion://settings-updated', settings)");
     expect(source).toContain('emitAgentCompanionActivity(buildAgentCompanionActivity())');
