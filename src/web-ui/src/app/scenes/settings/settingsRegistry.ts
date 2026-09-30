@@ -283,8 +283,13 @@ export const SETTINGS_PAGE_MANIFESTS: readonly SettingsPageManifest[] = [
       {
         id: 'quick-actions',
         labelKey: 'navigation.views.quick-actions',
-        keywords: ['quick action', 'commit', 'pull request', 'post coding'],
-        searchPhrases: [phrase('settings/quick-actions', 'page.title'), phrase('settings/quick-actions', 'page.subtitle')],
+        keywords: ['quick action', 'commit', 'pull request', 'post coding', 'co-author', 'coauthor', 'attribution', 'github', 'https://github.com/bitfun-ai'],
+        searchPhrases: [
+          phrase('settings/quick-actions', 'page.title'),
+          phrase('settings/quick-actions', 'page.subtitle'),
+          phrase('settings/quick-actions', 'commitAttribution.title'),
+          phrase('settings/quick-actions', 'commitAttribution.label'),
+        ],
       },
       {
         id: 'hooks',
