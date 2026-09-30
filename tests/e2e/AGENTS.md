@@ -38,6 +38,23 @@ pnpm --dir tests/e2e exec wdio run ./config/wdio.conf.ts --spec "./specs/<file>.
 
 Prefer the narrowest relevant spec first, then broaden only if needed.
 
+For embedded WebDriver reveal/focus and shell scroll geometry, build Desktop
+and current frontend assets, then run:
+
+```bash
+node tests/e2e/scripts/run-interaction-scroll.mjs
+```
+
+This runner uses real production controls, an independent packaged frontend
+snapshot, temporary application storage and a private WebView store. It checks
+click, pointer/wheel actions, element screenshot, input clear/send, offscreen reveal
+and oversized click targets, and retains `result.json` in its printed temporary
+directory. It does not use a mock page or establish remote/platform coverage.
+Set `OPENBITFUN_E2E_FRONTEND_DIR` to a completed build directory with
+`frontend-revision.json` to reuse an existing snapshot during concurrent builds.
+The runner also snapshots the executable; `OPENBITFUN_E2E_DESKTOP_BINARY` can
+select a freshly linked artifact when a development instance locks the default exe.
+
 Markdown editor browser interaction tests (no desktop binary required):
 
 ```bash
