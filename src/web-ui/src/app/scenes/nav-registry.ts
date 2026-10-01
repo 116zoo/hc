@@ -34,8 +34,11 @@ const loadSettingsNav = async () => {
   return navModule;
 };
 const loadFileViewerNav = () => import('./file-viewer/FileViewerNav');
+const loadDocumentViewerNav = () => import('./document-viewer/DocumentViewerNav');
+
 const SettingsNav = lazyWithRecovery(loadSettingsNav);
 const FileViewerNav = lazyWithRecovery(loadFileViewerNav);
+const DocumentViewerNav = lazyWithRecovery(loadDocumentViewerNav);
 
 const SCENE_NAV_REGISTRY: Partial<Record<SceneTabId, SceneNavRegistration>> = {
   settings: {
@@ -47,6 +50,11 @@ const SCENE_NAV_REGISTRY: Partial<Record<SceneTabId, SceneNavRegistration>> = {
     component: FileViewerNav,
     titleKey: 'nav.resources.title',
     preload: FileViewerNav.preload,
+  },
+  'document-viewer': {
+    component: DocumentViewerNav,
+    titleKey: 'scenes.documentViewer',
+    preload: loadDocumentViewerNav,
   },
 };
 

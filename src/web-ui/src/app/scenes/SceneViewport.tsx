@@ -49,6 +49,7 @@ const TodosScene      = lazyWithRecovery(() => import('./todos/TodosScene'));
 const InsightsScene   = lazyWithRecovery(() => import('./my-agent/InsightsScene'));
 const ShellScene      = lazyWithRecovery(() => import('./shell/ShellScene'));
 const MiniAppScene    = lazyWithRecovery(() => import('./miniapps/MiniAppScene'));
+const DocumentViewerScene = lazyWithRecovery(() => import('./document-viewer/DocumentViewerScene'));
 
 const SCENE_ENTRY_DURATION_MS = 480;
 const EMPTY_SCENE_ID = '__empty-scene__' as const;
@@ -334,6 +335,8 @@ function renderScene(
       return <InsightsScene />;
     case 'shell':
       return <ShellScene isActive={isActive} />;
+    case 'document-viewer':
+      return <DocumentViewerScene />;
     default:
       if (id.startsWith('content:')) {
         return <ContentResourceView resourceId={id.slice('content:'.length)} isActive={isActive} />;

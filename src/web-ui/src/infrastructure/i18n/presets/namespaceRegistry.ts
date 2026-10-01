@@ -16,6 +16,7 @@ export const ALL_NAMESPACES = [
   'panels/terminal',
   'scenes/agents',
   'scenes/capabilities',
+  'scenes/documentViewer',
   'scenes/ecosystem-compatibility',
   'scenes/miniapp',
   'scenes/pages',

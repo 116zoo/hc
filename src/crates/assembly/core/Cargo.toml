@@ -98,6 +98,9 @@ tool-runtime = { path = "../../execution/tool-execution", optional = true }
 # terminal
 terminal-core = { path = "../../services/terminal", optional = true }
 
+# Basemind integration for document redaction, RAG, and prompt pseudonymization
+openbitfun_basemind_integration = { path = "../../integrations/basemind-integration", optional = true }
+
 # I18n internationalization
 fluent-bundle = { workspace = true, optional = true }
 unic-langid = { workspace = true, optional = true }
@@ -200,6 +203,8 @@ product-full = [
 # records out of the developer's real user data directory. Enable only from
 # `[dev-dependencies]`; it is not part of any product assembly.
 test-support = []
+# Basemind integration for document redaction, RAG, and prompt pseudonymization
+basemind = ["dep:openbitfun_basemind_integration"]
 # Core compatibility facade and concrete product Agent Runtime assembly. This
 # owns the existing agent/session/tool lifecycle, not app presentation or
 # external ecosystem discovery.

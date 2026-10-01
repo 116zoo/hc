@@ -44,17 +44,20 @@ interface NavSceneState {
   resourceWorkspace: ResourceWorkspaceTarget | null;
   navigationMotion: InteractionMotion;
   navigationSequence: number;
+  documentViewerDocument: { path: string; name?: string; mimeType?: string } | null;
   openNavScene: (id: SceneTabId) => void;
   openWorkspaceResources: (workspaceId: string) => void;
   closeNavScene: () => void;
   goBack: () => void;
   goForward: () => void;
+  setDocumentViewerDocument: (doc: { path: string; name?: string; mimeType?: string } | null) => void;
 }
 
 export const useNavSceneStore = create<NavSceneState>((set) => ({
   showSceneNav: false,
   navSceneId: null,
   resourceWorkspace: null,
+  documentViewerDocument: null,
   navigationMotion: 'instant',
   navigationSequence: 0,
   openNavScene: (id) => set(state => ({
@@ -88,6 +91,7 @@ export const useNavSceneStore = create<NavSceneState>((set) => ({
     navigationMotion: getInteractionMotion(),
     navigationSequence: state.navigationSequence + 1,
   })),
+  setDocumentViewerDocument: (doc) => set({ documentViewerDocument: doc }),
 }));
 
 export function selectNavCanGoBack(state: NavSceneState): boolean {

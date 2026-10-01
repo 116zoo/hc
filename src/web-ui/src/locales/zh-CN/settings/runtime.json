@@ -200,6 +200,23 @@
     },
     "tabs": "个标签页"
   },
+  "basemind": {
+    "title": "Basemind 集成",
+    "subtitle": "配置 Basemind 集成以实现文档脱敏、RAG 搜索和提示词伪名化。",
+    "enable": "启用 Basemind 集成",
+    "autoDownloadModels": "自动下载模型",
+    "pseudonymizePrompts": "提示词伪名化",
+    "pseudonymizeLocalModels": "也为本地模型伪名化",
+    "modelDirectory": "模型目录",
+    "modelDirectoryPlaceholder": "留空使用默认",
+    "models": {
+      "title": "模型管理",
+      "subtitle": "管理 Basemind 模型（NER、嵌入、OCR）。",
+      "downloadAll": "下载所有模型",
+      "clearCache": "清除模型缓存"
+    },
+    "pseudonymizeLocalModelsDesc": "启用后，发送给本地模型（Ollama、LM Studio）的提示词也会被伪名化。通常不需要，因为数据从不离开本机。"
+  },
   "common": {
     "enable": "启用"
   },

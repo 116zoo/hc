@@ -17,6 +17,13 @@
       "icons/openbitfun-app-icon.ico",
       "icons/openbitfun-app-icon.png"
     ],
+    "externalBin": [
+      "binaries/basemind-linux-x64",
+      "binaries/basemind-linux-arm64",
+      "binaries/basemind-macos-x64",
+      "binaries/basemind-macos-arm64",
+      "binaries/basemind-windows-x64.exe"
+    ],
     "resources": {
       "../../mobile-web/dist": "mobile-web/dist",
       "../extension-host/dist/extension-host.js": "resources/ext-host/extension-host.js",

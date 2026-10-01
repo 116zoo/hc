@@ -2,6 +2,7 @@
 
 use crate::api::app_state::AppState;
 use crate::api::dto::WorkspaceInfoDto;
+use crate::basemind::{ensure_basemind_ready, get_basemind_path, get_basemind_platform_status, PlatformStatus, VersionManifest, check_basemind_update as internal_check_basemind_update};
 use crate::api::path_target::{
     create_directory as create_desktop_directory, create_empty_file,
     delete_directory as delete_desktop_directory, delete_file as delete_desktop_file,
@@ -5823,3 +5824,28 @@ mod file_workspace_id_contract_tests {
         assert_eq!(legacy.remote_connection_id.as_deref(), Some("ssh-old"));
     }
 }
+
+// ============================================================================
+// Basemind Commands
+// ============================================================================
+
+#[tauri::command]
+pub async fn basemind_get_binary_path(app: tauri::AppHandle) -> Result<String, String> {
+    get_basemind_path(app).await
+}
+
+#[tauri::command]
+pub async fn basemind_check_update() -> Result<VersionManifest, String> {
+    internal_check_basemind_update().await
+}
+
+#[tauri::command]
+pub async fn basemind_get_platform_status() -> Result<PlatformStatus, String> {
+    get_basemind_platform_status().await
+}
+
+#[tauri::command]
+pub async fn basemind_ensure_ready(app: tauri::AppHandle) -> Result<String, String> {
+    ensure_basemind_ready(app).await
+}
+

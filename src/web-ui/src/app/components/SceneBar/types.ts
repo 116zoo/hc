@@ -18,6 +18,7 @@ export type SceneTabId =
   | 'git'
   | 'settings'
   | 'file-viewer'
+  | 'document-viewer'
   | 'profile'
   | 'agents'
   | 'skills'

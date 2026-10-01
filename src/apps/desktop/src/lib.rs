@@ -22,6 +22,7 @@
 
 pub mod api;
 pub mod appearance;
+pub mod basemind;
 mod builtin_browser_host;
 pub mod computer_use;
 pub mod crash_diagnostics;

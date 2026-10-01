@@ -334,6 +334,24 @@ const RuntimeSettingsPage: React.FC<RuntimeSettingsPageProps> = ({
     setCompanionPets(await listAgentCompanionPets());
   }, []);
 
+  // ── Basemind state ──────────────────────────────────────────────────────────
+  const [basemindEnabled, setBasemindEnabled] = useState(true);
+  const [autoDownloadModels, setAutoDownloadModels] = useState(true);
+  const [modelDirectory, setModelDirectory] = useState<string>('');
+  const [pseudonymizePrompts, setPseudonymizePrompts] = useState(true);
+  const [pseudonymizeLocalModels, setPseudonymizeLocalModels] = useState(false);
+
+  // Basemind handler functions
+  const downloadAllModels = useCallback(async () => {
+    // TODO: Implement model download
+    notification.info('Model download not yet implemented');
+  }, []);
+
+  const clearModelCache = useCallback(async () => {
+    // TODO: Implement cache clearing
+    notification.info('Cache clearing not yet implemented');
+  }, []);
+
   const loadPageData = useCallback(async () => {
     const isInitialLoad = !hasLoadedPageDataRef.current;
     if (isInitialLoad) {
@@ -931,6 +949,60 @@ const RuntimeSettingsPage: React.FC<RuntimeSettingsPageProps> = ({
     }
   };
 
+  // ── Basemind handlers ──────────────────────────────────────────────────────
+  const handleBasemindEnabledChange = async (checked: boolean) => {
+    setBasemindEnabled(checked);
+    try {
+      await configManager.setConfig('basemind.enabled', checked);
+      notificationService.success(t('messages.saveSuccess'));
+    } catch (error) {
+      log.error('Failed to save basemind.enabled', error);
+      notificationService.error(t('messages.saveFailed'));
+      setBasemindEnabled(!checked);
+    }
+  };
+
+  const handleAutoDownloadModelsChange = async (checked: boolean) => {
+    setAutoDownloadModels(checked);
+    try {
+      await configManager.setConfig('basemind.auto_download_models', checked);
+    } catch (error) {
+      log.error('Failed to save basemind.auto_download_models', error);
+      notificationService.error(t('messages.saveFailed'));
+      setAutoDownloadModels(!checked);
+    }
+  };
+
+  const handleModelDirectoryChange = async (value: string) => {
+    setModelDirectory(value);
+    try {
+      await configManager.setConfig('basemind.model_directory', value || null);
+    } catch (error) {
+      log.error('Failed to save basemind.model_directory', error);
+      notificationService.error(t('messages.saveFailed'));
+    }
+  };
+
+  const handlePseudonymizePromptsChange = async (checked: boolean) => {
+    setPseudonymizePrompts(checked);
+    try {
+      await configManager.setConfig('basemind.pseudonymize_prompts', checked);
+    } catch (error) {
+      log.error('Failed to save basemind.pseudonymize_prompts', error);
+      notificationService.error(t('messages.saveFailed'));
+    }
+  };
+
+  const handlePseudonymizeLocalModelsChange = async (checked: boolean) => {
+    setPseudonymizeLocalModels(checked);
+    try {
+      await configManager.setConfig('basemind.pseudonymize_local_models', checked);
+    } catch (error) {
+      log.error('Failed to save basemind.pseudonymize_local_models', error);
+      notificationService.error(t('messages.saveFailed'));
+    }
+  };
+
   const handleToolTimeoutChange = async (value: string) => {
     const configKey = 'ai.tool_execution_timeout_secs';
     const trimmedValue = value.trim();
@@ -1221,6 +1293,95 @@ const RuntimeSettingsPage: React.FC<RuntimeSettingsPageProps> = ({
         )}
 
         <SessionTitleConfig />
+
+          </>
+        ) : null}
+
+        {page === 'basemind' ? (
+          <>
+            {/* ── Basemind integration ────────────────────────────── */}
+            <ConfigPageSection
+              title={t('basemind.title')}
+              description={t('basemind.subtitle')}
+            >
+              <ConfigPageRow label={t('basemind.enable')} align="center">
+                <div className="openbitfun-runtime-settings__row-control" data-openbitfun-component="runtime-settings" data-openbitfun-part="control">
+                  <Switch
+                    checked={basemindEnabled}
+                    onChange={(e) => setBasemindEnabled(e.target.checked)}
+                  />
+                </div>
+              </ConfigPageRow>
+              <ConfigPageRow label={t('basemind.autoDownloadModels')} align="center">
+                <div className="openbitfun-runtime-settings__row-control" data-openbitfun-component="runtime-settings" data-openbitfun-part="control">
+                  <Switch
+                    checked={autoDownloadModels}
+                    onChange={(e) => setAutoDownloadModels(e.target.checked)}
+                    disabled={!basemindEnabled}
+                  />
+                </div>
+              </ConfigPageRow>
+              <ConfigPageRow label={t('basemind.pseudonymizePrompts')} align="center">
+                <div className="openbitfun-runtime-settings__row-control" data-openbitfun-component="runtime-settings" data-openbitfun-part="control">
+                  <Switch
+                    checked={pseudonymizePrompts}
+                    onChange={(e) => setPseudonymizePrompts(e.target.checked)}
+                    disabled={!basemindEnabled}
+                  />
+                </div>
+              </ConfigPageRow>
+              <ConfigPageRow label={t('basemind.pseudonymizeLocalModels')} align="center">
+                <div className="openbitfun-runtime-settings__row-control" data-openbitfun-component="runtime-settings" data-openbitfun-part="control">
+                  <Switch
+                    checked={pseudonymizeLocalModels}
+                    onChange={(e) => setPseudonymizeLocalModels(e.target.checked)}
+                    disabled={!basemindEnabled}
+                  />
+                </div>
+              </ConfigPageRow>
+              <ConfigPageRow label={t('basemind.modelDirectory')} align="center">
+                <div className="openbitfun-runtime-settings__row-control" data-openbitfun-component="runtime-settings" data-openbitfun-part="control">
+                  <Input
+                    value={modelDirectory}
+                    onChange={(e) => setModelDirectory(e.target.value)}
+                    placeholder={t('basemind.modelDirectoryPlaceholder')}
+                    disabled={!basemindEnabled}
+                    size="md"
+                  />
+                </div>
+              </ConfigPageRow>
+            </ConfigPageSection>
+
+            {/* Model management */}
+            <ConfigPageSection
+              title={t('basemind.models.title')}
+              description={t('basemind.models.subtitle')}
+            >
+              <ConfigPageRow label={t('basemind.models.downloadAll')} align="center">
+                <div className="openbitfun-runtime-settings__row-control" data-openbitfun-component="runtime-settings" data-openbitfun-part="control">
+                  <Button
+                    size="md"
+                    variant="primary"
+                    onClick={() => void downloadAllModels()}
+                    disabled={!basemindEnabled}
+                  >
+                    {t('basemind.models.downloadAll')}
+                  </Button>
+                </div>
+              </ConfigPageRow>
+              <ConfigPageRow label={t('basemind.models.clearCache')} align="center">
+                <div className="openbitfun-runtime-settings__row-control" data-openbitfun-component="runtime-settings" data-openbitfun-part="control">
+                  <Button
+                    size="md"
+                    variant="danger"
+                    onClick={() => void clearModelCache()}
+                    disabled={!basemindEnabled}
+                  >
+                    {t('basemind.models.clearCache')}
+                  </Button>
+                </div>
+              </ConfigPageRow>
+            </ConfigPageSection>
 
           </>
         ) : null}
@@ -1786,4 +1947,8 @@ export function ExecutionSettingsPage(): React.ReactElement {
 
 export function BrowserDesktopControlSettingsPage(): React.ReactElement {
   return <RuntimeSettingsPage page="browser-desktop-control" />;
+}
+
+export function BasemindSettingsPage(): React.ReactElement {
+  return <RuntimeSettingsPage page="basemind" />;
 }

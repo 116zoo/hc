@@ -18,6 +18,7 @@ import {
   BarChart3,
   CalendarClock,
   Network,
+  FileText,
 } from 'lucide-react';
 import type { SceneTabDef, SceneTabIcon, SceneTabId } from '../components/SceneBar/types';
 import { getSceneViewId } from '../components/SceneBar/types';
@@ -157,6 +158,15 @@ export const SCENE_TAB_REGISTRY: SceneTabDef[] = [
     label: 'Shell',
     labelKey: 'scenes.shell',
     Icon: catalogSceneIcon('terminal'),
+    pinned: false,
+    singleton: true,
+    defaultOpen: false,
+  },
+  {
+    id: 'document-viewer' as SceneTabId,
+    label: 'Document Viewer',
+    labelKey: 'scenes.documentViewer',
+    Icon: FileText,
     pinned: false,
     singleton: true,
     defaultOpen: false,

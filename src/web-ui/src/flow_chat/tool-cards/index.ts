@@ -42,6 +42,7 @@ import { FileOperationToolCard } from './FileOperationToolCard';
 import { DefaultToolCard } from './DefaultToolCard';
 import { WebSearchCard } from './WebSearchCard'; // Temporary until WebSearchDisplay exists.
 import { WebFetchCard } from './WebFetchCard';
+import { RagSearchDisplay } from './RagSearchDisplay';
 import { GetToolSpecCard } from './GetToolSpecCard';
 import { ContextCompressionDisplay } from './ContextCompressionDisplay';
 import { MCPToolDisplay } from './MCPToolDisplay';
@@ -86,6 +87,7 @@ export const STANDARD_TOOL_CARD_ADAPTERS = {
   'Grep': GrepSearchDisplay,
   'Glob': GlobSearchDisplay,
   'LS': LSDisplay,
+  'rag_search': RagSearchDisplay,
   
   // Web tools
   'WebSearch': WebSearchCard,
