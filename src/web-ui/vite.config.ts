@@ -27,6 +27,37 @@ const designSystemUiSourceDirectory = path.resolve(
 const fontAssetDirectory = path.resolve(__dirname, 'src/assets/fonts');
 const FONT_PROFILE_STYLESHEET_MARKER = '<!-- OPENBITFUN_FONT_PROFILE_STYLESHEET -->';
 
+// PDFium WASM URL - local in production, CDN in development
+const PDFIUM_VERSION = "2.15.1";
+const PDFIUM_WASM_URL_DEV = `https://cdn.jsdelivr.net/npm/@embedpdf/pdfium@${PDFIUM_VERSION}/dist/pdfium.wasm`;
+const PDFIUM_WASM_URL_PROD = `/pdfium/pdfium-${PDFIUM_VERSION}.wasm`;
+
+// Plugin to copy pdfium WASM file to dist for production
+function createPdfiumWasmPlugin(command: 'serve' | 'build'): Plugin {
+  if (command !== 'build') return { name: 'pdfium-wasm', enforce: 'pre' };
+
+  const pdfiumVersion = "2.15.1";
+  const wasmFileName = `pdfium-${pdfiumVersion}.wasm`;
+  // The wasm file is in the pnpm store
+  const wasmSourcePath = path.join(__dirname, `../../node_modules/.pnpm/@embedpdf+pdfium@${PDFIUM_VERSION}/node_modules/@embedpdf/pdfium/dist/pdfium.wasm`);
+  const wasmDestDir = path.join(__dirname, '../../dist');
+
+  return {
+    name: 'pdfium-wasm',
+    enforce: 'pre',
+    buildStart() {
+      this.addWatchFile(wasmSourcePath);
+    },
+    generateBundle() {
+      this.emitFile({
+        type: 'asset',
+        fileName: `pdfium/${wasmFileName}`,
+        source: readFileSync(wasmSourcePath),
+      });
+    },
+  };
+}
+
 export function createWebFontProfilePlugin(
   profile: typeof APPLE_SYSTEM_FONT_PROFILE | typeof HARMONY_BUNDLED_FONT_PROFILE,
   command: 'serve' | 'build',
@@ -174,7 +205,8 @@ export default defineConfig(({ mode, command }) => {
       react(),
       watchSourcePlugin(designSystemUiSourceDirectory),
       openbitfunCanvasRuntimeBundlePlugin(),
-      versionInjectionPlugin()
+      versionInjectionPlugin(),
+      createPdfiumWasmPlugin(command),
     ],
 
     // Path resolution
@@ -198,82 +230,109 @@ export default defineConfig(({ mode, command }) => {
       ],
     },
 
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // SCSS preprocessing options (sourcemap is controlled by build.sourcemap)
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // SCSS preprocessing options (sourcemap is controlled by build.sourcemap)
+        },
+      },
+      // dev mode enabled, release mode disabled
+      devSourcemap: !isProduction,
+    },
+
+    // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
+    //
+    // 1. prevent Vite from obscuring rust errors
+    clearScreen: false,
+    // 2. tauri expects a fixed port, fail if that port is not available
+    server: {
+      port: devPort,
+      // The desktop launcher uses the same configured development port.
+      // If Vite silently falls back to another port, the desktop webview stays blank.
+      strictPort: true,
+      host: host || "localhost",
+      headers: createDevServerResponseHeaders(),
+      hmr: {
+        protocol: "ws",
+        host: host || "localhost",
+        port: hmrPort,
+      },
+      // Allow access to workspace root for dependencies like monaco-editor
+      fs: {
+        allow: [
+          path.resolve(__dirname, '../../'), // Workspace root
+        ],
+      },
+      watch: {
+        // 3. tell Vite to ignore watching `src-tauri` and `apps`
+        ignored: ["**/src-tauri/**", "**/apps/**"],
+        // Native fs events by default (polling burned CPU scanning ~1.7k files
+        // every 100ms). Escape hatch for network drives / exotic filesystems:
+        // set VITE_USE_POLLING=1 to re-enable polling.
+        ...(process.env.VITE_USE_POLLING
+          ? { usePolling: true, interval: 1000 }
+          : {}),
       },
     },
-    // dev mode enabled, release mode disabled
-    devSourcemap: !isProduction,
-  },
 
-  // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
-  //
-  // 1. prevent Vite from obscuring rust errors
-  clearScreen: false,
-  // 2. tauri expects a fixed port, fail if that port is not available
-  server: {
-    port: devPort,
-    // The desktop launcher uses the same configured development port.
-    // If Vite silently falls back to another port, the desktop webview stays blank.
-    strictPort: true,
-    host: host || "localhost",
-    headers: createDevServerResponseHeaders(),
-    hmr: {
-      protocol: "ws",
-      host: host || "localhost",
-      port: hmrPort,
-    },
-    // Allow access to workspace root for dependencies like monaco-editor
-    fs: {
-      allow: [
-        path.resolve(__dirname, '../../'), // Workspace root
+    // Optimize dependency pre-building
+    optimizeDeps: {
+      // Exclude dependencies that need to be dynamically loaded
+      exclude: [
+        '@openbitfun/design-tokens',
+        '@openbitfun/theme-openbitfun',
+        '@openbitfun/ui',
+        '@extend-ai/react-xlsx',
+      ],
+      // Force pre-building dependencies
+      // Resolve Vite 7 and React 18 compatibility issues
+      include: [
+        'react',
+        'react-dom',
+        'react-dom/client',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+        'mermaid',
+        'mermaid/dist/mermaid.esm.min.mjs',
       ],
     },
-    watch: {
-      // 3. tell Vite to ignore watching `src-tauri` and `apps`
-      ignored: ["**/src-tauri/**", "**/apps/**"],
-      // Native fs events by default (polling burned CPU scanning ~1.7k files
-      // every 100ms). Escape hatch for network drives / exotic filesystems:
-      // set VITE_USE_POLLING=1 to re-enable polling.
-      ...(process.env.VITE_USE_POLLING
-        ? { usePolling: true, interval: 1000 }
-        : {}),
+
+    // Build options
+    build: {
+      // Enable CSS code splitting
+      cssCodeSplit: true,
+      // release version disable sourcemap, dev/debug version enable
+      sourcemap: !isProduction,
+      // Output to the project root directory dist/
+      outDir: '../../dist',
+      // Empty the output directory
+      emptyOutDir: true,
+      // Rollup options for worker handling
+      rollupOptions: {
+        output: {
+          // Force worker format to es for code-splitting compatibility
+          format: 'es',
+        },
+        // Configure worker format
+        worker: {
+          format: 'es',
+        },
+        plugins: [
+          {
+            name: 'xlsx-worker-rollup-patch',
+            transform(code, id) {
+              if (id.includes('@extend-ai/react-xlsx') && (id.includes('xlsx-worker.js') || id.includes('worker-client.ts'))) {
+                return code.replace(/"worker":\s*"iife"/g, '"worker": "es"')
+                  .replace(/"format":\s*"iife"/g, '"format": "es"')
+                  .replace(/format:\s*"iife"/g, 'format: "es"')
+                  .replace(/format: 'iife'/g, "format: 'es'")
+                  .replace(/"format":\s*'iife'/g, '"format": "es"');
+              }
+              return null;
+            },
+          },
+        ],
+      },
     },
-  },
-
-  // Optimize dependency pre-building
-  optimizeDeps: {
-    // Exclude dependencies that need to be dynamically loaded
-    exclude: [
-      '@openbitfun/design-tokens',
-      '@openbitfun/theme-openbitfun',
-      '@openbitfun/ui',
-    ],
-    // Force pre-building dependencies
-    // Resolve Vite 7 and React 18 compatibility issues
-    include: [
-      'react',
-      'react-dom',
-      'react-dom/client',
-      'react/jsx-runtime',
-      'react/jsx-dev-runtime',
-      'mermaid',
-      'mermaid/dist/mermaid.esm.min.mjs',
-    ],
-  },
-
-  // Build options
-  build: {
-    // Enable CSS code splitting
-    cssCodeSplit: true,
-    // release version disable sourcemap, dev/debug version enable
-    sourcemap: !isProduction,
-    // Output to the project root directory dist/
-    outDir: '../../dist',
-    // Empty the output directory
-    emptyOutDir: true,
-  }
   };
 });

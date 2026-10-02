@@ -29,6 +29,14 @@
       "types": "./dist/types/mobile.d.ts",
       "import": "./dist/mobile.js"
     },
+    "./components": {
+      "types": "./dist/types/components/index.d.ts",
+      "import": "./dist/components/index.js"
+    },
+    "./components/Icon": {
+      "types": "./dist/types/components/Icon/Icon.d.ts",
+      "import": "./dist/components/Icon.js"
+    },
     "./mobile.css": "./dist/mobile.css",
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
