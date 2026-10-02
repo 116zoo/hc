@@ -1,0 +1,145 @@
+name: Sync Basemind Release
+
+on:
+  repository_dispatch:
+    types: [basemind-released]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Basemind version to sync (e.g., v0.32.1)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  sync-sidecars:
+    name: Download & Sync Sidecars
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install gh CLI
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Download and sync sidecars
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.event.client_payload.version || github.event.inputs.version }}
+        run: |
+          if [[ -z "$VERSION" ]]; then
+            echo "Error: No version specified"
+            exit 1
+          fi
+          chmod +x scripts/sync-basemind-sidecars.sh
+          ./scripts/sync-basemind-sidecars.sh "$VERSION"
+
+      - name: Commit sidecars
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/apps/desktop/binaries/ || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update basemind sidecars to $VERSION"
+            git push
+          fi
+
+  build-tauri:
+    name: Build Tauri (${{ matrix.os }})
+    needs: sync-sidecars
+    if: github.event_name == 'repository_dispatch' || github.event.inputs.version != ''
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - os: macos-latest
+            target: x86_64-apple-darwin
+          - os: macos-latest
+            target: aarch64-apple-darwin
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libgdk-pixbuf-2.0-dev \
+            libglib2.0-dev \
+            libcairo2-dev \
+            libpango1.0-dev \
+            libatk1.0-dev \
+            libatk-bridge2.0-dev \
+            libcups2-dev \
+            libx11-dev \
+            libxrandr-dev \
+            libxrender-dev \
+            libxi-dev \
+            libxtst-dev \
+            libnss3-dev \
+            libasound2-dev \
+            libpulse-dev \
+            libdbus-1-dev \
+            libudev-dev \
+            libssl-dev \
+            pkg-config \
+            build-essential \
+            libgstreamer1.0-dev \
+            libgstreamer-plugins-base1.0-dev \
+            libtesseract-dev \
+            libleptonica-dev \
+            libxdo-dev
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Tauri
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PASSWORD: ${{ secrets.TAURI_SIGNING_PASSWORD }}
+        with:
+          tagName: basemind-sync-${{ github.event.client_payload.version || github.event.inputs.version }}-${{ matrix.target }}
+          releaseName: "Basemind Sync ${{ github.event.client_payload.version || github.event.inputs.version }} (${{ matrix.target }})"
+          releaseBody: |
+            Automated build triggered by basemind release ${{ github.event.client_payload.version || github.event.inputs.version }}
+          args: --target ${{ matrix.target }}
